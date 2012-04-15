@@ -1,0 +1,244 @@
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
+
+
+<script type="text/javascript">
+
+	window.onload = function()
+	{
+		if(document.getElementById('body')) {
+			CKEDITOR.config.filebrowserBrowseUrl = '<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.html';
+			CKEDITOR.config.width  = '100%';
+			CKEDITOR.config.resize_enabled = false;
+			CKEDITOR.config.height = 300;
+			if(document.getElementById('body')) {
+				CKEDITOR.replace( 'body',  {
+					toolbar : 'Full',
+					language : 'de',
+					skin: 'v2'
+				});
+			}
+		}
+	}
+	
+	function back_to_listing(id)
+	{
+		window.location = '<?=$this->baseUrl()?>/admin/event/index/id/'+id;
+	}
+	function validateForm()
+        {
+            //alert("Alerted");
+
+            var x1=document.getElementById("event_title").value;
+            if (x1=="")
+            {
+                alert("Title must be filled out*");
+                return false;
+            }
+
+            var x2=document.getElementById("event_description").value;
+            if (x2=="")
+            {
+                alert("Description must be filled out*");
+                return false;
+            }
+
+            var c=1;
+            do
+            {
+                if(document.getElementById("dj"+c))
+                {var value = document.getElementById("dj"+c).value;
+                    if ( value == "")
+                    {
+                        alert("Dj must be filled out*");
+                        return false;
+                    }
+                }
+                c++;
+            }while(c<20);
+
+
+            var x3=document.getElementById("entrance_fee").value;
+            if (x3=="")
+            {
+                alert("Entrance fee must be filled out*");
+                return false;
+            } 
+
+            var x4=document.getElementById("total_guests_allowed").value;
+            if (x4=="")
+            {
+                alert("Total guests allowed must be filled out*");
+                return false;
+            }
+        }
+	var count=1;
+	function add_dj(c)
+        {
+            var old_c = c;
+            c++;
+            count++;
+            var html = '';
+            html += '<input type="text" id="dj' + c + '" name="dj' + c + '">';
+           
+            html += '<div id="div' + c + '" class="add-row"><img style="position:relative; left:331px; top:-18px;" onclick="add_dj(' + c + ');" src="<?php echo $this->baseUrl();?>/application_data/common/images/plus.jpg" width="20" height="20"/></div>';
+            html += "<label id=lab-"+c+">DJ"+c+"*</label>";
+            $("#more_djs").append(html);
+            var old_html = '';
+            
+          if(old_c == 1)
+              {
+              
+              
+            old_html += '<input type="text" id="dj' + old_c + '" name="dj' + old_c + '">';
+            old_html += '<div class="add-row"><img style="position:relative; left:331px; top:-18px;"  onclick="delete_field('+old_c+');" id="'+old_c+'" src="<?php echo $this->baseUrl();?>/application_data/common/images/minus.png" width="20" height="20"/></div>';
+            old_html += "<label>DJ"+old_c+"*</label>";
+            $("#div"+old_c).html(old_html);
+            }
+            else{
+                //alert("else old c"+old_c); return false; 
+              old_html += '<img style="position:relative; left:331px; top:-18px;"  onclick="delete_field('+old_c+');" id="'+old_c+'" src="<?php echo $this->baseUrl();?>/application_data/common/images/minus.png" width="20" height="20"/>';   
+              $("#div"+old_c).html(old_html);
+           }
+            
+       }
+       
+        function add_dj_new(c)
+        {
+           
+            var old_c = c;
+            c++;
+            count++;
+            var html = '';
+            html += '<input type="text" id="dj' + c + '" name="dj' + c + '">';
+           
+            html += '<div id="div' + c + '" class="add-row"><img style="position:relative; left:331px; top:-18px;" onclick="add_dj(' + c + ');" src="<?php echo $this->baseUrl();?>/application_data/common/images/plus.jpg" width="20" height="20"/></div>';
+            html += "<label id=lab-"+c+">DJ"+c+"*</label>";
+            $("#more_djs").append(html);
+            var old_html = '';
+                $("#"+old_c).html();
+              old_html += '<div class="add-row"><img style="position:relative; left:331px; top:-18px;"  onclick="delete_field('+old_c+');" id="'+old_c+'" src="<?php echo $this->baseUrl();?>/application_data/common/images/minus.png" width="20" height="20"/></div>';   
+              $("#plus-"+old_c).html(old_html);
+           
+       }
+       function delete_field(old_c)
+       {
+                 $("#plus-"+old_c).remove();
+                  $("#la-"+old_c).remove();
+                  $("#div"+old_c).remove();
+                  $("#dj"+old_c).remove();
+                  $("#lab-"+old_c--).remove();
+
+       }
+       function delete_field_new(num)
+       {
+           $("#la-"+num).remove();
+           $("#img_del-"+num).remove();
+           $("#dj"+num).remove();
+       }
+       
+</script>
+<link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
+<span id="temp_span" style="display:none" ></span>
+<table id="twoCols">
+	<tr>
+    	<td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+       	<td class="blueBg" width="200" height="50">&nbsp;</td>
+        <td class="greenBg">
+           	<table width="100%">
+               	<tr>
+                   	<td><h2><?=$this->placeholder('heading')?></h2></td>
+                    <td align="right"><a href="#" class="whiteLink"><strong></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+      	<td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr style="background:#fff;">
+    	<?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+           	<div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            <div id="eventListing">
+            
+                <div id="addEvent">
+                <form name="adddisease" action="" onsubmit="return validateForm()" method="post" >
+                   
+                    <?=$this->form->event_title?>
+                    <label><?=$this->translate('Event Title')?>*</label>
+                    <div class="clr"></div>
+                   
+                    <?=$this->form->event_description?>
+                    <label><?=$this->translate('Event Description')?>*</label>
+                    <div class="clr"></div>
+                    <div id="div1">   
+                    <?php 
+                        $djs=$this->djs_array;
+
+                        
+                        for($i=0; $i<(count($djs)-1); $i++)
+                        {
+                            $new_i=$i+1;
+                            ?>
+                            <input type="text" id="dj<?=$new_i?>" name="dj<?=$new_i?>" value="<?=$djs[$i];?>"/>
+                            <?php
+                            if($i==(count($djs)-2))
+                            {
+                                ?>
+                                                    
+                                  <div id="plus-<?=$new_i;?>" >
+                                      <div class="add-row">
+                                   <img style="position:relative; left:331px; top:-18px; width: 28px;" id="img-<?=$new_i;?>" onclick="add_dj_new(<?=$new_i;?>);" src="<?php echo $this->baseUrl();?>/application_data/common/images/plus.jpg" width="20" height="20" />
+                                      </div>
+                                      </div> 
+                                <?php
+                            }
+                            else
+                            {
+                                //if($i==0)
+                                   // echo 'zeroooooo'; die;
+                            ?>
+                                  <img id="img_del-<?=$new_i;?>" onclick="delete_field_new('<?=$new_i;?>')" src="<?php echo $this->baseUrl();?>/application_data/common/images/minus.png" width="20" height="20" />   
+                                 <?php
+                            }
+                            ?>
+                           <label id="la-<?=$new_i;?>">
+                              <?php  echo $this->translate('DJ'.$new_i);?>*
+                           </label>                           
+                            <?php
+                        }
+                        
+                    ?>
+                    </div>
+                    <div id="more_djs">
+
+                    </div>
+                    
+                    <div class="clr"></div>
+                    
+                    <?=$this->form->entrance_fee?>
+                    <label><?=$this->translate('Entrance Fee')?>*</label>
+                    <div class="clr"></div>
+                    
+                    <?=$this->form->total_guests_allowed?>
+                    <label><?=$this->translate('Total Guests Allowed')?>*</label>
+                    <div class="clr"></div>
+                    
+                    <?=$this->form->status?>
+                    <label><?=$this->translate('Event status')?>*</label>
+                    <div class="clr"></div>
+                   
+                    <div class="btns">
+                        <input name="" type="submit" value="<?=$this->translate('Update Event')?>" />
+                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing(<?php echo $this->vid;?>);" />
+                    </div>
+                </form>
+                </div>
+                    
+            </div>
+		</td>
+	</tr>
+</table>

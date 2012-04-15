@@ -1,0 +1,589 @@
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
+<?php
+$session = new Zend_Session_Namespace('Site_Lang');
+$lang_id = $session->lang_id;
+?>
+<script>
+function back_to_listing(){
+	window.location = '<?=$this->baseUrl()?>/admin/link/list/0/<?=$this->page?>';
+}
+
+function getsubcats(catId,subcatId)
+	{
+		if (subcatId === undefined){
+			var url = "<?=$this->baseUrl()?>/admin/link/subcats/"+catId;
+			}
+			
+		else {		
+				var url = "<?=$this->baseUrl()?>/admin/link/subcats/"+catId+"/"+subcatId;
+			}
+			
+		$('#span_lang').load(url,function(response)
+						{ 
+							//if($('#cust_lang').val() == null){
+								//$('#cust_zipcode').attr('disabled',true);
+								//$('#cust_city').attr('disabled',true);
+								//$('#cust_zipcode').val('');
+								//$('#cust_city').val('');
+							//} else {
+								//$('#cust_zipcode').removeAttr('disabled');
+								//$('#cust_city').removeAttr('disabled');
+							//}
+								
+						});
+		
+	}
+window.onload = function()
+	{
+	
+		<?php if($_POST) {
+		?>
+		//alert('A');
+		<?php
+		if(isset($_POST['link_category']))
+		{
+		    if(isset($_POST['link_subcat_name']))
+			{
+			
+			
+		?>
+		 		getsubcats("<?php echo $_POST['link_category']?>","<?php echo $_POST['link_subcat_name']?>"); 
+		 
+		//javaScript(void(0))::getsubcats($_POST['link_category'],0);
+<?php 		
+			}else{?>
+			
+			getsubcats("<?php echo $_POST['link_category']?>");
+		
+		<?php }
+
+		}//
+		/*if(isset($_POST['link_language']))
+		{
+		$language_list=new LocaleModel();
+		$count = $language_list->getAllLocales();
+		$selact=$_POST['link_language'];
+		foreach($count as $lang)
+		 {
+			if($lang['id']===$select[$i++])
+			{
+			$selected = 'selected="selected"';
+			}
+		 }
+		}*/
+		}//if post
+		elseif(!$_POST)
+		{ 
+			
+		if(isset($this->category))
+		{
+			if(isset($this->subcategory))
+		{
+		?>
+		
+		getsubcats("<?php echo $this->category?>","<?php echo $this->subcategory?>"); 
+			
+			<?php
+		}else{?>
+			
+			getsubcats("<?php $this->subcategory?>");
+		
+		<?php
+		} 
+		}
+		}
+		
+		?>
+		
+	if(document.getElementById('link_desc')) 
+		{
+			CKEDITOR.config.filebrowserBrowseUrl = '<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.html';
+			CKEDITOR.config.width  = 600;
+			CKEDITOR.config.resize_enabled = false;
+			CKEDITOR.config.width = 550;
+			
+			if(document.getElementById('link_desc')) 
+			{
+				CKEDITOR.replace( 'link_desc',  {
+					toolbar : 'Full'
+				});
+			}
+		}	
+	}
+
+$(document).ready(function() {
+	function formatItem(row) {
+		return row[2];
+	}
+	function formatResult(row) {
+		return row[2];
+	}
+	
+	$("#link-region").autocomplete('<?=$this->baseUrl()?>/admin/link/ajaxgetregions', {
+		width: 300,
+		//multiple: true,
+		matchContains: true,
+		formatItem: formatItem,
+		//formatResult: formatResult,
+	});
+	$("#link-region").result(function(event, data, formatted) {
+		brokenstring = data.toString().split(",");
+		// Clear the auto serach field
+		$("#link-region").val('');
+		// Fill the table
+		$('#region-table tr:last').after('<tr><td>'+brokenstring[1]+'<input type="hidden" name="region[]" value="'+brokenstring[0]+'" /></td><td><a href="#" onclick="return removeRow(this)"><?= $this->translate('Remove') ?></a></td></tr>');
+		
+	});
+	
+	// Interest Autocomplete
+	$("#link-interets").autocomplete('<?=$this->baseUrl()?>/admin/link/ajaxgetinterests', {
+		width: 300,
+		//multiple: true,
+		matchContains: true,
+		formatItem: formatItem,
+		//formatResult: formatResult,
+	});
+	$("#link-interets").result(function(event, data, formatted) {
+		brokenstring = data.toString().split(",");
+		// Clear the auto serach field
+		$("#link-interets").val('');
+		// Fill the table
+		$('#interests-table tr:last').after('<tr><td>'+brokenstring[1]+'<input type="hidden" name="interests[]" value="'+brokenstring[0]+'" /></td><td><a href="#" onclick="return removeRow(this)"><?= $this->translate('Remove') ?></a></td></tr>');
+		
+	});
+});	
+
+function removeRow(obj) {
+		$(obj).parent().parent().remove();
+		return false;
+}
+
+</script>
+<table id="twoCols">
+	<tr>
+    	<td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+       	<td bgcolor="#e5e5e5" width="200" height="50">&nbsp;</td>
+        <td bgcolor="#ff9900">
+           	<table width="100%">
+               	<tr>
+                   	<td><h2><?=$this->placeholder('heading')?></h2></td>
+                    <td align="right"><a href="#" class="whiteLink"><strong></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+      	<td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr>
+    	<?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+           	<div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            <div id="eventListing">
+            	<? //=$this->render('common/lang-tab.phtml',true)?>
+                <div id="addEvent">
+                <form name="editcampaign" action="" method="post">
+                    <?=$this->form->link_name?>
+                    <label><?=$this->translate('Name')?>*</label>
+                   
+                    <div style="float: right; width: 650px; margin-top: -40px;">
+                    <?php
+					/*if(isset($this->regionmessage))
+					{
+						echo $this->tripmessage.'<br/>';
+					}
+					$regionmodel = new RegionModel();
+					$countryModel = new TmycountryModel();
+					$destinationModel = new DestinationModel();
+					$cityModel = new TmycityModel();
+					$regionwhere = "lang_id = '".$lang_id."' AND region_status='1'"; 
+					$allregion = $regionmodel->getRegion($regionwhere);
+					
+					$destinationwhere = "lang_id = '".$lang_id."' AND destination_status='1'"; 
+					$alldest=$destinationModel->getDestination($destinationwhere);
+					
+					
+					
+					
+					$allregion = $regionmodel->getRegion($regionwhere);
+					
+					
+					$select = "<select name='region[]' id='region' size ='15' multiple='multiple' title='region'>";
+                    $select .= "<option label='".$this->translate('region')."' value=''>Select Region</option>";
+                    
+					foreach($allregion as $res)
+					{
+						
+						if(!$this->region) {
+							$this->region = array();
+						}
+						if($_POST) {
+							$this->region = $_POST['region'];
+							
+						}
+						$selected = (in_array($res['region_id'],$this->region)?'selected':'');
+					
+					$select .= "<option ".$selected." value=".$res['region_id']." class='first-level'>&nbsp;&nbsp;&nbsp;".$res['region_name']."</option>";
+					$destwhere='region_id ='.$res['region_id']." and lang_id='".$lang_id."' AND country_status='1'";
+					$allcountry=$countryModel->getCountry($destwhere);
+						
+					foreach($allcountry as $country)
+					{
+						$selected = (in_array($res['region_id']."_".$country['country_id'],$this->region)?'selected':'');	
+						$select .= "<option ".$selected." value=".$res['region_id']."_".$country['country_id']." class='first-level'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$country['country_name']."</option>";			
+						
+						$contwhere='country_id ='.$country['country_id']." and lang_id='".$lang_id."'";
+						$alldest=$destinationModel->getDestination($contwhere);
+					    foreach($alldest as $desti)
+						{	
+							
+							$selected = (in_array($res['region_id']."_".$country['country_id']."_".$desti['destination_id'],$this->region)?'selected':'');	
+							$select .="<option ".$selected." value=".$res['region_id']."_".$country['country_id']."_".$desti['destination_id']." class='first-level'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$desti['destination_name']."</option>";			
+							$citywhere='destination_id='.$desti['destination_id']." and lang_id='".$lang_id."'";
+							$allcities=$cityModel->getCity($citywhere);
+							foreach($allcities as $cities)
+							{
+								$selected = (in_array($res['region_id']."_".$country['country_id']."_".$desti['destination_id']."_".$cities['city_id'],$this->region)?'selected':'');	
+								$select .="<option ".$selected." value=".$res['region_id']."_".$country['country_id']."_".$desti['destination_id']."_".$cities['city_id']." class='first-level'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$cities['city_name']."</option>";			
+							}
+						}
+					
+					}
+					
+					}
+					$select .= "</select>";
+		
+					echo $select;*/
+					?>
+                    
+						<?php   if(isset($this->regionmessage)) { echo'<p style="color: red;">'. $this->regionmessage.'</p>'; } ?>		
+                        <input id="link-region" type="text" />
+                        <label><?=$this->translate('Region')?>*</label>
+                        <table id="region-table">
+                            <tr>
+                                <th><?=$this->translate('Title')?></th>
+                                <th><?=$this->translate('Action')?></th>
+                            <tr>
+                            <?php if($this->region_values): ?>
+                                <?php foreach($this->region_values as $value): ?>
+                                    <tr>
+                                        <td><?= $value[1] ?><input type="hidden" name="region[]" value="<?= $value[0] ?>" /></td>
+                                        <td><a href="#" onclick="return removeRow(this)"><?= $this->translate('Remove') ?></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </table>
+                    
+                        <div style="padding-top:25px;">
+                         
+                            <?php   if(isset($this->Interestmessage)) { echo'<p style="color: red;">'. $this->Interestmessage.'</p>'; } ?>		
+                            <input id="link-interets" type="text" />
+                            <label><?=$this->translate('Search Your Interests')?> </label>
+                            <table id="interests-table">
+                                <tr>
+                                    <th><?=$this->translate('Title')?></th>
+                                    <th><?=$this->translate('Action')?></th>
+                                <tr>
+                                <?php if($this->interests_values): ?>
+                                    <?php foreach($this->interests_values as $value): ?>
+                                        <tr>
+                                            <td><?= $value[1] ?><input type="hidden" name="interests[]" value="<?= $value[0] ?>" /></td>
+                                            <td><a href="#" onclick="return removeRow(this)"><?= $this->translate('Remove') ?></a></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </table>
+                            
+                             <?php //$this->AdminInterestSelectDropdown($this->interest)?>
+                             <? if($this->customerId!=''){?>
+                             <label class="fl">&nbsp;&nbsp;&nbsp;<a href="<?=$this->baseUrl()?>/interests/index/interestlist"><?=$this->translate('Manage Interests')?></a></label>
+                             <? }?> 
+                       
+                        </div>
+                    </div>
+                    
+					<?=$this->form->link_url?>
+                    <label><?=$this->translate('url')?>*</label>
+                    
+                    <?=$this->form->link_category?>
+                    <label><?=$this->translate('Category')?>*</label>
+                    
+                     
+                     
+                     <span id="span_lang"> <select name="sub_category" id="sub_category"><option value=""><?=$this->translate('Please select a Subcategory')?></option></select></span>
+                    
+                    <label><?=$this->translate('SubCategory')?></label>
+            
+            
+                   <?php
+					if(isset($this->tripmessage))
+					{
+					echo $this->tripmessage.'<br/>';
+					}
+					
+				    
+					$tripwhere = "lang_id = '".$lang_id."' AND travelphase_status='1'"; 
+					$trip_list = new TravelphaseModel();
+					$allcats = $trip_list->getTravelphases($tripwhere);
+					
+					$select = "<select name='trip[]' id='trip' size ='8' multiple='multiple' title='trip' class='validate-select'>";
+                    $select .= "<option label='".$this->translate('trip')."' value=''>Select Travel trip</option>";
+                    
+					foreach($allcats as $res)
+					{
+						if($_POST)
+						{
+							if(isset($_POST['trip']))
+							{
+								$val = $res['travelphase_id'];
+								if(in_array($val,$_POST['trip']))
+								{
+								$selected = 'selected';
+								}
+								else
+									{
+									$selected = '';
+									}
+								}else
+									{
+									$selected = '';
+									}
+							
+						}else{
+							
+							$val = $res['travelphase_id'];
+								if(!empty($this->trip))
+								{
+								if(in_array($val,$this->trip))
+								{
+									$selected = 'selected';
+								}else{
+									$selected = '';
+						
+									}
+								
+								}else{
+									$selected = '';
+						
+									}
+
+								}
+					
+					$select .= "<option ".$selected." value=".$res['travelphase_id']." class='first-level'>&nbsp;&nbsp;&nbsp;".$res['travelphase_name']."</option>";
+					}
+					$select .= "</select>";
+		
+					echo $select;
+					?>
+                    <label><?=$this->translate('Trip Phase')?></label> 
+             
+			 		<?php
+					if(isset($this->travelmessage))
+					{
+					echo $this->travelmessage.'<br/>';
+					}
+					$session = new Zend_Session_Namespace('Site_Lang');
+					//$site_id = $session->site_id;
+					$lang_id = $session->lang_id;
+				    
+					$intwhere = "lang_id = '".$lang_id."' AND intense_status ='1'"; 
+					$travel_list = new TravelintenseModel();
+					$allintens = $travel_list->getTravelIntense($intwhere);
+                    
+					$select = "<select name='inense[]' id='inense' size ='8' multiple='multiple' title='inense' class='validate-select'>";
+                    $select .= "<option label='".$this->translate('inense')."' value=''>Select Travel intent</option>";
+                    
+					foreach($allintens as $res)
+					{
+						if($_POST)
+						{
+							if(isset($_POST['inense']))
+							{
+								$val = $res['intense_id'];
+								if(in_array($val,$_POST['inense']))
+								{
+								$selected = 'selected';
+								}
+								else
+								{
+								$selected = '';
+								}
+							}
+							
+						}else{
+							if(!empty($this->travel))
+							{
+							$val = $res['intense_id'];
+								if(in_array($val,$this->travel))
+								{
+									$selected = 'selected';
+								}else{
+									$selected = '';
+						
+									}
+								
+								}else{
+									$selected = '';
+						
+									}
+								}
+					
+					$select .= "<option ".$selected." value=".$res['intense_id']." class='first-level'>&nbsp;&nbsp;&nbsp;".$res['intense_name']."</option>";
+					}
+					$select .= "</select>";
+		
+					echo $select;
+					?>
+                    <label><?=$this->translate('Traveling Intent')?></label>
+                   
+                    
+                    <?php
+					if(isset($this->langmessage))
+					{
+					echo $this->langmessage.'<br/>';
+					}
+					$session = new Zend_Session_Namespace('Site_Lang');
+					//$site_id = $session->site_id;
+					$lang_id = $session->lang_id;
+				    
+					$langwhere = "language_status='1'"; 
+					$language_list = new CustomerProfileLanguageModel();
+					$allintens = $language_list->getCustomerLanguage($langwhere);
+                    
+					$select = "<select name='language[]' id='language' size ='8' multiple='multiple' title='language' class='validate-select'>";
+                    $select .= "<option label='".$this->translate('Language')."' value=''>Select Language</option>";
+                    
+					foreach($allintens as $res)
+					{
+						if($_POST)
+						{
+							if(isset($_POST['language']))
+							{
+								$val = $res['language_id'];
+								if(in_array($val,$_POST['language']))
+								{
+								$selected = 'selected';
+								}
+								else
+								{
+								$selected = '';
+								}
+							}
+							
+						}else{
+							if(!empty($this->language))
+							{
+							$val = $res['language_id'];
+								if(in_array($val,$this->language))
+								{
+									$selected = 'selected';
+								}else{
+									$selected = '';
+						
+									}
+								}else{
+									$selected = '';
+						
+									}
+
+								
+								}
+					
+					
+					$select .= "<option ".$selected." value=".$res['language_id']." class='first-level'>&nbsp;&nbsp;&nbsp;".$res['language_name']."</option>";
+					}
+					$select .= "</select>";
+		
+					echo $select;
+					?>
+					<label><?=$this->translate('Language')?></label>
+                  
+				
+					
+                    <?php
+					if(isset($this->osmessage))
+					{
+					echo $this->osmessage.'<br/>';
+					}
+					$session = new Zend_Session_Namespace('Site_Lang');
+					//$site_id = $session->site_id;
+					$lang_id = $session->lang_id;
+				    
+					$oswhere = "lang_id = '".$lang_id."'AND os_status='1'";  
+					$osModel = new OsModel();
+					$allos= $osModel->getOss($oswhere);
+                    
+					$select = "<select name='os[]' id='os' size ='8' multiple='multiple' title='os' class='validate-select'>";
+                    $select .= "<option label='".$this->translate('Os')."' value=''>Select Os</option>";
+                    
+					foreach($allos as $res)
+					{
+						if($_POST)
+						{
+							if(isset($_POST['os']))
+							{
+								$val = $res['os_id'];
+								if(in_array($val,$_POST['os']))
+								{
+								$selected = 'selected';
+								}
+								else
+								{
+								$selected = '';
+								}
+							}
+							
+						}else{
+							if(!empty($this->os))
+							{									
+							$val = $res['os_id'];
+								if(in_array($val,$this->os))
+								{
+									$selected = 'selected';
+								}else{
+									$selected = '';
+						
+									}
+								
+								}else{
+									$selected = '';
+						
+									}
+								}
+					
+					
+					$select .= "<option ".$selected." value=".$res['os_id']." class='first-level'>&nbsp;&nbsp;&nbsp;".$res['os_name']."</option>";
+					}
+					$select .= "</select>";
+		
+					echo $select;
+					?>
+                    <label><?=$this->translate('OS')?></label>
+                   
+                   
+                    <?=$this->form->link_desc?>
+                    <label><?=$this->translate('Link Desc')?>*</label>
+                    
+                    <table>
+                      	<tr class="autoWidth">
+                           	<td class="list-radio">
+								<?=$this->form->link_status?>
+                                <div class="clr" style="height:0px;"></div>
+                                <label for="status"><?=$this->translate('Status')?>*</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="btns">
+                        <input name="" type="submit" value="<?=$this->translate('Save')?>" />
+                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing();" />
+                    </div>
+                </form>
+                </div>
+                    
+            </div>
+		</td>
+	</tr>
+</table>

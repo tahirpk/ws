@@ -1,0 +1,174 @@
+
+
+<script>
+	function sortColumn(col)
+	{
+		document.getElementById('sort_col').value = col;
+		document.website_list_search.submit();
+	}
+
+	function setPaging(obj)
+	{
+		document.getElementById('perPage').value = obj.value;
+		document.website_list.submit();
+	}
+	
+	function setActiveAction(val,dvId){
+		$.ajax({
+		  url: '<?=$this->baseUrl()?>/admin/websites/activeDactive/id='+val+'&dvId='+dvId,
+		  dataType: "html",
+		  success: function(data) {
+			$('#activeDactive'+dvId).html(data);
+		  }
+		});
+	}
+
+</script>
+<?
+ $session = new Zend_Session_Namespace('Link_Search');
+?>
+<form name="website_list" id="website_list" action="<?=$this->baseUrl()?>/admin/websites/" method="post">  
+   	<input type="hidden" name="perPage" id="perPage" value="<?=$session->perPage?>" />
+</form>
+
+<table id="twoCols">
+    <tr>
+        <td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+        <td class="blueBg"  width="200" height="50">&nbsp;</td>
+        <td class="greenBg">
+            <table width="100%">
+                <tr>
+                    <td><h2><?=$this->translate('Websites Management')?></h2></td>
+                  <td align="right"><a href="<?=$this->url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'add'))?>" class="whiteLink"><strong><?=$this->translate('Add Website')?></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr style="background:#fff;">
+        <?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+            <div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            
+            <div id="eventListing">
+          
+            	<form name="website_list_search" id="website_list_search" method="post" action="<?=$this->baseUrl()?>/admin/websites/">
+                    <input type='hidden' name='sort_col' value='' id='sort_col'>
+                    <input type="hidden" name="perPage" id="perPage" value="<?=$session->perPage?>" />
+                <table class="pagination">
+                    <tr>
+                        <td align="right">
+                           <?=$this->paginationControl($this->result,'Sliding','editpaginator.phtml')?>  
+                        </td>
+                    </tr>
+                </table>
+				<table class="searchBy">
+                    <tr>
+                        <td width="52%">&nbsp;</td>
+                        <td><?=$this->translate('Search By')?></td>
+                        <td><?=$this->searchform->filters?></td>
+                        <td><span id="val-input"><?=$this->searchform->filterText?></span></td>
+                        <td class="btn"><input name="submitAction" type="submit" value="<?=$this->translate('Search')?>" /></td>
+                        <td class="btn"><input name="submitAction" type="submit" value="<?=$this->translate('Reset')?>" /></td>
+                    </tr>
+                </table>
+                
+                </form>
+                
+                <table class="listing">
+                    <tr class="headings">
+                    <th width=""><a href="#" class="link" onClick="sortColumn('id')"><?=$this->translate('ID')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'id'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                                       
+                        <th width=""><a href="#" class="link" onClick="sortColumn('webTitle')"><?=$this->translate('Website Title')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webTitle'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                       
+ 
+                    <th width=""><a href="#" class="link" onClick="sortColumn('url')"><?=$this->translate('Url')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'url'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                    <th>Report File</th>
+                        
+                        <th><a href="#" class="link" onClick="sortColumn('status')"><?=$this->translate('Status')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'status'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                    </tr>
+                    <?
+					
+					
+						
+                        if(count($this->result)>0){
+                         foreach($this->result as $rst){
+		  	?>
+                  <tr class="autoWidth">
+                  <td width="10%">
+                
+                  <?php print $rst['id']; ?>
+                  </td>
+                  <td >
+                
+                  <?php print $rst['webTitle']; ?>
+                  </td> 
+                            <td>
+                                
+									<?php print $rst['url']; ?>
+                                
+                            	<div class="edit-del"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a> | 
+                                <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'delete','id' => $rst['id'], 'page' => $this -> page))?>','<?=$this->translate('Are you sure to delete this?')?>')" ><?=$this->translate('Delete') ?></a></div>
+                            </td>
+							<td>
+								<? 
+                                $fullfilePath=$this->baseUrl().'/'.$rst['filePdf'];
+                                //echo  $fullfilePath = realpath(APPLICATION_PATH."/../public/frontend/webpdf") . '/' . $rst['filePdf'];				 
+                                if(file_exists($fullfilePath)){
+                                
+                                ?>
+                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_yes.jpg" />
+                                <? //=$this -> url(array('controller' => 'page', 'action' => 'show','id' => $rst['id'] ),'page')
+                                }else
+                                {
+                                ?>
+                                <a href="#" onclick="window.open('<?=$fullfilePath?>', '_blank', 'fullscreen=yes'); return false;">
+                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_no.jpg" />
+                                </a>
+                                <?
+                                }
+                                ?>
+                            </td>
+                            <!--<td ><?php print date('d M Y', $rst['Created']); ?></td> -->
+                            <td width="18%" id="activeDactive<?=$rst['id']?>">
+                          
+							<?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
+                           
+                            <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'status','id' => $rst['id'], 'page' => $this -> page))?>','<?php echo ('Are you sure to change status?')?>')" >
+                            <?php print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
+                            </a>
+                            </td> 					
+                            
+            
+                            
+                        
+                          
+                      </tr>
+
+                     <? } 
+                       } else {?>
+                        <tr>
+                        	<td align="center" colspan="3"><?=$this->translate('No record added yet');?></td>
+                        </tr>
+                   <? }?>
+                </table>
+                
+                <table class="pagination">
+                    <tr>
+                    	<td width="10%"><?=$this->translate('Results per page')?>:</td>
+                        <td><?=$this->searchform->perPage?></td>
+                        <td align="right">
+                        	<?=$this->paginationControl($this->result,'Sliding','editpaginator.phtml')?>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+

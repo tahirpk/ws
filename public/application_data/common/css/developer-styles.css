@@ -1,0 +1,15 @@
+td.link-col a, td.link-col {
+	color:#E3227B;
+}
+td.link-col a:hover{
+	text-decoration:underline;
+}
+.import-list{
+	margin-top:5px;
+}
+.product-exist-class{
+	background-color:#FFB74B;
+}
+.disable-tag{
+	display:none;
+}

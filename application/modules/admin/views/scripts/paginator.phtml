@@ -1,0 +1,28 @@
+<?php 
+$id = Zend_Controller_Front::getInstance()->getRequest()->getParam('id');
+if ($this->pageCount): ?>
+<div class="pagination">
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?= $this->url(array('id' => $id,'page' => $this->previous)); ?>">&laquo; <?=$this->translate('Previous')?></a>
+<?php	else: ?>
+  <span class="active">&laquo; <?=$this->translate('Previous')?></span>
+<?php endif; ?>
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <a href="<?= $this->url(array('id' => $id,'page' => $page)); ?>"><?=$page; ?></a>
+  <?php else: ?>
+    <span class="active"><?= $page; ?></span>
+  <?php endif; ?>
+<?php endforeach; ?>
+<!-- Next page link -->
+
+<?php if (isset($this->next)): ?>
+  <a href="<?= $this->url(array('id' => $id,'page' => $this->next)); ?>"><?=$this->translate('Next')?>  &raquo;</a>
+<?php else: ?>  
+	<span class="active"><?=$this->translate('Next')?> &raquo;</span>
+<?php endif; ?>
+</div>
+<?php endif; ?>

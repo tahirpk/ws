@@ -1,0 +1,19 @@
+<?
+$module = Zend_Controller_Front::getInstance()->getRequest()->getModuleName(); 
+$moduleName = strtolower($module); 
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); 
+$controllerName = strtolower($controller); 
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); 
+$actionName = strtolower($action);
+?>
+<div class="tabs">
+    <ul>
+        <li class="<? if($moduleName == 'admin' && $controllerName == 'adminmail' && $actionName == 'inbox'){ echo 'active'; }?>"><a href="<?=$this->baseUrl()?>/admin/adminmail/inbox"><b><?=$this->translate('Inbox')?></b></a></li>
+        
+        <li class="<? if($moduleName == 'admin' && $controllerName == 'adminmail' && $actionName == 'outbox'){ echo 'active'; }?>"><a href="<?=$this->baseUrl()?>/admin/adminmail/outbox"><b><?=$this->translate('Outbox')?></b></a></li>
+        
+        <li class="<? if($moduleName == 'admin' && $controllerName == 'adminmail' && $actionName == 'compose'){ echo 'active'; }?>"><a href="<?=$this->baseUrl()?>/admin/adminmail/compose"><b><?=$this->translate('Compose')?></b></a></li>
+        
+    </ul>
+    <div class="clr"></div>
+</div>

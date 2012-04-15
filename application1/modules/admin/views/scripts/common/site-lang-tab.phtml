@@ -1,0 +1,33 @@
+<? 
+$sessionNamespace = new Zend_Session_Namespace('Site_Lang');
+?>
+<div class="tabs">
+    <ul>
+    <? 	$sites = $this->getSites();
+		$i = 0;
+		foreach($sites as $res) {
+		?>   	
+        	<li class="<? if(isset($sessionNamespace->site_id)){ if($sessionNamespace->site_id == $res['country_id']){?>active<? }} else{ if($i == 0){?>active<? }}?>"><a href="<?=$this->baseUrl()?>/admin/home/site/<?=$res['country_id']?>"><b><?=$res['country_name']?></a></b></li>
+    <?  
+		if($i==0){
+			$site_id = $res['country_id'];
+		}
+		$i++;	
+		}?> 	
+    </ul>
+    <div class="clr"></div>
+</div>
+<div class="language-select">
+<? if(isset($sessionNamespace->site_id)){
+		$site = $sessionNamespace->site_id;
+   } else {
+   		$site = $site_id;
+   }
+   $countryModel = new CountryModel();
+   $countryData = $countryModel->fetchRow("country_id = '".$site."'");
+   $languages = $this->getSiteLanguages($site);
+   foreach($languages as $result) {
+?>    
+		<a href="<?=$this->baseUrl()?>/admin/home/sitelanguages/<?=$result['language_id']?>" class="active <? if(isset($sessionNamespace->lang_id)){ if($sessionNamespace->lang_id == $result['language_id']) {?>activeLanguage<? }}?>">&nbsp;&nbsp;<?=$result['language_name']?></a>
+<? }?>
+</div>

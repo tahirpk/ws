@@ -1,0 +1,1113 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: test1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-13 12:20+0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Zaheer <zaheer.abbass@coeus-solutions.de>\n"
+"Language-Team: test1 <test1@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: PAKISTAN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: translate;_\n"
+"X-Poedit-Basepath: d:\\wamp\\www\\shooz\n"
+"X-Poedit-SearchPath-0: application\n"
+
+#: application/modules/admin/controllers/BrandController.php:26
+#: application/modules/admin/controllers/BrandController.php:55
+#: application/modules/admin/controllers/BrandController.php:88
+#, fuzzy
+msgid "Brand Management"
+msgstr "Benutzer Management"
+
+#: application/modules/admin/controllers/BrandController.php:52
+msgid "Add Brand"
+msgstr ""
+
+#: application/modules/admin/controllers/BrandController.php:53
+#: application/modules/admin/controllers/BrandController.php:55
+#: application/modules/admin/controllers/CategoryController.php:78
+#: application/modules/admin/controllers/CategoryController.php:80
+#: application/modules/admin/controllers/CmsController.php:70
+#: application/modules/admin/controllers/CmsController.php:72
+#: application/modules/admin/controllers/MarchantController.php:77
+#: application/modules/admin/controllers/MarchantController.php:79
+#: application/modules/admin/controllers/ProductController.php:66
+#: application/modules/admin/controllers/ProductController.php:68
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: application/modules/admin/controllers/BrandController.php:84
+#: application/modules/admin/controllers/CmsController.php:101
+#, fuzzy
+msgid "Edit Brand"
+msgstr "Bearbeiten Benutzer"
+
+#: application/modules/admin/controllers/BrandController.php:85
+#: application/modules/admin/controllers/BrandController.php:88
+#: application/modules/admin/controllers/CategoryController.php:108
+#: application/modules/admin/controllers/CategoryController.php:111
+#: application/modules/admin/controllers/CmsController.php:102
+#: application/modules/admin/controllers/CmsController.php:105
+#: application/modules/admin/controllers/MarchantController.php:118
+#: application/modules/admin/controllers/MarchantController.php:121
+#: application/modules/admin/controllers/ProductController.php:113
+#: application/modules/admin/controllers/ProductController.php:116
+#: application/modules/admin/controllers/UserController.php:32
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: application/modules/admin/controllers/CategoryController.php:24
+#: application/modules/admin/controllers/CategoryController.php:80
+#: application/modules/admin/controllers/CategoryController.php:111
+#, fuzzy
+msgid "Category Management"
+msgstr "Benutzer Management"
+
+#: application/modules/admin/controllers/CategoryController.php:50
+#: application/modules/admin/controllers/CategoryController.php:51
+#: application/modules/admin/controllers/MarchantController.php:49
+#: application/modules/admin/controllers/MarchantController.php:50
+msgid "More"
+msgstr "Mehr"
+
+#: application/modules/admin/controllers/CategoryController.php:77
+#, fuzzy
+msgid "Add Category"
+msgstr "Kategorie Event"
+
+#: application/modules/admin/controllers/CategoryController.php:107
+#, fuzzy
+msgid "Edit Category"
+msgstr "Kategorie Event"
+
+#: application/modules/admin/controllers/CmsController.php:69
+#, fuzzy
+msgid "Add Page"
+msgstr "Hinzufügen  Krankheit"
+
+#: application/modules/admin/controllers/CmsController.php:72
+#: application/modules/admin/controllers/CmsController.php:105
+#: application/modules/admin/controllers/CmsController.php:165
+#, fuzzy
+msgid "Page Management"
+msgstr "Benutzer Management"
+
+#: application/modules/admin/controllers/ImportlogController.php:24
+#, fuzzy
+msgid "Import Management"
+msgstr "Tipps Management"
+
+#: application/modules/admin/controllers/ImportlogController.php:63
+msgid "Search"
+msgstr "Suche"
+
+#: application/modules/admin/controllers/ImportlogController.php:76
+msgid "Import Selected"
+msgstr ""
+
+#: application/modules/admin/controllers/ImportlogController.php:116
+msgid "Keyword"
+msgstr ""
+
+#: application/modules/admin/controllers/ImportlogController.php:117
+#, fuzzy
+msgid "Category"
+msgstr "Kategorie Event"
+
+#: application/modules/admin/controllers/ImportlogController.php:128
+msgid "Import Products"
+msgstr ""
+
+#: application/modules/admin/controllers/ImportlogController.php:368
+#: application/modules/admin/controllers/ImportlogController.php:389
+#: application/modules/admin/controllers/ProductController.php:24
+#: application/modules/admin/controllers/ProductController.php:234
+#: application/modules/admin/controllers/ProductController.php:253
+msgid "N/A"
+msgstr ""
+
+#: application/modules/admin/controllers/LoginController.php:25
+#: application/modules/admin/controllers/LoginController.php:26
+msgid "Admin Login"
+msgstr "Admin Login"
+
+#: application/modules/admin/controllers/LoginController.php:27
+msgid "Login"
+msgstr "Login"
+
+#: application/modules/admin/controllers/LoginController.php:64
+msgid "User is not active"
+msgstr "Benutzer ist nicht aktiv"
+
+#: application/modules/admin/controllers/LoginController.php:79
+#, fuzzy
+msgid "Invalid user name or password!"
+msgstr "Ungültiger Benutzername oder Kennwort."
+
+#: application/modules/admin/controllers/LoginController.php:163
+#: application/modules/admin/controllers/LoginController.php:165
+msgid "Forgetpassword"
+msgstr "Passwort vergessen"
+
+#: application/modules/admin/controllers/LoginController.php:166
+#: application/modules/admin/controllers/LoginController.php:233
+msgid "Submit"
+msgstr "Einreichen"
+
+#: application/modules/admin/controllers/LoginController.php:209
+#, fuzzy
+msgid "Password recovery"
+msgstr "Recover Password"
+
+#: application/modules/admin/controllers/LoginController.php:212
+msgid "Mail send to your email address for password recovery"
+msgstr "E-Mail an Ihre E-Mail-Adresse für Passwort Recovery senden"
+
+#: application/modules/admin/controllers/LoginController.php:214
+#, fuzzy
+msgid "Username is not correct"
+msgstr "Email is not correct"
+
+#: application/modules/admin/controllers/LoginController.php:231
+#: application/modules/admin/controllers/LoginController.php:232
+msgid "Recover Password"
+msgstr "Recover Password"
+
+#: application/modules/admin/controllers/LoginController.php:249
+msgid "Password and Confirm Password do not Match"
+msgstr "Kennwort und Kennwort bestätigen stimmen nicht überein"
+
+#: application/modules/admin/controllers/LoginController.php:254
+msgid "Value is Required and cant be Empty"
+msgstr "Wert ist erforderlich und kippe leer sein"
+
+#: application/modules/admin/controllers/LoginController.php:259
+msgid "Password Length must be Greater than 5 characters"
+msgstr "Password Length muss größer sein als 5 Zeichen"
+
+#: application/modules/admin/controllers/MarchantController.php:23
+#: application/modules/admin/controllers/MarchantController.php:79
+#: application/modules/admin/controllers/MarchantController.php:121
+#, fuzzy
+msgid "Merchant Management"
+msgstr "Benutzer Management"
+
+#: application/modules/admin/controllers/MarchantController.php:76
+#, fuzzy
+msgid "Add Merchant"
+msgstr "Benutzer hinzufügen"
+
+#: application/modules/admin/controllers/MarchantController.php:117
+#, fuzzy
+msgid "Edit Merchant"
+msgstr "Bearbeiten Benutzer"
+
+#: application/modules/admin/controllers/ProductController.php:22
+#: application/modules/admin/controllers/ProductController.php:68
+#: application/modules/admin/controllers/ProductController.php:116
+#: application/modules/admin/controllers/ProductController.php:232
+#, fuzzy
+msgid "Product Management"
+msgstr "Benutzer Management"
+
+#: application/modules/admin/controllers/ProductController.php:65
+msgid "Add Product"
+msgstr ""
+
+#: application/modules/admin/controllers/ProductController.php:112
+#: application/modules/admin/controllers/ProductController.php:114
+msgid "Edit Product"
+msgstr ""
+
+#: application/modules/admin/controllers/ReportController.php:20
+#: application/modules/admin/controllers/ReportController.php:21
+msgid "Reports"
+msgstr ""
+
+#: application/modules/admin/controllers/UserController.php:31
+#: application/modules/admin/controllers/UserController.php:34
+#, fuzzy
+msgid "Change Password"
+msgstr "Kennwort bestätigen"
+
+#: application/modules/admin/controllers/UserController.php:77
+msgid "User is edited successfully"
+msgstr ""
+
+#: application/modules/admin/forms/AddBrand.php:30
+#: application/modules/admin/forms/AddCategory.php:43
+#: application/modules/admin/forms/AddMarchant.php:129
+msgid "Status is required and can't be empty"
+msgstr "Status ist erforderlich und kann nicht leer sein"
+
+#: application/modules/admin/forms/AddCmsForm.php:18
+#, fuzzy
+msgid "Page title is required"
+msgstr "Gültig Banner Titel ist erforderlich"
+
+#: application/modules/admin/forms/AddCmsForm.php:23
+#, fuzzy
+msgid "Page body is required"
+msgstr "GültigLand erforderlich ist"
+
+#: application/modules/admin/forms/AddProduct.php:32
+#, fuzzy
+msgid "Title is required"
+msgstr "GültigLand erforderlich ist"
+
+#: application/modules/admin/forms/AddProduct.php:37
+#, fuzzy
+msgid "Body is required"
+msgstr "GültigLand erforderlich ist"
+
+#: application/modules/admin/forms/AddProduct.php:42
+#, fuzzy
+msgid "Short description is required"
+msgstr "Gültig Buch Beschreibung ist erforderlich"
+
+#: application/modules/admin/forms/AddProduct.php:47
+#, fuzzy
+msgid "SKU is required"
+msgstr "Gültige E-Mail ist erforderlich"
+
+#: application/modules/admin/forms/AddProduct.php:52
+#, fuzzy
+msgid "Keyword is required"
+msgstr "GültigLand erforderlich ist"
+
+#: application/modules/admin/forms/AddProduct.php:58
+#, fuzzy
+msgid "Price is required and must be a decimel value"
+msgstr "Benutzername ist erforderlich und kann nicht leer sein"
+
+#: application/modules/admin/forms/AddProduct.php:83
+msgid "Link URL is required and must be in valid format"
+msgstr ""
+
+#: application/modules/admin/forms/AddProduct.php:89
+#, fuzzy
+msgid "Image URL is required and must be in valid format"
+msgstr "Image Datei ist erforderlich und kann nicht leer sein"
+
+#: application/modules/admin/forms/ImportForm.php:16
+#, fuzzy
+msgid "Please insert a keyword"
+msgstr "Bitte wählen Sie einen User Typ"
+
+#: application/modules/admin/forms/ImportForm.php:26
+#, fuzzy
+msgid "Please insert a category"
+msgstr "Bitte wählen Sie einen User Typ"
+
+#: application/modules/admin/forms/LoginForm.php:12
+#, fuzzy
+msgid "Username is required and can't be empty!"
+msgstr "Benutzername ist erforderlich und kann nicht leer sein"
+
+#: application/modules/admin/forms/LoginForm.php:20
+#, fuzzy
+msgid "Password is required and can't be empty!"
+msgstr "Passwort ist erforderlich und kann nicht leer sein"
+
+#: application/modules/admin/forms/UserEditForm.php:17
+#: application/modules/admin/forms/UserEditForm.php:19
+msgid "Valid First name is required"
+msgstr "Gültig Vorname ist erforderlich"
+
+#: application/modules/admin/forms/UserEditForm.php:33
+#: application/modules/admin/forms/UserEditForm.php:35
+msgid "Valid Last name is required"
+msgstr "Gültig Nachname ist erforderlich"
+
+#: application/modules/admin/forms/UserEditForm.php:50
+msgid "Valid User intial is required"
+msgstr "Valid Benutzer anfänglichen erforderlich ist"
+
+#: application/modules/admin/forms/UserEditForm.php:63
+#: application/modules/admin/forms/UserEditForm.php:68
+msgid "Valid Email is required"
+msgstr "Gültige E-Mail ist erforderlich"
+
+#: application/modules/admin/forms/UserEditForm.php:66
+msgid "Valid email is required"
+msgstr "Gültige E-Mail ist erforderlich"
+
+#: application/modules/admin/forms/UserEditForm.php:92
+msgid "Both password fields should match"
+msgstr "Beide Passwort Felder sollten übereinstimmen"
+
+#: application/layouts/scripts/header_frontend.phtml:1
+msgid "testing translation"
+msgstr ""
+
+#: application/modules/admin/views/scripts/editpaginator.phtml:9
+#: application/modules/admin/views/scripts/editpaginator.phtml:11
+#: application/modules/admin/views/scripts/paginator.phtml:7
+#: application/modules/admin/views/scripts/paginator.phtml:9
+msgid "Previous"
+msgstr "Zurück"
+
+#: application/modules/admin/views/scripts/editpaginator.phtml:26
+#: application/modules/admin/views/scripts/editpaginator.phtml:28
+#: application/modules/admin/views/scripts/paginator.phtml:23
+#: application/modules/admin/views/scripts/paginator.phtml:25
+msgid "Next"
+msgstr "Nächste"
+
+#: application/modules/admin/views/scripts/brand/add.phtml:52
+#: application/modules/admin/views/scripts/brand/edit.phtml:48
+#, fuzzy
+msgid "Brand Name"
+msgstr "Partner Name"
+
+#: application/modules/admin/views/scripts/brand/add.phtml:56
+#: application/modules/admin/views/scripts/brand/edit.phtml:52
+msgid "Brand status"
+msgstr ""
+
+#: application/modules/admin/views/scripts/brand/add.phtml:61
+#: application/modules/admin/views/scripts/brand/edit.phtml:57
+#: application/modules/admin/views/scripts/category/add.phtml:65
+#: application/modules/admin/views/scripts/category/detail.phtml:52
+#: application/modules/admin/views/scripts/category/edit.phtml:61
+#: application/modules/admin/views/scripts/cms/add.phtml:74
+#: application/modules/admin/views/scripts/cms/edit.phtml:71
+msgid "Back to Listing"
+msgstr "Zurück"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:86
+#: application/modules/admin/views/scripts/category/detail.phtml:41
+#: application/modules/admin/views/scripts/category/index.phtml:86
+#, fuzzy
+msgid "Name"
+msgstr "Benutzername"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:87
+#: application/modules/admin/views/scripts/category/index.phtml:88
+#, fuzzy
+msgid "Total Products"
+msgstr "Gesamt Kosten"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:88
+#, fuzzy
+msgid "Total Categories"
+msgstr "Gesamt Kosten"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:89
+#: application/modules/admin/views/scripts/category/detail.phtml:45
+#: application/modules/admin/views/scripts/category/index.phtml:90
+#: application/modules/admin/views/scripts/cms/index.phtml:69
+msgid "Status"
+msgstr "Status"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:100
+#: application/modules/admin/views/scripts/category/index.phtml:108
+#: application/modules/admin/views/scripts/cms/index.phtml:83
+msgid "Are you sure to delete this?"
+msgstr ""
+
+#: application/modules/admin/views/scripts/brand/index.phtml:100
+#: application/modules/admin/views/scripts/category/index.phtml:108
+#: application/modules/admin/views/scripts/cms/index.phtml:83
+msgid "Delete"
+msgstr "Löschen"
+
+#: application/modules/admin/views/scripts/brand/index.phtml:105
+#: application/modules/admin/views/scripts/category/index.phtml:114
+#: application/modules/admin/views/scripts/cms/index.phtml:87
+msgid "Active"
+msgstr ""
+
+#: application/modules/admin/views/scripts/brand/index.phtml:105
+#: application/modules/admin/views/scripts/category/index.phtml:114
+#: application/modules/admin/views/scripts/cms/index.phtml:87
+msgid "Inactive"
+msgstr ""
+
+#: application/modules/admin/views/scripts/brand/index.phtml:115
+#: application/modules/admin/views/scripts/category/index.phtml:124
+#: application/modules/admin/views/scripts/cms/index.phtml:97
+msgid "No record added yet"
+msgstr "Kein Eintrag hinzugefügt noch"
+
+#: application/modules/admin/views/scripts/category/add.phtml:52
+#: application/modules/admin/views/scripts/category/edit.phtml:48
+#, fuzzy
+msgid "Parent category"
+msgstr "Kategorie Event"
+
+#: application/modules/admin/views/scripts/category/add.phtml:56
+#: application/modules/admin/views/scripts/category/edit.phtml:52
+#, fuzzy
+msgid "Category Name"
+msgstr "Partner Name"
+
+#: application/modules/admin/views/scripts/category/add.phtml:60
+#: application/modules/admin/views/scripts/category/edit.phtml:56
+msgid "Category status"
+msgstr ""
+
+#: application/modules/admin/views/scripts/category/detail.phtml:37
+msgid "ID"
+msgstr ""
+
+#: application/modules/admin/views/scripts/category/index.phtml:87
+#, fuzzy
+msgid "Parent Category"
+msgstr "Kategorie Event"
+
+#: application/modules/admin/views/scripts/category/index.phtml:89
+#, fuzzy
+msgid "Total Brands"
+msgstr "Gesamt Kosten"
+
+#: application/modules/admin/views/scripts/cms/add.phtml:62
+#: application/modules/admin/views/scripts/cms/edit.phtml:59
+#, fuzzy
+msgid "Page Title"
+msgstr "Titel des Buches"
+
+#: application/modules/admin/views/scripts/cms/add.phtml:66
+#: application/modules/admin/views/scripts/cms/edit.phtml:63
+msgid "Page Body"
+msgstr ""
+
+#: application/modules/admin/views/scripts/cms/add.phtml:69
+#: application/modules/admin/views/scripts/cms/edit.phtml:66
+#, fuzzy
+msgid "Page Status"
+msgstr "Status"
+
+#: application/modules/admin/views/scripts/cms/index.phtml:64
+#, fuzzy
+msgid "Title"
+msgstr "Titel des Buches"
+
+#: application/modules/admin/views/scripts/cms/index.phtml:68
+msgid "Created"
+msgstr ""
+
+#: application/modules/admin/views/scripts/common/mailbox-tab.phtml:11
+msgid "Inbox"
+msgstr ""
+
+#: application/modules/admin/views/scripts/common/mailbox-tab.phtml:13
+msgid "Outbox"
+msgstr "Postausgang"
+
+#: application/modules/admin/views/scripts/common/mailbox-tab.phtml:15
+msgid "Compose"
+msgstr "Komponieren"
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:62
+#: application/modules/admin/views/scripts/importlog/index.phtml:61
+msgid "Please enter atleat one key word or category"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:68
+#: application/modules/admin/views/scripts/importlog/index.phtml:67
+msgid "Search By"
+msgstr "Suche nach"
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:84
+#, fuzzy
+msgid "Product Name"
+msgstr "Partner Name"
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:85
+#: application/modules/admin/views/scripts/product/add.phtml:63
+msgid "SKU"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:86
+#: application/modules/admin/views/scripts/product/add.phtml:95
+msgid "Merchant"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:88
+#: application/modules/admin/views/scripts/product/add.phtml:91
+msgid "Brand"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/import.phtml:89
+#: application/modules/admin/views/scripts/product/add.phtml:71
+msgid "Price"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/index.phtml:79
+msgid "Date"
+msgstr "Datum"
+
+#: application/modules/admin/views/scripts/importlog/index.phtml:80
+msgid "Products Imported"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/index.phtml:81
+msgid "Category Assignment"
+msgstr ""
+
+#: application/modules/admin/views/scripts/importlog/index.phtml:82
+msgid "Brand Assignment"
+msgstr ""
+
+#: application/modules/admin/views/scripts/login/auth.phtml:24
+#: application/modules/admin/views/scripts/login/forgetpassword.phtml:24
+msgid "User Name"
+msgstr "Benutzername"
+
+#: application/modules/admin/views/scripts/login/auth.phtml:26
+#: application/modules/admin/views/scripts/login/recoverpass.phtml:24
+#, fuzzy
+msgid "Password"
+msgstr "Recover Password"
+
+#: application/modules/admin/views/scripts/login/auth.phtml:28
+#, fuzzy
+msgid "Forgot password?"
+msgstr "Passwort vergessen"
+
+#: application/modules/admin/views/scripts/login/auth.phtml:33
+#: application/modules/admin/views/scripts/login/forgetpassword.phtml:31
+msgid "All Rights Reserved with"
+msgstr ""
+
+#: application/modules/admin/views/scripts/login/auth.phtml:33
+msgid "Zendadmin"
+msgstr ""
+
+#: application/modules/admin/views/scripts/login/forgetpassword.phtml:26
+#: application/modules/admin/views/scripts/login/recoverpass.phtml:28
+msgid "Back to Login page"
+msgstr "Zurück zur Login-Seite"
+
+#: application/modules/admin/views/scripts/login/forgetpassword.phtml:31
+msgid "schneekoppe"
+msgstr ""
+
+#: application/modules/admin/views/scripts/login/recoverpass.phtml:26
+msgid "Confirm Password"
+msgstr "Kennwort bestätigen"
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:60
+#: application/modules/admin/views/scripts/marchant/edit.phtml:56
+msgid "Token for API"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:64
+#: application/modules/admin/views/scripts/marchant/edit.phtml:60
+#: application/modules/admin/views/scripts/marchant/index.phtml:89
+msgid "Shipping Cost"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:68
+#: application/modules/admin/views/scripts/marchant/edit.phtml:64
+#: application/modules/admin/views/scripts/product/add.phtml:87
+msgid "Currency"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:72
+#: application/modules/admin/views/scripts/marchant/edit.phtml:68
+msgid "URL"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:77
+#: application/modules/admin/views/scripts/marchant/edit.phtml:73
+#, fuzzy
+msgid "Logo"
+msgstr "Login"
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:81
+#: application/modules/admin/views/scripts/marchant/edit.phtml:77
+#, fuzzy
+msgid "Address"
+msgstr "Hinzufügen"
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:85
+#: application/modules/admin/views/scripts/marchant/edit.phtml:81
+msgid "Country"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:89
+#: application/modules/admin/views/scripts/marchant/edit.phtml:85
+msgid "Vat"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/add.phtml:93
+#: application/modules/admin/views/scripts/marchant/edit.phtml:89
+msgid "Vat included"
+msgstr ""
+
+#: application/modules/admin/views/scripts/marchant/index.phtml:109
+msgid "Import"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/add.phtml:55
+msgid "Detail"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/add.phtml:59
+#, fuzzy
+msgid "Short Description"
+msgstr "Buch Beschreibung"
+
+#: application/modules/admin/views/scripts/product/add.phtml:67
+msgid "Keywords"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/add.phtml:75
+#, fuzzy
+msgid "Link URL"
+msgstr "Link Tipp"
+
+#: application/modules/admin/views/scripts/product/add.phtml:79
+msgid "Image URL"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/add.phtml:83
+#, fuzzy
+msgid "Gender"
+msgstr "Kopfzeile"
+
+#: application/modules/admin/views/scripts/product/edit.phtml:104
+#, fuzzy
+msgid "Listing"
+msgstr "Zurück"
+
+#: application/modules/admin/views/scripts/product/index.phtml:97
+msgid "Categories"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:123
+#, fuzzy
+msgid "Please select any product"
+msgstr "Bitte wählen Sie eine Entfernung"
+
+#: application/modules/admin/views/scripts/product/index.phtml:124
+#: application/modules/admin/views/scripts/product/index.phtml:125
+#, fuzzy
+msgid "Selected Action"
+msgstr "Wählen Citylage"
+
+#: application/modules/admin/views/scripts/product/index.phtml:127
+msgid "Are you sure to activate the selected products"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:128
+msgid "Activate Selected"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:130
+msgid "Are you sure to inactivate the selected products"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:131
+msgid "Inactivate Selected"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:133
+msgid "Are you sure to delete the selected products"
+msgstr ""
+
+#: application/modules/admin/views/scripts/product/index.phtml:134
+msgid "Delete Selected"
+msgstr ""
+
+#: application/modules/admin/views/scripts/report/index.phtml:63
+msgid "This module is under developement"
+msgstr ""
+
+#: application/modules/admin/views/scripts/user/edit.phtml:73
+msgid "First Name"
+msgstr "Vorname"
+
+#: application/modules/admin/views/scripts/user/edit.phtml:75
+msgid "Last Name"
+msgstr "Nachname"
+
+#: application/modules/admin/views/scripts/user/edit.phtml:88
+msgid "Email"
+msgstr "Email"
+
+#: application/modules/admin/views/scripts/user/edit.phtml:107
+msgid "Save"
+msgstr "Sparen"
+
+#~ msgid "Valid disease name is required"
+#~ msgstr "Gültig Krankheit Name ist erforderlich"
+
+#~ msgid "Disease Details are required"
+#~ msgstr "Disease Angaben sind erforderlich"
+
+#~ msgid "Valid banner url is required"
+#~ msgstr "Gültig Banner URL ist erforderlich"
+
+#~ msgid "Valid to age is required"
+#~ msgstr "Gültig Banner URL ist erforderlich"
+
+#~ msgid "From Age should be numeric and greater than zero"
+#~ msgstr "Vom Alter sollte numerisch sein und größer als Null"
+
+#~ msgid "From Age should be  greater than zero"
+#~ msgstr "Vom Alter sollte größer als Null"
+
+#~ msgid "To Age should be numeric and greater than zero"
+#~ msgstr "Zum Alter sollte numerische und größer als Null"
+
+#~ msgid "To Age should be  greater than from age"
+#~ msgstr "To Age should be  greater than from age"
+
+#~ msgid "Valid start date is required"
+#~ msgstr "Gültig Starttermin ist erforderlich"
+
+#~ msgid "Valid end date is required"
+#~ msgstr "Gültig Enddatum ist erforderlich"
+
+#~ msgid "Valid Country is required"
+#~ msgstr "GültigLand erforderlich ist"
+
+#~ msgid "There is no such zipcode against selected country"
+#~ msgstr "Es gibt keine solche PLZ gegen ausgewählte Land"
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "Male"
+#~ msgstr "Männlich"
+
+#~ msgid "Female"
+#~ msgstr "Weiblich"
+
+#~ msgid "With No Partner"
+#~ msgstr "Ohne Partner"
+
+#~ msgid "With Partner"
+#~ msgstr "Mit Partner"
+
+#~ msgid "With No Children"
+#~ msgstr "Ohne Kinder"
+
+#~ msgid "With Children"
+#~ msgstr "Mit Kindern"
+
+#~ msgid "Valid Content is required"
+#~ msgstr "Gültigen Inhalt ist erforderlich"
+
+#~ msgid "Select banner Postion"
+#~ msgstr "Wählen Banner Position"
+
+#~ msgid "Top"
+#~ msgstr "Top"
+
+#~ msgid "Right"
+#~ msgstr "Recht"
+
+#~ msgid "Header"
+#~ msgstr "Kopfzeile"
+
+#~ msgid "Welcome Content"
+#~ msgstr "Willkommen Inhalt"
+
+#~ msgid "Valid banner position is required"
+#~ msgstr "Gültig Banner Position ist erforderlich"
+
+#~ msgid "Select Banner Page"
+#~ msgstr "Wählen Banner Page"
+
+#~ msgid "Home Page"
+#~ msgstr "Home Page"
+
+#~ msgid "Event Category Page"
+#~ msgstr "Kategorie Event Page"
+
+#~ msgid "Event Listing Page"
+#~ msgstr "Veranstaltung Auflistung Seite"
+
+#~ msgid "ProfilePage"
+#~ msgstr "Profil Seite"
+
+#~ msgid "Messages Page"
+#~ msgstr "Nachrichten Seite"
+
+#~ msgid "Dashboard Page"
+#~ msgstr "Dashboard Seite"
+
+#~ msgid "Memeber Page"
+#~ msgstr "Mitglied  Seite"
+
+#~ msgid "Valid banner page is required"
+#~ msgstr "Gültig Banner-Seite erforderlich ist"
+
+#~ msgid "Valid Filter text is required"
+#~ msgstr "Gültig Filter Text erforderlich ist"
+
+#, fuzzy
+#~ msgid "Herr"
+#~ msgstr "Kopfzeile"
+
+#, fuzzy
+#~ msgid "address is required"
+#~ msgstr "Gültige E-Mail ist erforderlich"
+
+#~ msgid "Email already exists"
+#~ msgstr "E-Mail ist bereits vorhanden"
+
+#, fuzzy
+#~ msgid "Ticket tyme is required"
+#~ msgstr "Valid Benutzer Typ ist erforderlich"
+
+#~ msgid "Valid tip text is required"
+#~ msgstr "Gültig Spitze Text erforderlich ist"
+
+#~ msgid "Valid tip link is required"
+#~ msgstr "Gültig Tipp Link ist erforderlich"
+
+#~ msgid "Valid Amazon ISBN is required"
+#~ msgstr "Gültig Amazon ISBN erforderlich ist"
+
+#~ msgid "Valid amazon book link is required"
+#~ msgstr "Gültig Amazon Buch Link ist erforderlich"
+
+#~ msgid "Valid Password is required"
+#~ msgstr "Gültiges Passwort ist erforderlich"
+
+#~ msgid "Valid Confirm Password is required"
+#~ msgstr "Gültig bestätigen Passwort ist erforderlich"
+
+#~ msgid "Valid User type is required"
+#~ msgstr "Valid Benutzer Typ ist erforderlich"
+
+#~ msgid "Valid Status is required"
+#~ msgstr "Gültig Status erforderlich ist"
+
+#~ msgid "Valid Username is required"
+#~ msgstr "Gültiger Benutzername ist erforderlich"
+
+#~ msgid "Username already exists"
+#~ msgstr "Benutzername existiert bereits"
+
+#~ msgid "Description is required and can't be empty"
+#~ msgstr "Beschreibung ist erforderlich und kann nicht leer sein"
+
+#~ msgid "Settings"
+#~ msgstr "Einstellungen"
+
+#~ msgid "Disease Management"
+#~ msgstr "Krankheit  Management"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
+
+#~ msgid "Edit Disease"
+#~ msgstr "Bearbeiten Krankheit"
+
+#, fuzzy
+#~ msgid "Submission Management"
+#~ msgstr "Tipps Management"
+
+#~ msgid "Add Tips"
+#~ msgstr "Hinzufügen Tipps"
+
+#~ msgid "Users Management"
+#~ msgstr "Benutzer Management"
+
+#~ msgid "Valid Event Cost is required"
+#~ msgstr "Valid Event Kosten erforderlich ist"
+
+#, fuzzy
+#~ msgid "Passwort ändern"
+#~ msgstr "Kennwort"
+
+#~ msgid "View Profile"
+#~ msgstr "Profil anzeigen"
+
+#~ msgid "Shop"
+#~ msgstr "Laden"
+
+#~ msgid "Login | Anmeldung"
+#~ msgstr "Login | Anmeldung"
+
+#~ msgid "User Login"
+#~ msgstr "Benutzer Login"
+
+#~ msgid "Noch kein Mitglied?"
+#~ msgstr "Noch kein Mitglied?"
+
+#~ msgid "Willkommen"
+#~ msgstr "Willkommen"
+
+#~ msgid "Hallo"
+#~ msgstr "Hallo"
+
+#~ msgid " Upgrade"
+#~ msgstr " Upgrade"
+
+#~ msgid "Statistik"
+#~ msgstr "Statistik"
+
+#~ msgid "Total No. of Users"
+#~ msgstr "Total Anzahl der Benutzer"
+
+#~ msgid "Women"
+#~ msgstr "Frauen"
+
+#~ msgid "Men"
+#~ msgstr "Men"
+
+#~ msgid "New Users"
+#~ msgstr "Neue Benutzer"
+
+#~ msgid "Search Our Website"
+#~ msgstr "Suche auf unserer Webseite"
+
+#~ msgid "Disease Name"
+#~ msgstr "Disease Name"
+
+#~ msgid "Approval Status"
+#~ msgstr "Genehmigungs status"
+
+#~ msgid "Meta Tags"
+#~ msgstr "Meta Tags"
+
+#, fuzzy
+#~ msgid "Meta Desc"
+#~ msgstr "Meta Tags"
+
+#~ msgid "Approved By"
+#~ msgstr "Genehmigt durch"
+
+#~ msgid "Diagnose"
+#~ msgstr "Diagnostizieren"
+
+#~ msgid "Tips"
+#~ msgstr "Tipps"
+
+#~ msgid "Results per page"
+#~ msgstr "Ergebnisse pro Seite"
+
+#, fuzzy
+#~ msgid "Passwort vergessen?"
+#~ msgstr "Kennwort"
+
+#, fuzzy
+#~ msgid "E-Mail"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "Subsribed to Information"
+#~ msgstr "Bearbeiten Partner Information"
+
+#~ msgid "Tip Type"
+#~ msgstr "Tip Typ"
+
+#~ msgid "Tip Text"
+#~ msgstr "Tipp Text"
+
+#~ msgid "Tip Link"
+#~ msgstr "Tipp Link"
+
+#~ msgid "Book Title"
+#~ msgstr "Titel des Buches"
+
+#~ msgid "Book Image"
+#~ msgstr "Buchen Image"
+
+#~ msgid "Amazon Buy Link"
+#~ msgstr "Amazon kaufen Link"
+
+#, fuzzy
+#~ msgid "Amazon ISBN"
+#~ msgstr "Amazon kaufen Link"
+
+#~ msgid "View"
+#~ msgstr "Blick"
+
+#~ msgid "Add Tip"
+#~ msgstr "Hinzufügen Tipp"
+
+#~ msgid "Tip link"
+#~ msgstr "Tipp Link"
+
+#~ msgid "Tip Book Title"
+#~ msgstr "Tipp Buch Title"
+
+#~ msgid "Tip Status"
+#~ msgstr "Tipp Status"
+
+#~ msgid "Book Tip"
+#~ msgstr "Buch Tipp"
+
+#~ msgid "User Type"
+#~ msgstr "Benutzer  Typ"
+
+#~ msgid "Event Cost"
+#~ msgstr "Veranstaltung Kosten"
+
+#~ msgid "Role"
+#~ msgstr "Rolle"
+
+#~ msgid "Edit Partner Information"
+#~ msgstr "Bearbeiten Partner Information"
+
+#~ msgid "Edit User Information"
+#~ msgstr "Bearbeiten Benutzer  Information"
+
+#~ msgid "Cost Per Event"
+#~ msgstr "Kosten pro Veranstaltung"
+
+#~ msgid "Total event"
+#~ msgstr "Total Veranstaltung"
+
+#~ msgid "Comments"
+#~ msgstr "Kommentare"
+
+#~ msgid "Events"
+#~ msgstr "Veranstaltungen"
+
+#~ msgid "Add Remarks"
+#~ msgstr "Bemerkungen hinzufügen"
+
+#~ msgid "Remarks"
+#~ msgstr "Erläuterungen"
+
+#~ msgid "Time"
+#~ msgstr "Zeit"
+
+#~ msgid "No Record Added Yet"
+#~ msgstr "Kein Eintrag hinzugefügt Doch"
+
+#~ msgid "Event Name"
+#~ msgstr "Name der Veranstaltung"
+
+#~ msgid "Location"
+#~ msgstr "Standort"
+
+#~ msgid "City"
+#~ msgstr "City"
+
+#~ msgid "Event Type"
+#~ msgstr "Ereignistyp"
+
+#~ msgid "Reminders"
+#~ msgstr "Reminders"
+
+#~ msgid "Manage Events"
+#~ msgstr "Verwalten von Events"
+
+#~ msgid "Internal"
+#~ msgstr "Intern"
+
+#~ msgid "External"
+#~ msgstr "Extern"
+
+#~ msgid "gesundheitslexikon password recovery"
+#~ msgstr "gesundheitslexikon password recovery"
+
+#~ msgid "Recover Paaword"
+#~ msgstr "Recover Paaword"
+
+#~ msgid "User initial name already exists"
+#~ msgstr "User ursprünglichen Namen existiert bereits"

@@ -1,0 +1,138 @@
+@charset "utf-8";
+.lexikon {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #333 !important;
+}
+
+.lexikon a:link {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #069 !important;
+	text-decoration:none;
+	border-bottom: 1px dashed #069;
+	
+}
+.lexikon ul,li {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #333 !important;
+	
+}
+.lexikon a:visited {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #069 !important;
+	text-decoration:none;
+	border-bottom: 1px dashed #069;
+}
+
+.lexikon a:hover {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #F60 !important;
+	text-decoration:none;
+	border-bottom: 1px dashed #069;}
+
+.lexikonimg {
+	border: 1px solid #999;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.navimg {
+	margin-right: 5px;
+}
+
+h1 {
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif !important;
+	font-size:24px;
+	color:#069;
+}
+h2 {
+	font-size:16px;
+	color:#069;
+}
+
+h3 {
+	font-size:13px;
+	font-weight:bold;
+	color:#069;
+	line-height:normal;
+	display:inline;
+}
+
+.lexikonnavi {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #333 !important;
+}
+
+.lexikonnavi a:link {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	text-decoration:none;
+	color:#069 !important;
+	border-bottom: none;
+}
+
+.lexikonnavi a:visited {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	text-decoration:none;
+	color:#069;
+}
+
+.lexikonnavi a:hover {
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	text-decoration:underline;
+	color:#F60;
+}
+
+.lexikon-navi-top {
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 14px;
+	color:#FFF;
+	background-color:#069;
+	border-bottom: 1px solid #999;
+}
+.navitab {
+	border: 1px solid #999;
+}
+
+.topellusion {
+	border-bottom: 1px solid #999;
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #333;
+}
+
+
+.bottomellusion {
+	border-top: 1px solid #999;
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	color: #333;
+}
+
+.lexikon li {
+	list-style-image: url(../images/subdot.jpg) !important;
+	color:#333;
+}
+.clr{ clear:both;
+}
+
+.pagination a{
+	text-decoration:none;
+	color:#006699;
+	font-family:Arial,Helvetica,sans-serif !important;
+	font-size:12px !important;
+}
+.pagination .active {
+	text-decoration:none;
+	color:#006699;
+	font-family:Arial,Helvetica,sans-serif !important;
+	font-size:16px;
+}
