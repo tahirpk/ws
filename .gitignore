@@ -3,7 +3,7 @@ config/database.yml
 log/*.log
 
 public/system/*
-
+application/configs/*
 nbproject/*
 
 index/*
@@ -15,5 +15,6 @@ index/*
 *.DS_Store
 
 .DS_Store
+*.ini
 
 
