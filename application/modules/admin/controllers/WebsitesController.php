@@ -230,9 +230,6 @@ class Admin_WebsitesController extends Zend_Controller_Action
 					);
 					$webModel = new Application_Model_DbTable_Websites();
 					$webModel->save($data);
-					$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
-					$this->flashMessenger->addMessage('success');	
-					$this->flashMessenger->addMessage($this->translate->_("Website Added"));	
 					$this->_redirect("admin/websites");
 				}
 			}
