@@ -192,13 +192,10 @@ class Admin_WebsitesController extends Zend_Controller_Action
 	 * Delete the specific user data
 	 */
 	public function deleteAction(){
-	   global $db;
+	  
 	   $id = $this -> _request -> getParam('id');
-	   $ratingObj= new Application_Model_DbTable_Venue();
-	   $ratingObj -> deleteVenueByCat($id);
-	   $obj = new Application_Model_DbTable_Category();
-	   $obj -> deleteCategory($id);
-	   
+	   $obj = new Application_Model_DbTable_Websites();
+	   $obj -> deleteWebById($id);
 	   $this -> _redirect('/admin/websites');
 	  
 	}
