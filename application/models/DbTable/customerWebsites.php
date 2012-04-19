@@ -25,7 +25,6 @@ class Application_Model_DbTable_CustomerWebsites extends Zend_Db_Table_Abstract
 		return $this->insert($data);
 	}
 	
-	
 	/*****************
 	*
 	* This function is used in admin side to delete  record
@@ -37,6 +36,7 @@ class Application_Model_DbTable_CustomerWebsites extends Zend_Db_Table_Abstract
 		
 	  
 	  
+	 	  
 	 
 	
 	/*****************
@@ -49,6 +49,14 @@ class Application_Model_DbTable_CustomerWebsites extends Zend_Db_Table_Abstract
 		$results = $this->_db->select()->from($this -> _name, array('id','customerFid','webId'))->where("id=".$id)->query()->fetchAll();
 		return $results;
 	}
+	
+	public function getByCustomerId($id){
+		
+		global $db;
+		$results = $this->_db->select()->from($this -> _name, array('webId'))->where("customerFid=".$id)->query()->fetchAll();
+		return $results;
+	}
+	
 	
 	public function getCatlectures($id){
 		global $db;
@@ -77,15 +85,7 @@ class Application_Model_DbTable_CustomerWebsites extends Zend_Db_Table_Abstract
 		}
 	
 	
-	/*****************
-	*
-	* This function is used for newslist api to return total existing records
-	*****************/
-	public function getAudiostotal(){
-		
-		$results= $this->select()->from($this -> _name, array('total'=>'COUNT(*)'))->query()->fetchAll();
-		return $results[0]['total'];
-	}
+	
 
 	
 	

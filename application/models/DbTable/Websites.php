@@ -6,8 +6,7 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
     protected $_name = 'websites';
     
 		
-	
-	public function getCount(){
+		public function getCount(){
 	   $select = $this -> select();
 	   $select -> from ($this -> _name, 'COUNT(*) as num');
 	   return $this -> fetchRow($select) -> num;
@@ -25,6 +24,10 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 	
 	public function deleteWebById($id){
 	   
+	   $cwModel = new Application_Model_DbTable_customerWebsites();
+		$where = "webId = '".$id."'";
+		$result = $cwModel->deleteByWebidOrCustomerId($where);
+
 	   $this -> deletefile($id);	
 	   $this -> delete('id='.$id);
 	    
@@ -59,8 +62,7 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 					-> limit($per_page,$limit)
 		 			-> order('w.webTitle asc')->query()->fetchAll();
 					
-
-					return $results;
+     				return $results;
 		}
 		
 	public function getExistCount($cid){

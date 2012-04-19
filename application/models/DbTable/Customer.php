@@ -47,8 +47,9 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 	
 	public function deleteCustomer($id){
 	   // DELETE Websites OF Customer
-	  	$webModel = new Application_Model_DbTable_Websites();
-	    $webModel->deleteWebById($id);
+	    $cwModel = new Application_Model_DbTable_customerWebsites();
+		$where = "customerFid = '".$id."'";
+		$result = $cwModel->deleteByWebidOrCustomerId($where);
 	  // DELETE Customer
 	   $this -> delete('id='.$id);
 	    
@@ -57,17 +58,6 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 	
 	
 	
-	public function deletecustomerByWeb($id){
-		$venueModel = new Application_Model_DbTable_Venue();
-		$galleryModel = new Application_Model_DbTable_Gallery();
-			$where = "category = '".$id."'";
-			$result = $venueModel->fetchAll($where);
-			 foreach($result as $rst) {
-	   $galleryModel->deleteGalleryByVenue($rst['id']);
-			 }
-	   $this -> delete('category='.$id);
-	    
-	}
 	/*****************
 	*
 	* This function is used for Customer Detail
