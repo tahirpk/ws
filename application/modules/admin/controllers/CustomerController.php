@@ -184,11 +184,11 @@ class Admin_CustomerController extends Zend_Controller_Action
 	public function deleteAction(){
 	   global $db;
 	   $id = $this -> _request -> getParam('id');
-	   $venueModel = new Application_Model_DbTable_Customer();
-	   $venueModel->deleteCustomer($id);
-	   $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
-					$this->flashMessenger->addMessage('success');	
-					$this->flashMessenger->addMessage($this->translate->_("Customer Deleted"));	
+	   $cusModel= new Application_Model_DbTable_Customer();
+	   $cusModel->deleteCustomer($id);
+	    $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+		$this->flashMessenger->addMessage('success');	
+		$this->flashMessenger->addMessage($this->translate->_("Customer Deleted"));	
 	   $this -> _redirect('/admin/customer');
 	}
 	
@@ -221,6 +221,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
 			// for the websites assing to the customer
 			$cusWebModel = new Application_Model_DbTable_CustomerWebsites();
+			
 			$webModel = new Application_Model_DbTable_Websites();
 			$allseries=$webModel->getAllWebsites();
 			$this->view->seriesarray = $allseries;
@@ -291,15 +292,15 @@ class Admin_CustomerController extends Zend_Controller_Action
 								$mail->send($tr);*/
 								
 								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
-					$this->flashMessenger->addMessage('success');	
-					$this->flashMessenger->addMessage($this->translate->_("Customer successfully inserted"));	
+								$this->flashMessenger->addMessage('success');	
+								$this->flashMessenger->addMessage($this->translate->_("Customer successfully inserted"));	
 
 							}
 							else
 							{
 							$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
-					$this->flashMessenger->addMessage('success');	
-					$this->flashMessenger->addMessage($this->translate->_("Email is not sent to your customer or some thing is wrong"));	
+							$this->flashMessenger->addMessage('success');	
+							$this->flashMessenger->addMessage($this->translate->_("Email is not sent to your customer or some thing is wrong"));	
 							
 							//	$this->_redirect("admin/customer");
 							}
@@ -312,6 +313,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 	}
 		public function allwebpagingAction(){
 		 $page = $this -> _request -> getParam('id');
+		 $csid = $this -> _request -> getParam('csid');
 		 if(isset($_POST['catid'])){
 		 $catid =$_POST['catid'];
 		 if(!empty($catid) && $catid!=""){
@@ -327,7 +329,8 @@ class Admin_CustomerController extends Zend_Controller_Action
 		
 			
 		$obj = new Application_Model_DbTable_Websites();
-		
+		$cusWebModel = new Application_Model_DbTable_CustomerWebsites();
+		$customerWbs=$cusWebModel->getByCustomerId($csid);
 		$total =$obj->getExistCount($catid);
 		$totalpages=  ceil($total[0]['num'] / $perpage);
 		$results =$obj->getexistingLecPaginator($page,$perpage,$catid);
@@ -345,7 +348,11 @@ class Admin_CustomerController extends Zend_Controller_Action
 				foreach($results as $rst){
 					
 					$content=$content.' <tr class="autoWidth"><td >
-									<input type="checkbox" name="websites[]" value="'.$rst['id'].'"'; if(!empty($_POST["websites"]) &&$_POST["websites"]!="" ){ $exlecarr=explode(',',$_POST["websites"]); if(in_array($rst['id'],$exlecarr)){$content=$content."checked";}
+									<input type="checkbox" name="websites[]" value="'.$rst['id'].'"'; if(!empty($_POST["websites"]) &&$_POST["websites"]!="" ){ $exlecarr=explode(',',$_POST["websites"]);  if(in_array($rst['id'],$exlecarr)){$content=$content."checked";} else {
+									foreach($customerWbs as $rsWb){
+									  if($rsWb['webId']===$rst['id']){$content=$content."checked";}
+									  }
+									  }
 } $content=$content.' /> 
 									'.$rst['url'].' 
                             </td></tr>';
@@ -389,18 +396,28 @@ class Admin_CustomerController extends Zend_Controller_Action
 	   $this->view->placeholder('heading')->set($this->translate->_('Edit Customer'));
 			$this->view->placeholder('buttonCaption')->set($this->translate->_('Edit'));
 			$this->view->headTitle("Edit Customer");
-			
+			$this->view->csid = $id;
 			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/customer>'.$this->translate->_('Customer Management').'</a> &raquo; '.$this->translate->_('Edit');
 			
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
 			
+			// for the websites assing to the customer
+			$cusWebModel = new Application_Model_DbTable_CustomerWebsites();
+			$webModel = new Application_Model_DbTable_Websites();
+			$allseries=$webModel->getAllWebsites();
+			$customerWbs=$cusWebModel->getByCustomerId($id);
+			$this->view->alreadyCustomerWbs = $customerWbs;
+			$this->view->seriesarray = $allseries;
+			$results =$webModel->getexistingLecPaginator(1,8,0);
+			$total =$webModel->getExistCount(0);
+			$this->view->forCutomerWeb=$results;
+			$this->view->total=$total[0]['num'];
 			$form = new Admin_Form_EditCustomer(array('id' => $id));
 			$this->view->form = $form;
 			$id = $this->_request->getParam('id');
 			$customerModel = new Application_Model_DbTable_Customer();
 			$where = "id = '".$id."'";
 			$result = $customerModel->fetchRow($where);
-			
 			$array2Populate = array
 								(
 								   
@@ -446,14 +463,43 @@ class Admin_CustomerController extends Zend_Controller_Action
 					);
                     $customerModel = new Application_Model_DbTable_Customer();
 					$customerModel->save($data);
-					$this->_redirect("admin/customer");
+							
+								if(count($_POST['websites'])>0){
+										
+											for ($j=0; $j<count($_POST['websites']);$j++) {
+												if($cusWebModel->getCount("`webId` =".$_POST['websites'][$j]." AND `customerFid` =".$id)<1){
+												$data = array(
+															'webId' => $_POST['websites'][$j],
+															'customerFid' => $id,
+															
+														);
+														$cusWebModel->save($data);
+												}
+											}
+									}
+							
+								/*$customer_subject ='New customer confirmation';
+								$customer_body = 'Your customer is succfully created with some important information';
+								$mail = new Zend_Mail('utf-8');
+								$tr = new Zend_Mail_Transport_Smtp('stage1.uraan.net');
+								Zend_Mail::setDefaultTransport($tr);
+								$subject = $customer_subject;
+								$bodyText = $customer_body;
+								$mail->setFrom('tahir.pk@gmail.com','Tahir Khan');
+								$mail->addTo($customer_data['Email']);
+								$mail->setSubject($subject,'UTF-8',Zend_Mime::ENCODING_8BIT);
+								$mail->setBodyHtml($bodyText,'UTF-8',Zend_Mime::ENCODING_8BIT);
+								$mail->send($tr);*/
+								
+								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+								$this->flashMessenger->addMessage('success');	
+								$this->flashMessenger->addMessage($this->translate->_("Customer successfully inserted"));	
+								$this->_redirect("admin/customer");
 				}
 			}
 			
 			
 	}
-	
-	
 	
 	 /*****************************
 	 *

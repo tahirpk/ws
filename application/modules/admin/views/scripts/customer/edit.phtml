@@ -1,24 +1,12 @@
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
 
-
 <script type="text/javascript">
 
 	window.onload = function()
 	{
-		if(document.getElementById('body')) {
-			CKEDITOR.config.filebrowserBrowseUrl = '<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.html';
-			CKEDITOR.config.width  = '100%';
-			CKEDITOR.config.resize_enabled = false;
-			CKEDITOR.config.height = 300;
-			if(document.getElementById('body')) {
-				CKEDITOR.replace( 'body',  {
-					toolbar : 'Full',
-					language : 'de',
-					skin: 'v2'
-				});
-			}
-		}
+		
+		
 	}
 	
 	function back_to_listing()
@@ -121,18 +109,62 @@
                     <div class="clr"></div>
                     </fieldset>
                    <br />
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    <td width="50%"> <?php if(!empty($this->forCutomerWeb)){?>
+                    <fieldset>
+                    <legend><?php echo ('Select websites for customer')?>:</legend>
+                    <div id="pagination">
+                    <div style="height:270px; vertical-align:top; overflow:auto">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    <td class="navigatepage" style="text-align:right;">&lt;&lt;<a  href="javascript:void(0)"> Previous</a> &nbsp;&nbsp;<?php echo "1 of ".ceil(($this->total) / 8)." pages";?>&nbsp;&nbsp;<?php if(($this->total)>8){?><a href="javascript:void(0)" onclick="javascript:callajax(2);"> Next </a>  &gt;&gt;<?php }else{?> <a  href="javascript:void(0)">Next</a> &gt;&gt;<?php }?></td>
+                    </tr>
+                    </table><table width="100%" cellpadding="0" cellspacing="0">
                     
+                    <?php 
+					$i=0;
+                    foreach($this->forCutomerWeb as $rst) {
+						
+						
+						?>
+						<tr class="autoWidth"><td width="33%">
+						<input type="checkbox" name="websites[]" value="<?php print $rst['id']; ?>"
+                        <? foreach($this->alreadyCustomerWbs as $rsWb)
+						{ if($rsWb['webId']===$rst['id']) {?> checked="checked" <? } }?> />
+						<?php print $rst['url']; $i++; ?>
+						</td></tr>
+						<?php 
+						
+                    }
+                    ?>
+                                       
+                    </table>
+                    </div>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    <td class="navigatepage" style="text-align:right;">&lt;&lt;<a href="#"> Previous</a> &nbsp;&nbsp;<?php echo "1 of ".ceil(($this->total) / 10)." pages";?>&nbsp;&nbsp;<?php if(($this->total)>10){?><a href="#" onclick="javascript:callajax(2);"> Next </a>  &gt;&gt;<?php }else{?> <a  href="#">Next</a> &gt;&gt;<?php }?></td>
+                    </tr>
+                    </table> 
+                    <? // echo count($this->forCutomerWeb); echo '<br>'; echo count($this->alreadyCustomerWbs);?>
+                    </div>
+                    </fieldset>
+                    <?php }?></td>
+                    
+                    </tr>
+                    </table>
+                    <input type="hidden" name="lecturearrayval" id="lecturearrayval" value="" />
+                    <div class="btns">
+                        <input name="" type="submit" value="<?=$this->translate('Edit Customer')?>" />
+                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing();" />
+                    </div>
                     </td>
   </tr>
   
  
 </table>
                    
-                    <div class="btns">
                     
-                        <input name="" type="submit" value="<?=$this->placeholder('buttonCaption')?>" />
-                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing();" />
-                    </div>
                 </form>
                 </div>
                     
@@ -140,3 +172,75 @@
 		</td>
 	</tr>
 </table>
+<script type="text/javascript">
+var myData = "name=William Adama&alias=Husker&job=Commander of the Colonial Fleet";
+function callajax(id){ 
+var myCars=new Array();
+var webSel=new Array();
+var boxes = document.getElementsByName('websites[]');
+var lecturearr=document.getElementById('lecturearrayval');
+var j=0;
+var k=0;
+for (i = 0; i < boxes.length; i++){
+	
+	if(boxes[i].checked == true){
+		myCars[j]=boxes[i].value;
+		webSel[k]=boxes[i].value;
+		j++;
+		k++;
+      // concatval.value=concatval.value+","+boxes[i].value;
+	 //  alert(boxes[i].value);
+	   
+    }
+	}
+	if(myCars.length>0){
+	
+		if(lecturearr.value==""){
+			lecturearr.value=myCars.join(",");
+			}else{
+				lecturearr.value=lecturearr.value+','+myCars.join(",");
+				}
+		
+		}
+		
+		//for(k=0;k<webSel.length;k++)
+		//{
+			if(webSel.length>0){
+			
+			if(lecturearr.value==""){
+				lecturearr.value=webSel.join(",");
+			}else{
+				lecturearr.value=lecturearr.value+','+webSel.join(",");
+			}
+			
+			}
+		//}
+		//alert(webSel.join(","));
+
+
+
+				
+$.ajax({
+
+            type: "POST",
+
+            url: "<?php echo $this -> baseUrl()?>/admin/customer/allwebpaging/id/"+id+"/csid/<?=$this->csid?>",
+
+            data: "websites="+document.getElementById('lecturearrayval').value,
+            success: function(responseText) {
+				//alert(responseText);
+				$("pagination").html(responseText);
+				document.getElementById("pagination").innerHTML=responseText;
+            },
+
+            error: function() {
+
+                // alert("AJAX call an epic failure");
+
+            }
+
+        });
+
+        return false;
+}
+</script>

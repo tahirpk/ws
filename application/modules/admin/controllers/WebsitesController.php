@@ -192,10 +192,14 @@ class Admin_WebsitesController extends Zend_Controller_Action
 	 * Delete the specific user data
 	 */
 	public function deleteAction(){
-	  
+	   global $db;
 	   $id = $this -> _request -> getParam('id');
-	   $obj = new Application_Model_DbTable_Websites();
-	   $obj -> deleteWebById($id);
+	   $objWeb= new Application_Model_DbTable_Websites();
+	   $objWeb -> deleteWebById($id);
+	  
+	    $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+		$this->flashMessenger->addMessage('success');	
+		$this->flashMessenger->addMessage($this->translate->_("Website Deleted"));	   
 	   $this -> _redirect('/admin/websites');
 	  
 	}
@@ -230,6 +234,9 @@ class Admin_WebsitesController extends Zend_Controller_Action
 					);
 					$webModel = new Application_Model_DbTable_Websites();
 					$webModel->save($data);
+					$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+					$this->flashMessenger->addMessage('success');	
+					$this->flashMessenger->addMessage($this->translate->_("Website Added"));	
 					$this->_redirect("admin/websites");
 				}
 			}
