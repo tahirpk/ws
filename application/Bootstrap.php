@@ -45,18 +45,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		 
 	}
 
+        protected function _initResourceAutoloader()
+        {
+            $autoloader = new Zend_Loader_Autoloader_Resource(array(
+            'basePath'  => APPLICATION_PATH,
+            'namespace' => 'Application',
+            ));
+
+            $autoloader->addResourceType( 'model', 'models', 'Model');
+            return $autoloader;
+        }
+
+
    // locale method for admin
 	private function set_application_locale_admin($locale,$save=true)
 	{
 		$locale = 'en_PK'; 
 		$locale = new Zend_Locale($locale);
 		Zend_Locale_Format::setOptions(
-									array('locale' => 'en',
-										  'fix_date' => true,
-										  'format_type' => 'php'
-										  )
-									);
-	
+                array('locale' => 'en',
+                            'fix_date' => true,
+                            'format_type' => 'php'
+                            )
+                );
+
 		Zend_Registry::set('Zend_Locale', $locale);
 		$translate = new Zend_Translate('gettext','../language/'.$locale.'.mo',$locale);
 		Zend_Registry::set('Zend_Translate',$translate);

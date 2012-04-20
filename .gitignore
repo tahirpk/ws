@@ -8,13 +8,20 @@ nbproject/*
 
 index/*
 
-
-
+tests/*
+library/*
+nbproject/*
+public/*
+language/*
+docs/*
+db/*
+application/configs/*
+Bootsrtap1/*.php
 *.swp
 
 *.DS_Store
 
 .DS_Store
 
-
+*.ini
 

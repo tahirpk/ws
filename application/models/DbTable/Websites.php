@@ -6,7 +6,7 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
     protected $_name = 'websites';
     
 		
-		public function getCount(){
+	public function getCount(){
 	   $select = $this -> select();
 	   $select -> from ($this -> _name, 'COUNT(*) as num');
 	   return $this -> fetchRow($select) -> num;
