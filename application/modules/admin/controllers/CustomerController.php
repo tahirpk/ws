@@ -221,7 +221,6 @@ class Admin_CustomerController extends Zend_Controller_Action
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
 			// for the websites assing to the customer
 			$cusWebModel = new Application_Model_DbTable_CustomerWebsites();
-			
 			$webModel = new Application_Model_DbTable_Websites();
 			$allseries=$webModel->getAllWebsites();
 			$this->view->seriesarray = $allseries;
@@ -278,10 +277,18 @@ class Admin_CustomerController extends Zend_Controller_Action
 											}
 									}
 							
-								/*$customer_subject ='New customer confirmation';
-								$customer_body = 'Your customer is succfully created with some important information';
+								$customer_subject ='New customer confirmation';
+								$customer_body = 'You are succfully registerd with wsportal with some important information.<br>
+								your email:'.$customer_data['Email'].'<br>your password:'.$customer_data['Password'];
+								$config_mail = array(
+								'port' => 587,
+								'auth' => 'login',
+								'username' => 'tahirpk@gmail.com',
+								'password' => ''
+								);
+
 								$mail = new Zend_Mail('utf-8');
-								$tr = new Zend_Mail_Transport_Smtp('stage1.uraan.net');
+								$tr = new Zend_Mail_Transport_Smtp('localhost');
 								Zend_Mail::setDefaultTransport($tr);
 								$subject = $customer_subject;
 								$bodyText = $customer_body;
@@ -289,7 +296,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 								$mail->addTo($customer_data['Email']);
 								$mail->setSubject($subject,'UTF-8',Zend_Mime::ENCODING_8BIT);
 								$mail->setBodyHtml($bodyText,'UTF-8',Zend_Mime::ENCODING_8BIT);
-								$mail->send($tr);*/
+								$mail->send($tr);
 								
 								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 								$this->flashMessenger->addMessage('success');	
@@ -478,10 +485,18 @@ class Admin_CustomerController extends Zend_Controller_Action
 											}
 									}
 							
-								/*$customer_subject ='New customer confirmation';
-								$customer_body = 'Your customer is succfully created with some important information';
+								$customer_subject ='customer update confirmation by admin';
+								$customer_body = 'Your important information has updated.<br>
+								your email:'.$customer_data['Email'].'<br>your password:'.$customer_data['Password'];
+								$config_mail = array(
+								'port' => 587,
+								'auth' => 'login',
+								'username' => 'tahirpk@gmail.com',
+								'password' => ''
+								);
+
 								$mail = new Zend_Mail('utf-8');
-								$tr = new Zend_Mail_Transport_Smtp('stage1.uraan.net');
+								$tr = new Zend_Mail_Transport_Smtp('localhost');
 								Zend_Mail::setDefaultTransport($tr);
 								$subject = $customer_subject;
 								$bodyText = $customer_body;
@@ -489,7 +504,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 								$mail->addTo($customer_data['Email']);
 								$mail->setSubject($subject,'UTF-8',Zend_Mime::ENCODING_8BIT);
 								$mail->setBodyHtml($bodyText,'UTF-8',Zend_Mime::ENCODING_8BIT);
-								$mail->send($tr);*/
+								$mail->send($tr);
 								
 								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 								$this->flashMessenger->addMessage('success');	

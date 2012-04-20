@@ -1,0 +1,51 @@
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
+
+
+<script type="text/javascript">
+
+	window.onload = function()
+	{
+		
+	}
+	
+	function back_to_listing()
+	{
+		window.location = '<?=$this->baseUrl()?>/admin/brand';
+	}
+	
+</script>
+<link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
+<span id="temp_span" style="display:none" ></span>
+<table id="twoCols">
+	<tr>
+    	<td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+       	<td bgcolor="#e5e5e5" width="200" height="50">&nbsp;</td>
+        <td bgcolor="#ff9900">
+           	<table width="100%">
+               	<tr>
+                   	<td><h2><?=$this->placeholder('heading')?></h2></td>
+                    <td align="right"><a href="#" class="whiteLink"><strong></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+      	<td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr>
+    	<?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+           	<div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            <div id="eventListing">
+            
+                <div id="addEvent">
+               		<?php print $this->result['body']; ?>
+                </div>
+                    
+            </div>
+		</td>
+	</tr>
+</table>
