@@ -1,44 +1,43 @@
 <?php
 
-class Admin_WebsitesController extends Zend_Controller_Action
+class Admin_ReportsController extends Zend_Controller_Action
 {
 
     public function init()
     {
-       /* Initialize action controller here */
+        /* Initialize action controller here */
+		//$this -> _helper -> layout -> disableLayout();
+		//$this->_helper->layout->setLayout('frontend');
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity()) {
 			$this->_redirect('/admin/login/auth');
 		}
+			
+		
 		$this->translate = Zend_Registry::get('Zend_Translate');
 		$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
+
+   
 	
-	/**
-	 * list action
-	 * list of all websites data
-	 */
-    public function indexAction()
+	public function indexAction()
     {
+		
+		$breadCrumb =$this->translate->_('Reports Management');
 	
-		$session = new Zend_Session_Namespace('Link_Search');
-		$breadCrumb =$this->translate->_('Websites Management');
 		$this->view->placeholder('breadCrumb')->set($breadCrumb);
 		$adminPaginator = $this -> _helper -> getHelper('AdminPaginator');
-		$this -> view -> headTitle($this -> translate -> _('Websites Management'));
-		$customerId = $this->_request->getParam('id');
-		
-	
-		$searchform = new Admin_Form_SearchForm();
-		//$session->customerId=$customerId;	
-		
-		$this->view->customerId=$customerId;
+		$this -> view -> headTitle($this -> translate -> _('Reports Management'));
+		$webId = $this->_request->getParam('id');
+		$this->view->webId=$webId;
+		$searchform = new Admin_Form_ReportSearchForm();
+				
+		    $session = new Zend_Session_Namespace('report_search');
 
 			if(!$this->_request->isPost() && !isset($session->filter)) //second condition is if search is set an click next should not execute this code
-			{	
-				//echo $customerId=$_POST['customerId'];
-				$webModel = new Application_Model_DbTable_Websites();
-				$result = $webModel->getLinks(null,null,$customerId);
+			{		
+				$reportModel = new Application_Model_DbTable_Reports();
+				$result = $reportModel->getLinks(null,null,$webId);
 				$totalRecords = count($result);
 				$this->view->result = $result;
 				$paginator = Zend_Paginator::factory($result);
@@ -124,26 +123,27 @@ class Admin_WebsitesController extends Zend_Controller_Action
 					{
 						$session->order_by = 'DESC';
 					} 
-					 
+				
 				}
 				
 				//*************
 				//*** for the customer website search for sorting
 				//*************
 								
-				$customerId_set = $this->_request->getParam("customerId"); //Get column to apply sort through post
-					if($customerId_set != '')
-				{
-					$session->customerId_set = $customerId_set;  /// save the column in seesion 
+				 $webId_set = $this->_request->getParam("webId");  //Get column to apply sort through post
+					if($webId_set != '')
+				{   
+					$session->webId_set = $webId_set;  /// save the column in seesion 
 					$order_by = 'DESC';
-					//$this->view->customerId=$customerId_set;
+					
+					
 				} 
 				else
 				{
 					$order_by = 'DESC';
 				}
 				
-				if($session->customerId_set != '')
+				if($session->webId_set != '')
 				{
 					if($session->order_by == 'DESC')
 					{
@@ -155,10 +155,6 @@ class Admin_WebsitesController extends Zend_Controller_Action
 					} 
 					 
 				}
-				
-				//*************
-				//***
-				//*************
 				
 				
 				//************** Search Code*********************//
@@ -175,8 +171,8 @@ class Admin_WebsitesController extends Zend_Controller_Action
 				
 				if($this->_request->getParam("submitAction") == $this->translate->_("Reset"))
 				{
-					Zend_Session::namespaceUnset('Link_Search');
-					$this->_redirect("/admin/websites/");
+					Zend_Session::namespaceUnset('report_search');
+					$this->_redirect("/admin/reports/");
 				}
 				if($this->_request->getParam("submitAction") == $this->translate->_("Search") || isset($session->filter))
 				{
@@ -190,13 +186,23 @@ class Admin_WebsitesController extends Zend_Controller_Action
 						
 				$searchform->populate(array('filters' => $filter,'filterText' => $filterText));
 				
-				if($session->sort_col != '' && $session->order_by != '' || $session->customerId_set != '')
+				if($session->sort_col != '' && $session->order_by != '' || $session->webId_set != '')
 				{
 				 
 				  $sort_col = $session->sort_col;
 				  $order_by = $session->order_by;
-				  $customerId_set = $session->customerId_set;
-				  $paginator= $this->_performSort($sort_col,$order_by,$perPage,$customerId_set);
+				  $webId_set = $session->webId_set; 
+				  $paginator= $this->_performSort($sort_col,$order_by,$perPage,$webId_set);
+				  $this->view->result = $paginator;
+				}
+				
+				if($session->sort_col != '' && $session->order_by != '' && $session->webId_set != '')
+				{
+				 
+				  $sort_col = $session->sort_col;
+				  $order_by = $session->order_by;
+				  $webId_set = $session->webId_set; 
+				  $paginator= $this->_performSort($sort_col,$order_by,$perPage,$webId_set);
 				  $this->view->result = $paginator;
 				}
 				
@@ -217,105 +223,145 @@ class Admin_WebsitesController extends Zend_Controller_Action
 			$this->view->sort_col = $session->sort_col;	
 			$this->view->searchform = $searchform;
 		
-    }
-	
-	
-	/**
-	 * detail of website action
-	 * detail of the website data
-	 */
-	public function detailAction(){
-	    $this->view->placeholder('heading')->set($this->translate->_('More'));
-		$this->view->placeholder('buttonCaption')->set($this->translate->_('More'));
-		$this->view->headTitle("{$this->translate->_('iceage')} > {$this->translate->_('Category Managment')} > {$this->translate->_('More')}");
-        $this->view->placeholder('breadCrumb') -> set("{$this->translate->_('iceage')} > {$this->translate->_('Category Managment')} > {$this->translate->_('More')}");
-	    $id = $this->_request->getParam('id');
-	    $catModel = new Application_Model_DbTable_Category();
-		$this->view->result = $catModel->fetchRow("id = ".$id);
+    
 	}
 	
-	
-	/**
-	 * delete action
-	 * Delete the specific data
-	 */
+	// delete action
 	public function deleteAction(){
 	   global $db;
 	   $id = $this -> _request -> getParam('id');
-	   $objWeb= new Application_Model_DbTable_Websites();
-	   $objWeb -> deleteWebById($id);
-	  
+	   $obj= new Application_Model_DbTable_Reports();
+	   $obj -> deleteById($id);
 	    $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 		$this->flashMessenger->addMessage('success');	
-		$this->flashMessenger->addMessage($this->translate->_("Website Deleted"));	   
-	   $this -> _redirect('/admin/websites');
-	  
+		$this->flashMessenger->addMessage($this->translate->_("Report Deleted"));	
+	   $this -> _redirect('/admin/reports');
+	}
+	
+	
+	 /*****************************
+	 *
+	 * customer Details
+	 *
+	 *****************************/
+	public function detailAction(){
+	    $this->view->placeholder('heading')->set($this->translate->_('More'));
+		$this->view->placeholder('buttonCaption')->set($this->translate->_('More'));
+		$this->view->headTitle("{$this->translate->_('iceage')} > {$this->translate->_('Customer Managment')} > {$this->translate->_('More')}");
+        $this->view->placeholder('breadCrumb') -> set("{$this->translate->_('iceage')} > {$this->translate->_('Customer Managment')} > {$this->translate->_('More')}");
+	    $id = $this->_request->getParam('id');
+	    $catModel = new Application_Model_DbTable_Reports();
+		$this->view->result = $catModel->fetchRow("id = ".$id);
 	}
 	
 	 /*****************************
 	 *
-	 * Add website
+	 * Add customer
 	 *
 	 *****************************/
 	 public function addAction(){
-		 	
-			$this->view->placeholder('heading')->set($this->translate->_('Add Website'));
+	 
+	 		$this->view->webid = $this->_request->getParam('id');
+			$webid= $this->_request->getParam('id');
+			$this->view->placeholder('heading')->set($this->translate->_('Add Report'));
 			$this->view->placeholder('buttonCaption')->set($this->translate->_('Add'));
-			$this->view->headTitle("Add Website");	   
-			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/websites>'.$this->translate->_('Websites Management').'</a> &raquo; '.$this->translate->_('Add');
+			$this->view->headTitle("Add Report");	   
+			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/reports>'.$this->translate->_('Report Management').'</a> &raquo; '.$this->translate->_('Add');
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
-			
-			$form = new Admin_Form_AddWebsites();
-			
+			// for the websites assing to the customer
+	
+			$form = new Admin_Form_AddReports();
 			$this->view->form = $form;
-
+			
+			// includes model end
 			if($this->_request->isPost())
 			{
 				if($form->isValid($_POST))
 				{
-					$web_data = $form->getValues();
+					$originalFilename = pathinfo($form->filePdf->getFileName());
+				//	print_r($originalFilename);die();
+					$newFilename=time().'_'.$originalFilename['basename'];
+					$form->filePdf->addFilter('Rename', $newFilename);
+					
+					$report_data = $form->getValues();
+					$date = DateTime::createFromFormat('d-m-Y', $report_data['dateTime']);
+					
 					$data = array(
-  					    'webTitle' => $web_data['webTitle'],
-					    'url' => $web_data['url'],
-						'status' => $web_data['status'],
-						'filePdf' => 'frontend/webpdf/'.$web_data['filePdf'],
+						'dateTime'=> $date->format('Y-m-d'),
+						'webId' =>$webid,
+					   	'filePdf' => $newFilename,
+						'status' => $report_data['status']
 					);
-					$webModel = new Application_Model_DbTable_Websites();
-					$webModel->save($data);
-					$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
-					$this->flashMessenger->addMessage('success');	
-					$this->flashMessenger->addMessage($this->translate->_("Website Added"));	
-					$this->_redirect("admin/websites");
+					                 
+				 			$rpModel = new Application_Model_DbTable_Reports();
+							$rpModel->save($data);
+							$customer_insert_id= $rpModel->getAdapter()->lastInsertId();
+							if(!empty($customer_insert_id))
+							{
+							
+								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+								$this->flashMessenger->addMessage('success');	
+								$this->flashMessenger->addMessage($this->translate->_("Report successfully inserted"));	
+
+							}
+							else
+							{
+							$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+							$this->flashMessenger->addMessage('success');	
+							$this->flashMessenger->addMessage($this->translate->_("Somthing is wrong with your data"));	
+							
+								$this->_redirect("admin/reports/add/id/".$id);
+							}
+							
+							$this->_redirect("admin/reports");
+					
+					
 				}
 			}
 	}
-	 /*****************************
-	 *
-	 * Edit Websites
-	 *
-	 *****************************/
+
+		public function statusAction(){
+	    global $db;
+	    $id = $this -> _request -> getParam('id');
+	    $obj = new Application_Model_DbTable_Reports();
+		$reportData=$obj->getById($id); 
+		if(!empty($reportData) && $reportData==1)
+		$status=0;
+		else
+		$status=1;
+		$data = array(
+					    'id' => $id,
+						'status'=> $status,
+						
+					);
+					$obj->save($data);
+	   $this -> _redirect('/admin/reports');
+	}
 	
-	function editAction(){
+	public function editAction()
+	{
+			
 	
 	   $id = $this -> _request -> getParam('id');
-	   $this->view->placeholder('heading')->set($this->translate->_('Edit Website'));
+	   $this->view->placeholder('heading')->set($this->translate->_('Edit Report'));
 			$this->view->placeholder('buttonCaption')->set($this->translate->_('Edit'));
-			$this->view->headTitle("Edit Website");
+			$this->view->headTitle("Edit Report");
 			
-			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/websites>'.$this->translate->_('Website Management').'</a> &raquo; '.$this->translate->_('Edit');
+			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/reports>'.$this->translate->_('Report Management').'</a> &raquo; '.$this->translate->_('Edit');
 			
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
 			
-			$form = new Admin_Form_AddWebsites(array('id' => $id));
+			$form = new Admin_Form_AddReports(array('id' => $id));
 			$this->view->form = $form;
 			$id = $this->_request->getParam('id');
-			$webModel = new Application_Model_DbTable_Websites();
+			$reportModel = new Application_Model_DbTable_Reports();
 			$where = "id = '".$id."'";
-			$result = $webModel->fetchRow($where);
+			$result = $reportModel->fetchRow($where);
+			$this->view->webid=$result['webId'];
 			$array2Populate = array
 								(
-								    'webTitle'=> stripslashes($result['webTitle']),
-									'url'=> stripslashes($result['url']),
+								    'dateTime'=> stripslashes($result['dateTime']),
+									'webId'=> stripslashes($result['webId']),
 									'status' => $result['status'],
 									'filePdf' => $result['filePdf'],
 								);
@@ -329,19 +375,24 @@ class Admin_WebsitesController extends Zend_Controller_Action
 			{
 				if($form->isValid($_POST))
 				{
-					$web_data = $form->getValues();
-					
+					$report_data = $form->getValues();
+					$date = DateTime::createFromFormat('d-m-Y', $report_data['dateTime']);
 					$data = array(
 					    'id' => $id,
-						'webTitle' => $web_data['webTitle'],
-						'url' => $web_data['url'],
-						'status' => $web_data['status'],
+						'dateTime' => $date->format('Y-m-d'),
+						'filePdf' => $report_data['filePdf'],
+						'status' => $report_data['status'],
 					);
+					//if icon not updated then it will not required to upload icon again
 					
-					
-                    $webModel = new Application_Model_DbTable_Websites();
-					$webModel->save($data);
-					$this->_redirect("admin/websites");
+					if($form -> filePdf -> getFileName()){
+						// pdf needs to be updated
+						$reportModel -> deletefile($id);//delete the icon which already exists
+						$data['filePdf'] = 'frontend/frontend/webpdf/'.$report_data['filePdf'];
+					}
+				
+					$reportModel->save($data);
+					$this->_redirect("admin/reports");
 					
 					
 				}
@@ -349,20 +400,21 @@ class Admin_WebsitesController extends Zend_Controller_Action
 			}
 			
 			
-	}
 	
+	
+	}
 	
 	 /*****************************
 	 *
-	 *  Websites Sorting
+	 *  Customer Sorting
 	 *
 	 *****************************/	
 	
-	private function _performSort($sort_col,$order_by,$perPage,$customerId_set=null)
+	private function _performSort($sort_col,$order_by,$perPage,$webId_set)
 			{
-			$session = new Zend_Session_Namespace('Link_Search');
-			$linkModel = new Application_Model_DbTable_Websites();
-			$result = $linkModel->getLinks(null,null,$customerId_set);
+			$session = new Zend_Session_Namespace('Customer_Search');
+			$custModel = new Application_Model_DbTable_Reports();
+			$result = $custModel->getLinks(null,null,$webId_set);
 			$totalRecords = count($result);
 			$order = $sort_col.' '.$order_by;
 			if (isset($session->filter) && isset($session->filterText ))
@@ -370,11 +422,11 @@ class Admin_WebsitesController extends Zend_Controller_Action
 				$filterText = $session->filterText;
 				$filter = $session->filter;
 				$where = "$filter LIKE '%$filterText%'";
-				$result = $linkModel->getLinks($where,$order,$customerId_set);
+				$result = $custModel->getLinks($where,$order,$webId_set);
 			}
 			else
 			{
-				$result = $linkModel->getLinks(null,$order,$customerId_set);
+				$result = $custModel->getLinks(null,$order,$webId_set);
 			}	
 			$paginator = Zend_Paginator::factory($result);
 			$paginator->setPageRange(5); 
@@ -404,13 +456,13 @@ class Admin_WebsitesController extends Zend_Controller_Action
 			{
 			$filterText =  trim($filterText);
 			$filter =  trim($filter);
-			$session = new Zend_Session_Namespace('Link_Search');
-			$linkModel = new Application_Model_DbTable_Websites();
+			$session = new Zend_Session_Namespace('Customer_Search');
+			$custModel = new Application_Model_DbTable_Reports();
             $where ="$filter LIKE '%$filterText%'";
-			$result = $linkModel->getLinks($where,null);
+			$result = $custModel->getLinks($where,null);
 			$totalRecords = count($result);
 			
-			$result = $linkModel->getLinks($where,null);
+			$result = $custModel->getLinks($where,null);
 			$paginator = Zend_Paginator::factory($result);
 			$paginator->setPageRange(5); 
 			$paginator->setCurrentPageNumber($this->_getParam('page'));
@@ -439,10 +491,10 @@ class Admin_WebsitesController extends Zend_Controller_Action
 		
 	private function _index($perPage)
 		{
-			$session = new Zend_Session_Namespace('Link_Search');
-			$linkModel = new Application_Model_DbTable_Websites();
+			$session = new Zend_Session_Namespace('report_Search');
+			$custModel = new Application_Model_DbTable_Reports();
              $where ="";
-			$result = $linkModel->getLinks($where,null);
+			$result = $custModel->getLinks($where,null);
 			$totalRecords = count($result);
 			$this->view->result = $result;
 			
@@ -473,26 +525,6 @@ class Admin_WebsitesController extends Zend_Controller_Action
 		
 		// end for the sorting searching
 		
-	/**
-	 * status action
-	 * Change Status the specific data
-	 */
-	public function statusAction(){
-	   global $db;
-	   $id = $this -> _request -> getParam('id');
-	    $obj = new Application_Model_DbTable_Websites();
-	 	$rs=$obj->getWebID($id); 
-		if(!empty($rs) && $rs==1)
-		$status=0;
-		else
-		$status=1;
-		$data = array(
-					    'id' => $id,
-						'status'=> $status,
-						
-					);
-					$obj->save($data);
-	   $this -> _redirect('/admin/websites');
-	}
+	
 }
 

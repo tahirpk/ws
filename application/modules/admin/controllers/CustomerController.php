@@ -7,7 +7,7 @@ class Admin_CustomerController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
 		//$this -> _helper -> layout -> disableLayout();
-		//$this->_helper->layout->setLayout('frontend');
+		
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity()) {
 			$this->_redirect('/admin/login/auth');
@@ -19,7 +19,10 @@ class Admin_CustomerController extends Zend_Controller_Action
     }
 
    
-	
+	/**
+	 * list of the customer action
+	 * list of the customer data
+	 */
 	public function indexAction()
     {
 	   $breadCrumb =$this->translate->_('Customer Management');
@@ -27,7 +30,6 @@ class Admin_CustomerController extends Zend_Controller_Action
 		$this->view->placeholder('breadCrumb')->set($breadCrumb);
 		$adminPaginator = $this -> _helper -> getHelper('AdminPaginator');
 		$this -> view -> headTitle($this -> translate -> _('Customer Management'));
-		//$searchform = new forms_CustomerSearchForm();
 		$searchform = new Admin_Form_CustomerSearchForm();
 				
 		$session = new Zend_Session_Namespace('Customer_Search');
@@ -180,7 +182,10 @@ class Admin_CustomerController extends Zend_Controller_Action
 		
     }
 	
-	// delete action
+	/**
+	 * Delete action
+	 * 
+	 */
 	public function deleteAction(){
 	   global $db;
 	   $id = $this -> _request -> getParam('id');
@@ -276,6 +281,24 @@ class Admin_CustomerController extends Zend_Controller_Action
 												}
 											}
 									}
+									
+								// password and salt key
+								
+							list($usec,$sec) = explode(' ',microtime());
+							// Seed the random number generator with above timings
+							mt_srand((float) $sec + ((float) $usec * 1000000));
+				
+							// Generate hash using GLOBALS and PID
+							$key = sha1(uniqid(mt_rand(),true));
+							
+							$password_encode=hash('sha256',$customer_data['Password']);
+								
+							$data= array('id' => $customer_insert_id,
+												'salt_key' =>$key,
+												'Password' => $password_encode);
+												
+											
+								$customerModel->save($data);
 							
 								$customer_subject ='New customer confirmation';
 								$customer_body = 'You are succfully registerd with wsportal with some important information.<br>
@@ -318,6 +341,11 @@ class Admin_CustomerController extends Zend_Controller_Action
 				}
 			}
 	}
+	
+	/**
+	 * ajax paging of the customer websites action
+	 * 
+	 */
 		public function allwebpagingAction(){
 		 $page = $this -> _request -> getParam('id');
 		 $csid = $this -> _request -> getParam('csid');
@@ -378,7 +406,10 @@ class Admin_CustomerController extends Zend_Controller_Action
 			}
 			echo $content; die;
 		}
-
+		/**
+		* Status customer action
+		* 
+		*/
 		public function statusAction(){
 	    global $db;
 	    $id = $this -> _request -> getParam('id');
@@ -396,7 +427,10 @@ class Admin_CustomerController extends Zend_Controller_Action
 					$obj->save($data);
 	   $this -> _redirect('/admin/customer');
 	}
-	
+	/**
+	 * Edit the customer  action
+	 *
+	 */
 	public function editAction()
 	{
 	   $id = $this -> _request -> getParam('id');
@@ -470,7 +504,9 @@ class Admin_CustomerController extends Zend_Controller_Action
 					);
                     $customerModel = new Application_Model_DbTable_Customer();
 					$customerModel->save($data);
-							
+					//first delted the old relation 
+					$where_cusid = "customerFid = '".$id."'";
+					$cusWebModel->deleteByWebidOrCustomerId($where_cusid);
 								if(count($_POST['websites'])>0){
 										
 											for ($j=0; $j<count($_POST['websites']);$j++) {

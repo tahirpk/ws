@@ -6,10 +6,25 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
     protected $_name = 'websites';
     
 		
-	public function getCount(){
+		public function getCount(){
 	   $select = $this -> select();
 	   $select -> from ($this -> _name, 'COUNT(*) as num');
 	   return $this -> fetchRow($select) -> num;
+	}
+	
+	/*****************
+	*
+	* This function is used in admin side to return total record
+	*****************/
+	public function getCountCustomerWeb($customerId){
+	  // $select = $this -> select();
+	  // $select -> from ($this -> _name, 'COUNT(*) as num')->where($where);
+	  // $select = $this->_db->select()-> from(array('w' => 'websites'), 'COUNT(customerFid)')
+		//		->join(array('cw' => 'customer_websites'),'w.id=cw.webId and cw.customerFid='.$customerId)
+			//	-> where('status = 1');
+				$select='SELECT COUNT(customerFid) as num FROM `websites` AS `w` INNER JOIN `customer_websites` AS `cw` ON w.id=cw.webId and status=1 and cw.customerFid='.$customerId;
+	//  echo $select;die;
+	  return $this -> fetchRow($select) -> num;
 	}
 	// save
 	public function save($data){
@@ -98,7 +113,7 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 		return 0;
 	}
 	
-	public function getLinks($where=null,$orderby = '')
+	public function getLinks($where=null,$orderby = '',$customerId=null)
 		{
 
 							
@@ -111,7 +126,14 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 				$select->where($where);	
 				
 			}
-			
+			if($customerId != null)
+			{
+				$select = $this->_db->select()-> from(array('w' => 'websites'),array('w.id','w.webTitle','w.url','w.status'))
+				->join(array('cw' => 'customer_websites'),'w.id=cw.webId and cw.customerFid='.$customerId,array('cid' => 'id'));
+				
+				
+				//echo $select; die();
+			}
 			if ($orderby != null)
 			{
 				$select->order($orderby);
@@ -125,6 +147,27 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 			return $result;
 			
 		}
+		
+	public	function getCustomerWebData($customerId) {
+						$select = $this->_db->select()-> from(array('w' => 'websites'),array('w.id','w.webTitle','w.url'))
+						->joinLeft(array('cw' => 'customer_websites'),'w.id=cw.webId and cw.customerFid='.$customerId,array('cid' => 'id'))
+						-> where('status = 1')
+						->order('w.id ASC');
+						$result = $this->_db->fetchAll($select);
+						return $result;
+						
+		}	
+		
+		public function findName($id){
+				global $db;
+				$select = $db->select();
+				$select -> from('websites',array('webTitle','url'))
+				-> where('id=?',$id);
+				$stmt = $select->query();
+				$result = $stmt->fetch();
+				return $result;
+		}
+
 	
 	
 }

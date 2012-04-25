@@ -1,19 +1,19 @@
 <?php
 
-class admin_Form_EditCustomer extends Zend_Form
+class Application_Form_RegForm extends Zend_Form
 {
 
     public function init()
     {
         /* Form Elements & Other Definitions Here ... */
     }
-	
+	 
 	public function __construct($options = array()){
 	    parent::__construct($options);
 		
-		$exclude =array('field' => 'Email', 'value' => 0);
-		if(isset($options['Email'])){
-		   $exclude = array('field' => 'Email', 'value' => $options['Email']);
+		$exclude =array('field' => 'id', 'value' => 0);
+		if(isset($options['id'])){
+		   $exclude = array('field' => 'id', 'value' => $options['id']);
 		}
 		
 		$validator = new Zend_Validate_Db_NoRecordExists(array('table' => 'customers', 'field' => 'Email', 'exclude' => $exclude));
@@ -21,12 +21,21 @@ class admin_Form_EditCustomer extends Zend_Form
 		
 		
 		
-				
-		
 		$Email = new Zend_Form_Element_Text('Email');
-		$Email -> setRequired(true);
-		$Email ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
+		$new_validator = new Zend_Validate_NotEmpty();
+		$new_validator->setMessage($this->getView()->translate('Valid Email is required'));
+		
+		$new_validator1 = new Zend_Validate_EmailAddress();
+		$new_validator1->setMessage($this->getView()->translate('Valid email is required'));
+		
+		$Email->addFilter('StripTags')
+		//->addErrorMessage('Valid Email is required')		
+		->addFilter('StringTrim')
+		->setAutoInsertNotEmptyValidator(false)
+		->setRequired(true)
+		->addValidator($new_validator, true)
+		->addValidator($new_validator1, true)
+		->setDecorators(array('ViewHelper', 'Errors'));
 			  
 		$FirstName = new Zend_Form_Element_Text('FirstName');
 		$FirstName -> setRequired(true);
@@ -45,9 +54,16 @@ class admin_Form_EditCustomer extends Zend_Form
 			  
 		$Password = new Zend_Form_Element_Password('Password');
 		$Password -> setRequired(true);
+		$Password->addValidator('StringLength', false, array(4,15));
+		$Password->addErrorMessage('Please choose a password between 4-15 characters');
 		$Password ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  
+		$PasswordConfirm = new Zend_Form_Element_Password('PasswordConfirm');
+		$PasswordConfirm -> setRequired(true);
+		$PasswordConfirm->addValidator('Identical', true, array('token' => 'Password'));
+		$PasswordConfirm ->setDecorators(array('Errors','ViewHelper'))
+		      ->setValidators(array($validator));
 		
 		
 		$Country = new Zend_Form_Element_Select('Country');
@@ -100,7 +116,9 @@ class admin_Form_EditCustomer extends Zend_Form
 		$City ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 		
+	
 		
+	
 		//status
 		$status = new Zend_Form_Element_Select('status');
 		$status->addMultiOption(1, 'Active')	
@@ -110,7 +128,7 @@ class admin_Form_EditCustomer extends Zend_Form
 					  ->setSeparator("")	
 					  ->setDecorators(array('Errors','ViewHelper'));	
 		
-		$this -> addElements(array($FirstName, $LastName, $Email, $Password,$BusinessName, $PhoneNo, $FaxNo,$Address1,
+		$this -> addElements(array($FirstName, $LastName, $Email, $Password,$PasswordConfirm, $BusinessName, $PhoneNo, $FaxNo,$Address1,
 		$Address2, $PostalCode, $Country, $State, $City, $status));			  
 					  
 	}

@@ -21,12 +21,21 @@ class admin_Form_AddCustomer extends Zend_Form
 		
 		
 		
-				
-		
 		$Email = new Zend_Form_Element_Text('Email');
-		$Email -> setRequired(true);
-		$Email ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
+		$new_validator = new Zend_Validate_NotEmpty();
+		$new_validator->setMessage($this->getView()->translate('Valid Email is required'));
+		
+		$new_validator1 = new Zend_Validate_EmailAddress();
+		$new_validator1->setMessage($this->getView()->translate('Valid email is required'));
+		
+		$Email->addFilter('StripTags')
+		//->addErrorMessage('Valid Email is required')		
+		->addFilter('StringTrim')
+		->setAutoInsertNotEmptyValidator(false)
+		->setRequired(true)
+		->addValidator($new_validator, true)
+		->addValidator($new_validator1, true)
+		->setDecorators(array('ViewHelper', 'Errors'));
 			  
 		$FirstName = new Zend_Form_Element_Text('FirstName');
 		$FirstName -> setRequired(true);
@@ -59,7 +68,7 @@ class admin_Form_AddCustomer extends Zend_Form
 		
 		$Country = new Zend_Form_Element_Select('Country');
 		$table = new Application_Model_DbTable_Country();
-		$Country  -> setRequired(true)
+		$Country  -> setRequired(false)
 					-> setSeparator("")
 					-> setDecorators(array('Errors' => 'ViewHelper'));
 					
@@ -70,53 +79,46 @@ class admin_Form_AddCustomer extends Zend_Form
 		
 		
 		$PostalCode = new Zend_Form_Element_Text('PostalCode');
-		$PostalCode -> setRequired(true);
+		$PostalCode -> setRequired(false);
 		$PostalCode ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 		
 		$PhoneNo = new Zend_Form_Element_Text('PhoneNo');
-		$PhoneNo -> setRequired(true);
+		$PhoneNo -> setRequired(false);
 		$PhoneNo ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  
 		$FaxNo = new Zend_Form_Element_Text('FaxNo');
-		$FaxNo -> setRequired(true);
+		$FaxNo -> setRequired(false);
 		$FaxNo ->setDecorators(array('Errors','ViewHelper'))
 		      	->setValidators(array($validator));
 			  
 		$Address1 = new Zend_Form_Element_Text('Address1');
-		$Address1 -> setRequired(true);
+		$Address1 -> setRequired(false);
 		$Address1 ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  
 		
 		$Address2 = new Zend_Form_Element_Text('Address2');
-		$Address2 -> setRequired(true);
+		$Address2 -> setRequired(false);
 		$Address2 ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 		
 		
 		$State = new Zend_Form_Element_Text('State');
-		$State -> setRequired(true);
+		$State -> setRequired(false);
 		$State ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 		
 				
 		$City = new Zend_Form_Element_Text('City');
-		$City -> setRequired(true);
+		$City -> setRequired(false);
 		$City ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 		
-		$email = new Zend_Form_Element_Text('email');
-		$email -> setRequired(true);
-		$email ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
+	
 		
-		$BusinessName = new Zend_Form_Element_Text('BusinessName');
-		$BusinessName -> setRequired(true);
-		$BusinessName ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
-		
+	
 		//status
 		$status = new Zend_Form_Element_Select('status');
 		$status->addMultiOption(1, 'Active')	

@@ -1,5 +1,6 @@
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
+<link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
 
 
 <?
@@ -46,24 +47,30 @@
             <div id="eventListing">
             
                 <div id="addEvent">
-                <form name="adddisease" action="" method="post" enctype="multipart/form-data" >
+                <form name="addReport" action="" method="post" enctype="multipart/form-data" >
                    
-                    <? //=$this->form->parent_id?>
-                    <label><? //=$this->translate('Parent category')?></label>
-                    <?=$this->form->webTitle?>
-                    <label><?=$this->translate('Website Name')?>*</label>
+                  
+                    
+                   <? if(isset($this->eventDateTimeError) && $this->eventDateTimeError!=''){ echo '<div class= "errors"><ul><li>'.$this->eventDateTimeError.'</li></ul></div>';}?>
+                    <div class="event-help-text">
+					<?=$this->form->dateTime?>
+                    <label><?=$this->translate('Date')?>*</label>
+                    </div>
+					<script src="<?=$this->baseUrl()?>/application_data/common/js/CalendarControl2.js" language="javascript"></script>
+                    <script>
+						document.getElementById('CalendarControlIFrame').style.display = 'none';
+					</script>
                     <div class="clr"></div>
+                    
                    
-                    <?=$this->form->url?>
-                    <label><?=$this->translate('Website url')?>*</label>
+                     <?=$this->form->filePdf?>
+                    <label><?=$this->translate('Report')?>*</label>
                     <div class="clr"></div>
-                   
-                  <input type="hidden" name="status" id="status" value="1" />
-                   
+                   <input type="hidden" name="status" id="status" value="1" />
+                   <input type="hidden" name="webid" id="webid" value="<?=$this->webid?>" />
                     <div class="btns">
-                       
+                        <input name="" type="submit" value="<?=$this->translate('Save')?>" />
                         <input name="" type="button" value="<?=$this->translate('Cancel')?>" onclick="back_to_listing();" />
-                         <input name="" type="submit" value="<?=$this->translate('Save')?>" />
                     </div>
                 </form>
                 </div>

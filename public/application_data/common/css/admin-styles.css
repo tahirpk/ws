@@ -18,7 +18,7 @@ img {
 
 a {
 	color:#000;
-	text-decoration:none;
+	text-decoration:underline;
 }
 
 a:hover {
@@ -534,7 +534,7 @@ input {
 }
 
 #eventListing .listing tr:hover .edit-del a {
-	color:#83AE63;
+	color:#fff;
 }
 
 #eventListing .listing tr:hover .edit-del a:hover {

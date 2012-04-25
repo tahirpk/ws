@@ -1,10 +1,37 @@
+
+
+<div id="container">
+	<?
+	$errorMessage = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+	if(!empty($errorMessage))
+	{
+	 	if($errorMessage[0]!='fale')
+		{
+			if( $errorMessage[0]!='success')
+			{
+	?>
+	<div id="success-message" align="center">
+  		<?=$errorMessage[0]?>
+	</div>
+	<?		
+			}
+		}
+	}
+	?>
+<script language="javascript">	
+	$("#success-message").fadeOut(10000);  
+	//  $("#success-message").slideUp();  
+   	$("#success-message").fadeOut("slow", function() {  
+		$("#success-message").slideUp(); 
+	});  
+</script>
+
 <div id="header">
-    <h1><a href="<?=$this -> url(array('module' => 'admin','controller' => 'headmenu', 'action' => 'menu', 'mainmenu' => 'index', 'submenu' => '1'))?>">
-    <?=$this->translate('Wspider Web Portal')?></a></h1>
-    <!--<div class="language"><? //$this->getSelectedLanguage();?></div>-->
+    <h1>
+    <?=$this->translate('Wspider Web Portal')?></h1>
+   
     <div class="hdr-links">
-    <a href="<?=$this -> url(array('module' => 'admin','controller' => 'headmenu', 'action' => 'menu','mainmenu' => 'index', 'submenu' => '1'))?>">Home</a> |
     
-    <a href="<?=$this -> url(array('module' => 'admin','controller' => 'login','action' => 'logout'))?>">Logout</a> 
+    <a href="<?=$this->baseUrl()?>/admin/login/logout">Logout</a> 
     </div>
 </div>

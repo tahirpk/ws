@@ -12,15 +12,6 @@
 		document.customer_list.submit();
 	}
 	
-	function setActiveAction(val,dvId){
-		$.ajax({
-		  url: '<?=$this->baseUrl()?>/admin/websites/activeDactive/id='+val+'&dvId='+dvId,
-		  dataType: "html",
-		  success: function(data) {
-			$('#activeDactive'+dvId).html(data);
-		  }
-		});
-	}
 
 </script>
 <?
@@ -123,10 +114,12 @@
                             <td ><?php print $rst['FirstName']?></td>
                             <td ><?php print $rst['LastName']?></td>
                             <td ><?php print $rst['Email']?></td>
-                            <td ><div class="edit-del"> 
-                                <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'gallery', 'action' => 'index','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Urls')?></a>
+                            <td > <?  $objModel = new Application_Model_DbTable_CustomerWebsites();
+									  
+							?>
+                                <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'index','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Websites').' ('.$objModel->getCount($where="customerFid=".$rst['id']).')'?></a>
                                 
-                                </div></td>
+                                </td>
                             <td width="18%"><?php //print ($rst['Status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
                             <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'customer', 'action' => 'status','id' => $rst['id'], 'page' => $this -> page))?>','<?php echo ('Are you sure to change status?')?>')" ><?php if(!empty($rst['Status']) && $rst['Status']==1) echo 'Active'; else echo 'Inactive'; ?></a>
                             </td> 

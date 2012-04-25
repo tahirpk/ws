@@ -27,8 +27,24 @@
 <?
  $session = new Zend_Session_Namespace('Link_Search');
 ?>
-<form name="website_list" id="website_list" action="<?=$this->baseUrl()?>/admin/websites/" method="post">  
+  <?
+	if(isset($this->customerId) && !empty($this->customerId))
+	{
+		 $customerId=$this->customerId;
+	}
+	else
+	{  
+		 $customerId='';
+	}
+	
+	
+
+?>	    
+
+
+<form name="website_list" id="website_list" action="<?=$this->baseUrl()?>/admin/websites/index/" method="post">  
    	<input type="hidden" name="perPage" id="perPage" value="<?=$session->perPage?>" />
+    <input type="hidden" name="customerId" id="customerId" value="<?=$customerId?>" />
 </form>
 
 <table id="twoCols">
@@ -55,10 +71,12 @@
             <div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
             
             <div id="eventListing">
+           
           
-            	<form name="website_list_search" id="website_list_search" method="post" action="<?=$this->baseUrl()?>/admin/websites/">
+            	<form name="website_list_search" id="website_list_search" method="post" action="<?=$this->baseUrl()?>/admin/websites/index/">
                     <input type='hidden' name='sort_col' value='' id='sort_col'>
                     <input type="hidden" name="perPage" id="perPage" value="<?=$session->perPage?>" />
+                    <input type="hidden" name="customerId" id="customerId" value="<?=$customerId?>" />
                 <table class="pagination">
                     <tr>
                         <td align="right">
@@ -68,7 +86,16 @@
                 </table>
 				<table class="searchBy">
                     <tr>
-                        <td width="52%">&nbsp;</td>
+                        <td width="52%">&nbsp;<h3>
+							<?  
+							
+								$cusModel = new Application_Model_DbTable_Customer();
+								$dataCustomer=$cusModel->findName($customerId);
+								print $dataCustomer['FirstName'].' '.$dataCustomer['LastName'];
+								
+                            
+                            ?></h3>
+                        </td>
                         <td><?=$this->translate('Search By')?></td>
                         <td><?=$this->searchform->filters?></td>
                         <td><span id="val-input"><?=$this->searchform->filterText?></span></td>
@@ -83,11 +110,11 @@
                     <tr class="headings">
                     <th width=""><a href="#" class="link" onClick="sortColumn('id')"><?=$this->translate('ID')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'id'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
                                        
-                        <th width=""><a href="#" class="link" onClick="sortColumn('webTitle')"><?=$this->translate('Website Title')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webTitle'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                        <th width=""><a href="#" class="link" onClick="sortColumn('webTitle')"><?=$this->translate('Name')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webTitle'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
                        
  
-                    <th width=""><a href="#" class="link" onClick="sortColumn('url')"><?=$this->translate('Url')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'url'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
-                    <th>Report File</th>
+                    <th width=""><a href="#" class="link" onClick="sortColumn('url')"><?=$this->translate('Websites')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'url'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                    <th>Reports </th>
                         
                         <th><a href="#" class="link" onClick="sortColumn('status')"><?=$this->translate('Status')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'status'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
                     </tr>
@@ -106,35 +133,26 @@
                   <td >
                 
                   <?php print $rst['webTitle']; ?>
+                  <div class="edit-del"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a> | 
+                                <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'delete','id' => $rst['id'], 'page' => $this -> page))?>','<?=$this->translate('Are you sure to delete this?')?>')" ><?=$this->translate('Delete') ?></a></div>
                   </td> 
                             <td>
-                                
+                                  <a href="<?=$rst['url']?>" target="_blank" title="">                              
 									<?php print $rst['url']; ?>
+                                  </a>
                                 
-                            	<div class="edit-del"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a> | 
-                                <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'delete','id' => $rst['id'], 'page' => $this -> page))?>','<?=$this->translate('Are you sure to delete this?')?>')" ><?=$this->translate('Delete') ?></a></div>
+                            	
                             </td>
-							<td>
-								<? 
-                                $fullfilePath=$this->baseUrl().'/'.$rst['filePdf'];
-                                //echo  $fullfilePath = realpath(APPLICATION_PATH."/../public/frontend/webpdf") . '/' . $rst['filePdf'];				 
-                                if(file_exists($fullfilePath)){
-                                
-                                ?>
-                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_yes.jpg" />
-                                <? //=$this -> url(array('controller' => 'page', 'action' => 'show','id' => $rst['id'] ),'page')
-                                }else
-                                {
-                                ?>
-                                <!--<a href="#" onclick="window.open('<?=$fullfilePath?>', '_blank', 'fullscreen=yes'); return false;"> for download pdf file-->
-                                <a href="<?=$fullfilePath?>" target="_blank" title="">
-                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_no.jpg" />
-                                </a>
-                                <?
-                                }
-                                ?>
-                            </td>
-                            <!--<td ><?php print date('d M Y', $rst['Created']); ?></td> -->
+							
+                            <td >  
+                            <?  $objModel = new Application_Model_DbTable_Reports();
+									  
+							?>
+                            <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'add','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Add report')?></a>
+                            &nbsp;|&nbsp; <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'index','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
+                           
+							
+							<?php //print date('d M Y', $rst['Created']); ?></td>
                             <td width="18%" id="activeDactive<?=$rst['id']?>">
                           
 							<?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>

@@ -1,20 +1,19 @@
 <?php 
-	class admin_Form_SearchForm extends Zend_Form
+	class Admin_Form_ReportSearchForm extends Zend_Form
 	{
 		public function init()
 		{
 		
 			$filters = new Zend_Form_Element_Select('filters');
-			$filters->addMultiOption('webTitle',$this->getView()->translate('Name'))
-				   	->addMultiOption('url',$this->getView()->translate('URL'));
-			$filters->setAttrib('onchange','javascript:getDropDown(this.value)');		
-			
+			$filters->addMultiOption('dateTime',$this->getView()->translate('Date :yy-mm-dd'));
+				  
+			$filters->setAttrib('onchange','javascript:getDropDown(this.value)');	
+				
 			$filterText = new Zend_Form_Element_Text('filterText');
 			$filterText->addFilter('StripTags')
 					   ->addErrorMessage($this->getView()->translate('Valid Filter text is required'))
 					   ->addFilter('StringTrim')
 					   ->setDecorators(array('Errors','ViewHelper'));
-			
 			$perPage = new Zend_Form_Element_Select('perPage');
 			$perPage->addMultiOption('25', '25')
 					->addMultiOption('50', '50')

@@ -4,22 +4,7 @@
 
 <script type="text/javascript">
 
-	window.onload = function()
-	{
-		if(document.getElementById('body')) {
-			CKEDITOR.config.filebrowserBrowseUrl = '<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.html';
-			CKEDITOR.config.width  = '100%';
-			CKEDITOR.config.resize_enabled = false;
-			CKEDITOR.config.height = 300;
-			if(document.getElementById('body')) {
-				CKEDITOR.replace( 'body',  {
-					toolbar : 'Full',
-					language : 'de',
-					skin: 'v2'
-				});
-			}
-		}
-	}
+	
 	
 	function back_to_listing()
 	{
@@ -70,9 +55,7 @@
                     <div class="clr"></div>
                     <?php $rs = $this->res; ?>
                     
-                    <img src="<?=$this->baseUrl()?>/<?=$rs['filePdf']?>" alt="no image" />
-                    <?=$this->form->filePdf?>
-                    <label><?=$this->translate('Report')?>*</label>
+                  
                     <div class="clr"></div>
                    
                   

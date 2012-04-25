@@ -19,14 +19,14 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 	/**
      * find name of customer using it's name
      */
- public function find($id){
+ public function findName($id){
  		 global $db;
         $select = $db->select();
-        $select -> from('customers','FirstName')
+        $select -> from('customers',array('FirstName','LastName'))
    				 -> where('id=?',$id);
 		 $stmt = $select->query();
          $result = $stmt->fetch();
-		 return $result['FirstName'];
+		 return $result;
  }
 	
 	
@@ -47,7 +47,7 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 	
 	public function deleteCustomer($id){
 	   // DELETE Websites OF Customer
-	    $cwModel = new Application_Model_DbTable_CustomerWebsites();
+	    $cwModel = new Application_Model_DbTable_customerWebsites();
 		$where = "customerFid = '".$id."'";
 		$result = $cwModel->deleteByWebidOrCustomerId($where);
 	  // DELETE Customer
@@ -99,6 +99,22 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 			
 			return $result;
 			
+		}
+		
+		
+		// login customer
+		
+		function checkUserName($email)
+		{
+			global $db;
+			$select = $db->select()
+						->from($this->_name, array('id','FirstName','LastName','Email'))
+						->where("Email = '".$email."' AND Status = '1'");
+			$result = $db->fetchAll($select);
+			if(count($result)>0){
+				return true;
+			}
+			return false;		
 		}
 	
 }

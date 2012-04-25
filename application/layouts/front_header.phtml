@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<link href="<?=$this->baseUrl()?>/application_data/common/css/jquery.ui.all.css" rel="stylesheet" />
+<link href="<?=$this->baseUrl()?>/application_data/common/css/jquery.ui.selectmenu.css" rel="stylesheet" />
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.core.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.position.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.selectmenu.js"></script>
+
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/jquery-ui.min.js"></script>
+<script src="<?=$this->baseUrl()?>/application_data/common/js/common.js" language="javascript"></script>
+<script language="javascript" src="<?=$this->baseUrl()?>/application_data/common/js/image_pop/tool_tip_pointer.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/image_pop/wz_tooltip.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/jScrollPane/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/jScrollPane/jScrollPane-1.2.3.min.js"></script>
+
+<script>
+
+function makePopup (id) 
+	{
+			xval = 10;yval = 20;
+			var txt1 = "<table cellpadding='0' cellspacing='0' border='5' bordercolordark='#666666'  bordercolorlight='#999999'>";
+			txt1 += "<tr>";
+			txt1 +=	"<td><img src='"+id+"' width='100%' height='100%' /></td>";
+			txt1 +=	"</tr>";
+			txt1 +=	"</table>";
+			return txt1;
+	}
+	
+</script>
+<? echo $this->headTitle()?>
+
+<link rel="shortcut icon" href="<?=$this->baseUrl()?>/application_data/common/images/favicon.ico" type="image/x-icon" />
+<link href="<?=$this->baseUrl()?>/application_data/common/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="<?=$this->baseUrl()?>/application_data/common/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
+<link href="<?=$this->baseUrl()?>/application_data/common/css/nit-styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<?=$this->baseUrl()?>/js/jScrollPane/jScrollPane.css" />
+<link href="<?=$this->baseUrl()?>/application_data/common/css/rmap.css" rel="stylesheet" type="text/css" />
+ <link type="text/css" rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/src/jscal2.css" />
+<link type="text/css" rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/src/border-radius.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="description" />
+
+<body>
+<div id="container">
+<?
+	$errorMessage = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+	if(!empty($errorMessage))
+	{
+	 	if($errorMessage[0]!='fale')
+		{
+			if( $errorMessage[0]!='success')
+			{
+	?>
+	<div id="success-message" align="center">
+  		<?=$errorMessage[0]?>
+	</div>
+	<?		
+			}
+		}
+	}
+	?>
+<script language="javascript">	
+	$("#success-message").fadeOut(10000);  
+	//  $("#success-message").slideUp();  
+   	$("#success-message").fadeOut("slow", function() {  
+		$("#success-message").slideUp(); 
+	});  
+</script>

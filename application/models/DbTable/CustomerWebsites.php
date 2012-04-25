@@ -16,6 +16,10 @@ class Application_Model_DbTable_CustomerWebsites extends Zend_Db_Table_Abstract
 	  return $this -> fetchRow($select) -> num;
 	}
 	
+	
+	
+	
+
 	/*****************
 	*
 	* This function is used in admin side to add  record
