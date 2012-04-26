@@ -47,7 +47,7 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
 	
 	public function deleteCustomer($id){
 	   // DELETE Websites OF Customer
-	    $cwModel = new Application_Model_DbTable_customerWebsites();
+	    $cwModel = new Application_Model_DbTable_CustomerWebsites();
 		$where = "customerFid = '".$id."'";
 		$result = $cwModel->deleteByWebidOrCustomerId($where);
 	  // DELETE Customer
