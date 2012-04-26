@@ -2,7 +2,7 @@ config/database.yml
 
 log/*.log
 
-public/system/*
+public1/*
 
 nbproject/*
 
@@ -11,11 +11,12 @@ index/*
 tests/*
 library/*
 nbproject/*
-public/*
+
 language/*
 docs/*
 db/*
 application/configs/*
+application1/*
 Bootsrtap1/*.php
 *.swp
 
