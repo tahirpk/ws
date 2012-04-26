@@ -39,12 +39,11 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 	
 	public function deleteWebById($id){
 	   
-	   $cwModel = new Application_Model_DbTable_customerWebsites();
+	    $cwModel = new Application_Model_DbTable_CustomerWebsites();
 		$where = "webId = '".$id."'";
 		$result = $cwModel->deleteByWebidOrCustomerId($where);
-
-	   $this -> deletefile($id);	
-	   $this -> delete('id='.$id);
+	    $this -> deletefile($id);	
+	    $this -> delete('id='.$id);
 	    
 	}
 	
