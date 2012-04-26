@@ -7,7 +7,7 @@ class Admin_ReportsController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
 		//$this -> _helper -> layout -> disableLayout();
-		//$this->_helper->layout->setLayout('frontend');
+		
 		$auth = Zend_Auth::getInstance();
 		if (!$auth->hasIdentity()) {
 			$this->_redirect('/admin/login/auth');
@@ -268,9 +268,10 @@ class Admin_ReportsController extends Zend_Controller_Action
 			$this->view->headTitle("Add Report");	   
 			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/reports>'.$this->translate->_('Report Management').'</a> &raquo; '.$this->translate->_('Add');
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
-			// for the websites assing to the customer
-	
+		
 			$form = new Admin_Form_AddReports();
+                        
+                        
 			$this->view->form = $form;
 			
 			// includes model end
@@ -279,7 +280,7 @@ class Admin_ReportsController extends Zend_Controller_Action
 				if($form->isValid($_POST))
 				{
 					$originalFilename = pathinfo($form->filePdf->getFileName());
-				//	print_r($originalFilename);die();
+				
 					$newFilename=time().'_'.$originalFilename['basename'];
 					$form->filePdf->addFilter('Rename', $newFilename);
 					
@@ -375,12 +376,20 @@ class Admin_ReportsController extends Zend_Controller_Action
 			{
 				if($form->isValid($_POST))
 				{
+					if($form->filePdf->getFileName())
+					{
+						$originalFilename = pathinfo($form->filePdf->getFileName());
+						$newFilename=time().'_'.$originalFilename['basename'];
+						$form->filePdf->addFilter('Rename', $newFilename);
+					}else
+					$newFilename=$result['filePdf'];
 					$report_data = $form->getValues();
 					$date = DateTime::createFromFormat('d-m-Y', $report_data['dateTime']);
+					//$nw_date;//date->format('Y-m-d');
 					$data = array(
 					    'id' => $id,
-						'dateTime' => $date->format('Y-m-d'),
-						'filePdf' => $report_data['filePdf'],
+						'dateTime' => $report_data['dateTime'],
+						'filePdf' => $newFilename,
 						'status' => $report_data['status'],
 					);
 					//if icon not updated then it will not required to upload icon again
@@ -388,7 +397,7 @@ class Admin_ReportsController extends Zend_Controller_Action
 					if($form -> filePdf -> getFileName()){
 						// pdf needs to be updated
 						$reportModel -> deletefile($id);//delete the icon which already exists
-						$data['filePdf'] = 'frontend/frontend/webpdf/'.$report_data['filePdf'];
+						$data['filePdf'] = $newFilename;
 					}
 				
 					$reportModel->save($data);
