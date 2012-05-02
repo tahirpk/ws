@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 03, 2012 at 01:57 AM
+-- Generation Time: May 03, 2012 at 02:07 AM
 -- Server version: 5.1.61
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `bl_countries_states`
 --
 
+DROP TABLE IF EXISTS `bl_countries_states`;
 CREATE TABLE IF NOT EXISTS `bl_countries_states` (
   `country_sate_id` int(11) NOT NULL AUTO_INCREMENT,
   `state_name` varchar(150) NOT NULL,
@@ -524,6 +525,7 @@ INSERT INTO `bl_countries_states` (`country_sate_id`, `state_name`, `state_count
 -- Table structure for table `business`
 --
 
+DROP TABLE IF EXISTS `business`;
 CREATE TABLE IF NOT EXISTS `business` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `businessName` varchar(200) NOT NULL,
@@ -548,6 +550,7 @@ INSERT INTO `business` (`id`, `businessName`, `createdAt`, `status`) VALUES
 -- Table structure for table `country`
 --
 
+DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
   `iso` char(2) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
@@ -808,6 +811,7 @@ INSERT INTO `country` (`iso`, `name`, `printable_name`, `iso3`, `numcode`) VALUE
 -- Table structure for table `customers`
 --
 
+DROP TABLE IF EXISTS `customers`;
 CREATE TABLE IF NOT EXISTS `customers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(150) CHARACTER SET utf8 DEFAULT NULL,
@@ -848,6 +852,7 @@ INSERT INTO `customers` (`id`, `FirstName`, `LastName`, `Email`, `Password`, `Pa
 -- Table structure for table `customer_websites`
 --
 
+DROP TABLE IF EXISTS `customer_websites`;
 CREATE TABLE IF NOT EXISTS `customer_websites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customerFid` int(11) NOT NULL,
@@ -875,6 +880,7 @@ INSERT INTO `customer_websites` (`id`, `customerFid`, `webId`) VALUES
 -- Table structure for table `iso_countries`
 --
 
+DROP TABLE IF EXISTS `iso_countries`;
 CREATE TABLE IF NOT EXISTS `iso_countries` (
   `rowId` int(11) NOT NULL,
   `countryId` int(11) NOT NULL,
@@ -1182,6 +1188,7 @@ INSERT INTO `iso_countries` (`rowId`, `countryId`, `locale`, `countryCode`, `cou
 -- Table structure for table `menu`
 --
 
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(255) CHARACTER SET latin1 NOT NULL,
@@ -1215,6 +1222,7 @@ INSERT INTO `menu` (`id`, `menu_name`, `menu_status`, `event_id`, `p_id`, `menu_
 -- Table structure for table `modules`
 --
 
+DROP TABLE IF EXISTS `modules`;
 CREATE TABLE IF NOT EXISTS `modules` (
   `modules_id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL,
@@ -1251,6 +1259,7 @@ INSERT INTO `modules` (`modules_id`, `parent_id`, `modules_name`, `modules_statu
 -- Table structure for table `reports`
 --
 
+DROP TABLE IF EXISTS `reports`;
 CREATE TABLE IF NOT EXISTS `reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `webId` int(11) NOT NULL,
@@ -1276,6 +1285,7 @@ INSERT INTO `reports` (`id`, `webId`, `dateTime`, `filePdf`, `createdAt`, `statu
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1307,6 +1317,7 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `user_initial`, `phone`, `mobile`, 
 -- Table structure for table `websites`
 --
 
+DROP TABLE IF EXISTS `websites`;
 CREATE TABLE IF NOT EXISTS `websites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `businessId` int(11) NOT NULL,
