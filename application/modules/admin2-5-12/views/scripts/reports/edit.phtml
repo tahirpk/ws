@@ -1,0 +1,81 @@
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/js/ckfinder/ckfinder.js"></script>
+<link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
+
+
+<?
+	//$_SESSION['CKFinder_UserRole'] ='admin';
+?>
+<script type="text/javascript">
+
+	window.onload = function()
+	{
+		
+		
+	}
+	
+	function back_to_listing()
+	{
+		window.location = '<?=$this->baseUrl()?>/admin/websites/index/';
+	}
+	
+</script>
+<link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
+<span id="temp_span" style="display:none" ></span>
+<table id="twoCols">
+	<tr>
+    	<td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+       	<td bgcolor="#eae2c9" width="200" height="50">&nbsp;</td>
+        <td bgcolor="#eae2c9">
+           	<table width="100%">
+               	<tr>
+                   	<td><h2><?=$this->placeholder('heading')?></h2></td>
+                    <td align="right"><a href="#" class="whiteLink"><strong></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+      	<td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr style="background:#fff;">
+    	<?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+           	<div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            <div id="eventListing">
+            
+                <div id="addEvent">
+                <form name="addReport" action="" method="post" enctype="multipart/form-data" >
+                   
+                  
+                    
+                   <? if(isset($this->eventDateTimeError) && $this->eventDateTimeError!=''){ echo '<div class= "errors"><ul><li>'.$this->eventDateTimeError.'</li></ul></div>';}?>
+                    <div class="event-help-text">
+					<?=$this->form->dateTime?>
+                    <label><?=$this->translate('Date')?>*</label>
+                    </div>
+					<script src="<?=$this->baseUrl()?>/application_data/common/js/CalendarControl2.js" language="javascript"></script>
+                    <script>
+						document.getElementById('CalendarControlIFrame').style.display = 'none';
+					</script>
+                    <div class="clr"></div>
+                    
+                   
+                     <?=$this->form->filePdf?>
+                    <label><?=$this->translate('Report')?>*</label>
+                    <div class="clr"></div>
+                   <input type="hidden" name="status" id="status" value="1" />
+                   <input type="hidden" name="webid" id="webid" value="<?=$this->webid?>" />
+                    <div class="btns">
+                        <input name="" type="submit" value="<?=$this->translate('Save')?>" />
+                        <input name="" type="button" value="<?=$this->translate('Cancel')?>" onclick="back_to_listing();" />
+                    </div>
+                </form>
+                </div>
+                    
+            </div>
+		</td>
+	</tr>
+</table>

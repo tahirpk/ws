@@ -243,13 +243,16 @@ class Admin_CustomerController extends Zend_Controller_Action
 				{
 					$customer_data = $form->getValues();
 					
-					
-					
-					$data = array(
+					if(!empty($customer_data['Password']))
+                                             $password_org = $customer_data['Password'];
+					else
+                                            $password_org = chr(mt_rand(97,122)).chr(mt_rand(97,122)).chr(mt_rand(97,122)).mt_rand(0,9).chr(mt_rand(97,122)).rand(0,9);
+                                        $data = array(
 					    'FirstName' => $customer_data['FirstName'],
 						'LastName' => $customer_data['LastName'],
 						'Email' => $customer_data['Email'],
-						'Password' => $customer_data['Password'],
+						'Password' => $password_org,
+                                                'Password_org' => $password_org,
 						'BusinessName' => $customer_data['BusinessName'],
 						'PhoneNo' => $customer_data['PhoneNo'],
 						'FaxNo' => $customer_data['FaxNo'],
@@ -291,7 +294,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 							// Generate hash using GLOBALS and PID
 							$key = sha1(uniqid(mt_rand(),true));
 							
-							$password_encode=hash('sha256',$customer_data['Password']);
+							$password_encode=hash('sha256',$password_org);
 								
 							$data= array('id' => $customer_insert_id,
 												'salt_key' =>$key,
@@ -302,7 +305,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 							
 								$customer_subject ='New customer confirmation';
 								$customer_body = 'You are succfully registerd with wsportal with some important information.<br>
-								your email:'.$customer_data['Email'].'<br>your password:'.$customer_data['Password'];
+								your email:'.$customer_data['Email'].'<br>your password:'.$password_org;
 								$config_mail = array(
 								'port' => 587,
 								'auth' => 'login',
@@ -485,12 +488,20 @@ class Admin_CustomerController extends Zend_Controller_Action
 				if($form->isValid($_POST))
 				{
 					$customer_data = $form->getValues();
+                                        
+                                        if(!empty($customer_data['Password']))
+                                            $password_org =$customer_data['Password'];
+					else
+                                            $password_org =$result['Password_org'];
+                                        $password_encode=hash('sha256',$password_org);
+                                        
 					$data = array(
 					    'id' => $id,
 						 'FirstName' => $customer_data['FirstName'],
 						'LastName' => $customer_data['LastName'],
 						'Email' => $customer_data['Email'],
-						'Password' => $customer_data['Password'],
+						'Password' => $password_encode,
+                                                'Password_org' => $password_org,
 						'BusinessName' => $customer_data['BusinessName'],
 						'PhoneNo' => $customer_data['PhoneNo'],
 						'FaxNo' => $customer_data['FaxNo'],
@@ -502,6 +513,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 						'City' => $customer_data['City'],
 						'status' => $customer_data['status']
 					);
+                                        
                     $customerModel = new Application_Model_DbTable_Customer();
 					$customerModel->save($data);
 					//first delted the old relation 
@@ -523,7 +535,7 @@ class Admin_CustomerController extends Zend_Controller_Action
 							
 								$customer_subject ='customer update confirmation by admin';
 								$customer_body = 'Your important information has updated.<br>
-								your email:'.$customer_data['Email'].'<br>your password:'.$customer_data['Password'];
+								your email:'.$customer_data['Email'].'<br>your password:'.$password_org;
 								$config_mail = array(
 								'port' => 587,
 								'auth' => 'login',

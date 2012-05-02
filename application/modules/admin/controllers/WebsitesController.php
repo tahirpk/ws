@@ -76,11 +76,11 @@ class Admin_WebsitesController extends Zend_Controller_Action
 				   {
 				   		 //echo 'first';
 						
-						 $filter = $session->filter;
-					     $filterText = $session->filterText ;
-						 $paginator = $this->_performSearch($filter,$filterText,$perPage);
-						 $this->view->result = $paginator;
-						 //$searchform->populate(array('filters' => $filter,'filterText' => $filterText,'perPage'=> $perPage));
+                                            $filter = $session->filter;
+                                            $filterText = $session->filterText ;
+                                            $paginator = $this->_performSearch($filter,$filterText,$perPage);
+                                            $this->view->result = $paginator;
+                                            //$searchform->populate(array('filters' => $filter,'filterText' => $filterText,'perPage'=> $perPage));
 				   }
 				   else
 				   {
@@ -275,10 +275,11 @@ class Admin_WebsitesController extends Zend_Controller_Action
 				{
 					$web_data = $form->getValues();
 					$data = array(
+                                            'businessId' => $web_data['business'],
   					    'webTitle' => $web_data['webTitle'],
 					    'url' => $web_data['url'],
-						'status' => $web_data['status'],
-						'filePdf' => 'frontend/webpdf/'.$web_data['filePdf'],
+                                            'status' => $web_data['status'],
+                                            'filePdf' => 'frontend/webpdf/'.$web_data['filePdf'],
 					);
 					$webModel = new Application_Model_DbTable_Websites();
 					$webModel->save($data);
@@ -313,14 +314,15 @@ class Admin_WebsitesController extends Zend_Controller_Action
 			$where = "id = '".$id."'";
 			$result = $webModel->fetchRow($where);
 			$array2Populate = array
-								(
-								    'webTitle'=> stripslashes($result['webTitle']),
-									'url'=> stripslashes($result['url']),
-									'status' => $result['status'],
-									'filePdf' => $result['filePdf'],
-								);
+                                            (
+                                                'businessId' => $result['businessId'],
+                                                'webTitle'=> stripslashes($result['webTitle']),
+                                                'url'=> stripslashes($result['url']),
+                                                'status' => $result['status'],
+                                                'filePdf' => $result['filePdf'],
+                                            );
 								
-								//print_r($array2Populate['icon']);exit;
+			//print_r($array2Populate);exit;
 			$this->view->assign('res',$array2Populate);								
 			$form->populate($array2Populate );
 			$this->view->form = $form;
@@ -333,6 +335,7 @@ class Admin_WebsitesController extends Zend_Controller_Action
 					
 					$data = array(
 					    'id' => $id,
+                                                'businessId' => $web_data['businessId'],
 						'webTitle' => $web_data['webTitle'],
 						'url' => $web_data['url'],
 						'status' => $web_data['status'],

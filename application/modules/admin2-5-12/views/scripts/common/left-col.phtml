@@ -1,0 +1,37 @@
+<?php
+		$moduleName = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+		$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+		$actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+		$sessionNamespace = new Zend_Session_Namespace('Admin_Menu');
+		
+			$storage = new Zend_Auth_Storage_Session();
+			$storageData = $storage->read();
+		
+?>
+<td valign="top" id="leftCol">
+    <div class="leftMenu">
+    <? //if(isset($sessionNamespace->keyIndex)) {
+		//$actcond=$this->getRequest()->getParam('target');
+		
+//$this -> _request -> getParam('target');
+						 $parent_id = $sessionNamespace->keyIndex;
+			 $parent = $sessionNamespace->keyValue;
+			 $controller = $sessionNamespace->subkeyValue;//die;
+			//$subMenuDetails = $this->getSubMenu($parent_id);
+            $subMenuDetails = $this->getSubMenu($parent_id);//i've make it static vale 8 that is id of menu .
+			//print_r($subMenuDetails);
+			foreach($subMenuDetails as $rows)
+			{ 
+	?>
+	   		   <a href="<?php print $this -> url(array('module' => 'admin',
+			                                     'controller' => 'headmenu',
+												 'action' => 'menu',
+												 'mainmenu' => $parent,
+												 'submenu' => $rows['parent_id'],'target'=> $rows['action'])) ?>" class="<? if($actionName == $rows['action']){?>active<? }?>"><?=$this->translate($rows['module_actual_name'])?></a>
+		<?	
+            }
+	
+		?>
+	
+	</div>
+</td>

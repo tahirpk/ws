@@ -38,13 +38,21 @@ class admin_Form_EditCustomer extends Zend_Form
 		$LastName ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  	  
-		$BusinessName = new Zend_Form_Element_Text('BusinessName');
-		$BusinessName -> setRequired(true);
-		$BusinessName ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
-			  
+		  
+		$BusinessName = new Zend_Form_Element_Select('BusinessName');
+		$table = new Application_Model_DbTable_Business();
+		$BusinessName  -> setRequired(true)
+					-> setSeparator("")
+					-> setDecorators(array('Errors' => 'ViewHelper'));
+					
+		$BusinessName -> addMultiOption('','-- Business --');
+		foreach($table -> fetchAll() as $b){
+		  $BusinessName -> addMultiOption($b -> id, $b -> businessName);
+		}
+                
+                
 		$Password = new Zend_Form_Element_Password('Password');
-		$Password -> setRequired(true);
+		$Password -> setRequired(false);
 		$Password ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  

@@ -1,11 +1,13 @@
 <?php 
-	class admin_Form_SearchForm extends Zend_Form
+	class Admin_Form_SearchForm extends Zend_Form
 	{
 		public function init()
 		{
 		
+                        
 			$filters = new Zend_Form_Element_Select('filters');
-			$filters->addMultiOption('webTitle',$this->getView()->translate('Name'))
+			$filters->addMultiOption('businessId',$this->getView()->translate('Business Name'))
+                                ->addMultiOption('webTitle',$this->getView()->translate('Name'))
 				   	->addMultiOption('url',$this->getView()->translate('URL'));
 			$filters->setAttrib('onchange','javascript:getDropDown(this.value)');		
 			

@@ -92,8 +92,8 @@
                     <tr class="headings">
                                     
                         <th width=""><a href="#" class="link" onClick="sortColumn('dateTime')"><?=$this->translate('Date')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'dateTime'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
-                       
- 					<th><a href="#" class="link" onClick="sortColumn('webId')"><?=$this->translate('Websites')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webId'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?></th>
+                       <th><?=$this->translate('Websites Name')?></th>
+ 		<th><a href="#" class="link" onClick="sortColumn('webId')"><?=$this->translate('Websites')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webId'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?></th>
                   
                     <th>Report File</th>
                         
@@ -108,44 +108,40 @@
 		  	?>
                   <tr class="autoWidth">
                   <td >
-                
-                  <?php 
-				  	//	echo $rst['dateTime'];
-						$changDate=explode(' ',$rst['dateTime']);
-				//  $date = DateTime::createFromFormat('Y-m-d', $rst['dateTime']);
-				  //echo $date->format('Y /m/ d');
-						//echo date('Y/m/d',$changDate[0]);
-						echo $changDate[0];
-						
-						
-				  ?>
+
+                    <?php 
+
+                    $changDate=explode(' ',$rst['dateTime']);
+
+                    echo $changDate[0];
+
+
+                    ?>
                   <div class="edit-del"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a> | 
                                 <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'delete','id' => $rst['id'], 'page' => $this -> page))?>','<?=$this->translate('Are you sure to delete this?')?>')" ><?=$this->translate('Delete') ?></a></div>
                   </td> 
-                        <td >  
-                            <? 		 $webModel = new Application_Model_DbTable_Websites();
-									 $webData=$webModel->findName($rst['webId']);
-									 echo $webData['webTitle'];
-							?>&nbsp;&nbsp;<a href="<?= $webData['url']?>" class="link" target="_blank"><?= $webData['url']?></a>
-                            </td>   
-							<td>
-								<? 
-                                $fullfilePath=$this->baseUrl().'/frontend/webpdf/'.$rst['filePdf'];
-                                //echo  $fullfilePath = realpath(APPLICATION_PATH."/../public/frontend/webpdf") . '/' . $rst['filePdf'];				 
+                   <td >  
+                    <? 	
+                    $webModel = new Application_Model_DbTable_Websites();
+                    $webData=$webModel->findName($rst['webId']);
+                    
+                    ?><a href="<?= $webData['url']?>" class="link" target="_blank"><?= $webData['webTitle']?></a>
+                    </td>  
+                    <td > <a href="<?= $webData['url']?>" class="link" target="_blank"><?= $webData['url']?></a>
+                    </td>   
+                      <td>
+				<? 
+                                $fullfilePath=APPLICATION_PATH.'/../public/frontend/webpdf/'.$rst['filePdf'];
+                                $filePdf_path=$this->baseUrl().'/frontend/webpdf/'.$rst['filePdf'];
                                 if(file_exists($fullfilePath)){
                                 
-                                ?>
+                                ?> <a href="<?=$filePdf_path?>" target="_blank" title="">yes
                                 <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_yes.jpg" />
-                                <? //=$this -> url(array('controller' => 'page', 'action' => 'show','id' => $rst['id'] ),'page')
-                                }else
-                                {
-                                ?>
-                                <!--<a href="#" onclick="window.open('<?=$fullfilePath?>', '_blank', 'fullscreen=yes'); return false;"> for download pdf file-->
-                                <a href="<?=$fullfilePath?>" target="_blank" title="">
-                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_no.jpg" />
                                 </a>
                                 <?
-                                }
+                                }else
+                                 echo 'no pdf';
+                                                          
                                 ?>
                             </td>
                             <!--<td ><?php print date('d M Y', $rst['Created']); ?></td> -->

@@ -1,5 +1,5 @@
 <?php
-class admin_Form_AddWebsites extends Zend_Form
+class Admin_Form_AddWebsites extends Zend_Form
 {
 	
     public function init()
@@ -21,6 +21,19 @@ class admin_Form_AddWebsites extends Zend_Form
 		$validator_dupli -> setMessage('URL already exists!');
 				
 		// form fields 
+                
+                
+		$businessId = new Zend_Form_Element_Select('businessId');
+		$table = new Application_Model_DbTable_Business();
+		$businessId  -> setRequired(false)
+					-> setSeparator("")
+					-> setDecorators(array('Errors' => 'ViewHelper'));
+					
+		$businessId -> addMultiOption(0,'-- Business --');
+		foreach($table -> fetchAll() as $b){
+		  $businessId -> addMultiOption($b -> id, $b -> businessName);
+		}			
+		
 		$webTitle = new Zend_Form_Element_Text('webTitle');
 		$webTitle -> setRequired(true);
 		$webTitle ->setDecorators(array('Errors','ViewHelper'))
@@ -49,7 +62,7 @@ class admin_Form_AddWebsites extends Zend_Form
 					  ->setDecorators(array('Errors','ViewHelper'));
 		
 					  
-		$this -> addElements(array($webTitle,$url,$status));			  
+		$this -> addElements(array($businessId,$webTitle,$url,$status));			  
 					  
 	}
 	

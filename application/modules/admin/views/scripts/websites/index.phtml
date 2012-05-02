@@ -86,15 +86,17 @@
                 </table>
 				<table class="searchBy">
                     <tr>
-                        <td width="52%">&nbsp;<h3>
-							<?  
-							
-								$cusModel = new Application_Model_DbTable_Customer();
-								$dataCustomer=$cusModel->findName($customerId);
-								print $dataCustomer['FirstName'].' '.$dataCustomer['LastName'];
-								
-                            
-                            ?></h3>
+                        <td width="52%">&nbsp;
+                        <h3>
+                        <?  
+
+                        $cusModel = new Application_Model_DbTable_Customer();
+                        $dataCustomer=$cusModel->findName($customerId);
+                        print $dataCustomer['FirstName'].' '.$dataCustomer['LastName'];
+
+
+                        ?>
+                        </h3>
                         </td>
                         <td><?=$this->translate('Search By')?></td>
                         <td><?=$this->searchform->filters?></td>
@@ -108,7 +110,7 @@
                 
                 <table class="listing">
                     <tr class="headings">
-                    <th width=""><a href="#" class="link" onClick="sortColumn('id')"><?=$this->translate('ID')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'id'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                    <th width=""><a href="#" class="link" onClick="sortColumn('businessId')"><?=$this->translate('Business')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'id'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
                                        
                         <th width=""><a href="#" class="link" onClick="sortColumn('webTitle')"><?=$this->translate('Name')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'webTitle'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
                        
@@ -128,7 +130,13 @@
                   <tr class="autoWidth">
                   <td width="10%">
                 
-                  <?php print $rst['id']; ?>
+                  <?php 
+                  if(isset($rst['businessId']) && $rst['businessId']!=0){
+                    $busModel = new Application_Model_DbTable_Business();
+                    $dataBusiness=$busModel->findName($rst['businessId']);
+                    print $dataBusiness['businessName'];
+                  }else echo 'No business';
+                  ?>
                   </td>
                   <td >
                 
@@ -152,10 +160,9 @@
                             &nbsp;|&nbsp; <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'index','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
                            
 							
-							<?php //print date('d M Y', $rst['Created']); ?></td>
+                            <?php //print date('d M Y', $rst['Created']); ?></td>
                             <td width="18%" id="activeDactive<?=$rst['id']?>">
-                          
-							<?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
+                            <?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
                            
                             <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'websites', 'action' => 'status','id' => $rst['id'], 'page' => $this -> page))?>','<?php echo ('Are you sure to change status?')?>')" >
                             <?php print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
@@ -171,7 +178,7 @@
                      <? } 
                        } else {?>
                         <tr>
-                        	<td align="center" colspan="3"><?=$this->translate('No record added yet');?></td>
+                        	<td align="center" colspan="5"><?=$this->translate('No record added yet');?></td>
                         </tr>
                    <? }?>
                 </table>

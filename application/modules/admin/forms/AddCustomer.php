@@ -1,6 +1,6 @@
 <?php
 
-class admin_Form_AddCustomer extends Zend_Form
+class Admin_Form_AddCustomer extends Zend_Form
 {
 
     public function init()
@@ -47,20 +47,30 @@ class admin_Form_AddCustomer extends Zend_Form
 		$LastName ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  	  
-		$BusinessName = new Zend_Form_Element_Text('BusinessName');
-		$BusinessName -> setRequired(true);
-		$BusinessName ->setDecorators(array('Errors','ViewHelper'))
-		      ->setValidators(array($validator));
+		
+                
+                  
+		$BusinessName = new Zend_Form_Element_Select('BusinessName');
+		$table = new Application_Model_DbTable_Business();
+		$BusinessName  -> setRequired(true)
+					-> setSeparator("")
+					-> setDecorators(array('Errors' => 'ViewHelper'));
+					
+		$BusinessName -> addMultiOption('','-- Business --');
+		foreach($table -> fetchAll() as $b){
+		  $BusinessName -> addMultiOption($b -> id, $b -> businessName);
+		}
+                
 			  
 		$Password = new Zend_Form_Element_Password('Password');
-		$Password -> setRequired(true);
+		$Password -> setRequired(false);
 		$Password->addValidator('StringLength', false, array(4,15));
 		$Password->addErrorMessage('Please choose a password between 4-15 characters');
 		$Password ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));
 			  
 		$PasswordConfirm = new Zend_Form_Element_Password('PasswordConfirm');
-		$PasswordConfirm -> setRequired(true);
+		$PasswordConfirm -> setRequired(false);
 		$PasswordConfirm->addValidator('Identical', true, array('token' => 'Password'));
 		$PasswordConfirm ->setDecorators(array('Errors','ViewHelper'))
 		      ->setValidators(array($validator));

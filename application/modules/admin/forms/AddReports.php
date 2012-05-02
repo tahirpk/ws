@@ -51,7 +51,7 @@ class Admin_Form_AddReports extends Zend_Form
 					  
 		$filePdf = new Zend_Form_Element_File('filePdf');
 		$filePdf->setLabel('Upload an url pdf:')
-					   ->setDestination(realpath(APPLICATION_PATH."/../public/frontend/webpdf/"));
+                        ->setDestination(realpath(APPLICATION_PATH."/../public/frontend/webpdf/"));
 		 $filePdf->addErrorMessage($this->getView()->translate('file in pdf is required and can\'t be empty'))			 
 			  ->setRequired($required);
 					  $filePdf->addValidator('Count', false, 1);

@@ -99,7 +99,7 @@
                     <div class="clr"></div>
                     
                     <?=$this->form->Password?>
-                    <label><?=$this->translate('Password')?>*</label>
+                    <label><?=$this->translate('Password')?></label>
                     <div class="clr"></div>
                     
                                                              
@@ -108,7 +108,7 @@
                    
                     <fieldset><legend><?=$this->translate('Customer Status')?>:</legend>
                     <?=$this->form->status?>
-                    <label><?=$this->translate('Status')?>*</label>
+                    <label><?=$this->translate('Status')?></label>
                     <div class="clr"></div>
                     </fieldset>
                    <br />
@@ -158,8 +158,9 @@
                     </table>
                     <input type="hidden" name="lecturearrayval" id="lecturearrayval" value="" />
                     <div class="btns">
-                        <input name="" type="submit" value="<?=$this->translate('Edit Customer')?>" />
-                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing();" />
+                       
+                        <input name="" type="button" value="<?=$this->translate('Cancel')?>" onclick="back_to_listing();" />
+                         <input name="" type="submit" value="<?=$this->translate('Edit Customer')?>" />
                     </div>
                     </td>
   </tr>

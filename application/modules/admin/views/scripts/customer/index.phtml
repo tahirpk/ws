@@ -104,7 +104,11 @@
                   <tr class="autoWidth">
                             <td>
                                
-									<?php print $rst['BusinessName']; ?>
+					<?php 
+                                            $busModel = new Application_Model_DbTable_Business();
+                                            $dataBusiness=$busModel->findName($rst['BusinessName']);
+                                            print $dataBusiness['businessName'];
+                                        ////print $rst['BusinessName']; ?>
                                 
                             	<div class="edit-del"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'customer', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a> | 
                                 <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'customer', 'action' => 'delete','id' => $rst['id'], 'page' => $this -> page))?>','<?=$this->translate('Are you sure to delete this?')?>')" ><?=$this->translate('Delete')?></a>                              

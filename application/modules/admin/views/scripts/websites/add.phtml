@@ -46,10 +46,11 @@
             <div id="eventListing">
             
                 <div id="addEvent">
-                <form name="adddisease" action="" method="post" enctype="multipart/form-data" >
+                <form name="business" action="" method="post" enctype="multipart/form-data" >
                    
-                    <? //=$this->form->parent_id?>
-                    <label><? //=$this->translate('Parent category')?></label>
+                    <?=$this->form->businessId?>
+                    <label><?=$this->translate('Business Name')?></label>
+                    <div class="clr"></div>
                     <?=$this->form->webTitle?>
                     <label><?=$this->translate('Website Name')?>*</label>
                     <div class="clr"></div>

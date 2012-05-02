@@ -41,6 +41,9 @@
                 <div id="addEvent">
                 <form name="websites" action="" method="post" enctype="multipart/form-data" >
                    
+                     <?=$this->form->businessId?>
+                    <label><?=$this->translate('Business name')?>*</label>
+                    <div class="clr"></div>
                     <?=$this->form->webTitle?>
                     <label><?=$this->translate('Website Title')?>*</label>
                     <div class="clr"></div>
