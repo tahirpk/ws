@@ -32,6 +32,7 @@
    
     <div class="hdr-links">
     
-    <a href="<?=$this->baseUrl()?>/admin/login/logout">Logout</a> 
+      <a href="<?=$this -> url(array('module' => 'admin','controller' => 'headmenu', 'action' => 'menu','mainmenu' => 'index', 'submenu' => '1'))?>">Home</a> |
+      <a href="<?=$this -> url(array('module' => 'admin','controller' => 'login','action' => 'logout'))?>">Logout</a> 
     </div>
 </div>

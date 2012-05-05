@@ -39,11 +39,12 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 	
 	public function deleteWebById($id){
 	   
-	    $cwModel = new Application_Model_DbTable_CustomerWebsites();
+	        $cwModel = new Application_Model_DbTable_CustomerWebsites();
 		$where = "webId = '".$id."'";
 		$result = $cwModel->deleteByWebidOrCustomerId($where);
-	    $this -> deletefile($id);	
-	    $this -> delete('id='.$id);
+
+	   $this -> deletefile($id);	
+	   $this -> delete('id='.$id);
 	    
 	}
 	
@@ -91,6 +92,13 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 	   
 	}
 	
+            function getMyWebsites($customerId) 
+            {
+                $select = $this->_db->select()-> from(array('w' => 'websites'),array('w.id','w.webTitle','w.url','w.status'))
+		->join(array('cw' => 'customer_websites'),'w.id=cw.webId and cw.customerFid='.$customerId,array('cid' => 'id'));
+               return $result = $this->_db->fetchAll($select);
+            }
+        
 	/*****************
 	*
 	* This function is used for websites API

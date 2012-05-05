@@ -8,7 +8,6 @@
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.position.js"></script>
 <script type="text/javascript" src="<?=$this->baseUrl()?>/application_data/common/jquery/jquery.ui.selectmenu.js"></script>
-
 <script type="text/javascript" src="<?=$this->baseUrl()?>/js/jquery-ui.min.js"></script>
 <script src="<?=$this->baseUrl()?>/application_data/common/js/common.js" language="javascript"></script>
 <script language="javascript" src="<?=$this->baseUrl()?>/application_data/common/js/image_pop/tool_tip_pointer.js"></script>
@@ -75,8 +74,21 @@ function makePopup (id)
     <?=$this->translate('Wspider Web Portal')?></h1>
    
     <div class="hdr-links">
-    <a href="<?=$this->baseUrl()?>/account/login">Lofin</a> |
-    <a href="<?=$this->baseUrl()?>/account/reg">Free Registration</a> 
+        <?
+           // print_r($_SESSION['Zend_Auth']);
+           // echo $_SESSION['Zend_Auth']['storage']->id;
+            
+            if(isset($_SESSION['Zend_Auth']['storage']->id) && !empty($_SESSION['Zend_Auth']['storage']->id) ){
+        ?>
+        <a href="<?=$this->baseUrl()?>/account/logout"><?=$this->translate('Logout')?></a>
+        |
+        <a href="<?=$this->baseUrl()?>/account/profile">My Account</a> 
+        <?
+            }else{
+        ?> <a href="<?=$this->baseUrl()?>/account/login"><?=$this->translate('Login')?></a>
+        |
+               <a href="<?=$this->baseUrl()?>/account/reg">Free Registration</a> 
+    <? }?>
     </div>
 </div>
 
