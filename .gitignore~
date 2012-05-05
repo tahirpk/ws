@@ -11,7 +11,7 @@ index/*
 tests/*
 library/*
 nbproject/*
-public/*
+public/index.php
 language/*
 docs/*
 
