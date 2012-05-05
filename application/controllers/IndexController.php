@@ -2,25 +2,19 @@
 
 class IndexController extends Zend_Controller_Action
 {
-    
     public function init()
     {
-        /* Initialize action controller here */
-		$this->_helper->layout->setLayout('frontend');
-        
+        $this ->_helper -> layout -> disableLayout();
+		//$this->_helper->layout->setLayout('frontend');
+		$this->translate = Zend_Registry::get('Zend_Translate');
+		$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
 
     public function indexAction()
     {
-       //echo "hello"; exit; 
-	   $this -> _redirect('/admin');
+				$this->_redirect('account/login');
+				
+
     }
 	
-	
-
-	
-	
-	
-
 }
-
