@@ -1,0 +1,70 @@
+<div class="welcomeBox bg-content">
+        <h2><?=$this->translate('My Websites')?></h2>
+        <div class="bg-grey">
+            <div id="eventListing">
+           
+                    <table class="listing">
+                    <tr class="headings">
+                    <th width=""><?=$this->translate('Business')?> </th>
+                                       
+                        <th width=""><?=$this->translate('Name')?></th>
+          
+                     <th width=""><?=$this->translate('Websites')?></th>
+                    <th>Reports </th>
+                        
+                       
+                    </tr>
+                    <?
+					
+					
+						
+                        if(count($this->result)>0){
+                         foreach($this->result as $rst){
+		  	?>
+                  <tr class="autoWidth">
+                  <td width="">
+                
+                  <?php 
+                  if(isset($rst['businessId']) && $rst['businessId']!=0){
+                    $busModel = new Application_Model_DbTable_Business();
+                    $dataBusiness=$busModel->findName($rst['businessId']);
+                    print $dataBusiness['businessName'];
+                  }else echo 'No business';
+                  ?>
+                  </td>
+                  <td >
+                
+                  <?php print $rst['webTitle']; ?>
+                  
+                  </td> 
+                            <td>
+                                  <a href="<?=$rst['url']?>" target="_blank" title="">                              
+									<?php print $rst['url']; ?>
+                                  </a>
+                                
+                            	
+                            </td>
+							
+                            <td >  
+                            <?  $objModel = new Application_Model_DbTable_Reports();
+									  
+			?>
+                            &nbsp; <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('controller' => 'account', 'action' => 'webreports','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
+                           
+							
+                            <?php //print date('d M Y', $rst['Created']); ?></td>
+                            
+                      </tr>
+
+                     <? } 
+                       } else {?>
+                        <tr>
+                        	<td align="center" colspan="5"><?=$this->translate('No record added yet');?></td>
+                        </tr>
+                   <? }?>
+                </table>	
+            </div>
+        </div>
+    </div>
+    <?=$this->paginationControl($this->paginator,'Sliding','frontpaginator.phtml')?>
+</div>

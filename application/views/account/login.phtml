@@ -1,0 +1,31 @@
+<?php $loginerror = new Zend_Session_Namespace('loginerror_session');?>
+<form method="post" name="user_login" id="user_login" action="<?php echo $this->baseUrl()?>/account/login" class="register">
+<input type="hidden" name="submit_login" id="submit_login" value="1" />
+<h1>Login Information</h1>
+ <fieldset class="row1">
+                <legend>Login Details
+                </legend>
+                 <p >
+				<label><?=$this->translate('E-Mail')?>:</label>
+				<?=$this->loginform->email;?>
+				</p>
+				<p>
+				<label><?=$this->translate('Passwort')?>:</label>
+				<?=$this->loginform->password;?>
+				<? if(isset($loginerror->invalidCredentials)&& $loginerror->invalidCredentials!=''){ echo '<div class= "errors"><ul><li>'.$loginerror->invalidCredentials.'</li></ul></div>';}?>
+				</p>
+				<p>
+				&nbsp;<button class="button">Login &raquo;</button>
+				</p>
+</fieldset>
+<fieldset class="row1">			
+ 
+ <p><div>			
+    <a href="<?=$this->baseUrl()?>/account/forgotpassword"><?=$this->translate('Forget Password ');?></a>
+</div></p>
+ 
+				</fieldset>
+	
+</form>
+<?php Zend_Session:: namespaceUnset('loginerror');unset($loginerror->invalidCredentials);?>
+

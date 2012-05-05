@@ -1,0 +1,76 @@
+<div class="welcomeBox bg-content">
+        <h2><?=$this->translate('My Websites reports')?></h2>
+        <div class="bg-grey">
+            <div id="eventListing">
+           
+                    <table class="listing">
+                    <tr class="headings">
+                    <th width="40%"><?=$this->translate('Websites Name')?> </th>
+                                       
+                        <th width=""><?=$this->translate('Date')?></th>
+          
+                     <th width=""><?=$this->translate('Report File')?></th>
+                    </tr>
+                    <?
+
+
+
+                    if(count($this->result)>0){
+                    foreach($this->result as $rst){
+                    ?>
+                  <tr class="autoWidth">
+                  <td width="40%">
+                
+                  <?php 
+                 	
+                    $webModel = new Application_Model_DbTable_Websites();
+                    $webData=$webModel->findName($rst['webId']);
+                    
+                    ?><?= $webData['webTitle']?>&nbsp;|<a href="<?= $webData['url']?>" class="link" target="_blank"><?= $webData['url']?></a>
+                  </td>
+                  <td >
+                
+                   <?php 
+
+                    $changDate=explode(' ',$rst['dateTime']);
+
+                    echo $changDate[0];
+
+
+                    ?>
+                  
+                  </td> 
+                            <td>
+                                 <? 
+                                $fullfilePath=APPLICATION_PATH.'/../public/frontend/webpdf/'.$rst['filePdf'];
+                                $filePdf_path=$this->baseUrl().'/frontend/webpdf/'.$rst['filePdf'];
+                                if(file_exists($fullfilePath)){
+                                
+                                ?> <a href="<?=$filePdf_path?>" target="_blank" title="">yes
+                                <img src="<?= $this->baseUrl() ?>/frontend/images/pdf_icon_yes.jpg" />
+                                </a>
+                                <?
+                                }else
+                                 echo 'no pdf';
+                                                          
+                                ?>
+                                
+                            	
+                            </td>
+							
+                            
+                            
+                      </tr>
+
+                     <? } 
+                       } else {?>
+                        <tr>
+                        	<td align="center" colspan="5"><?=$this->translate('No record added yet');?></td>
+                        </tr>
+                   <? }?>
+                </table>	
+            </div>
+        </div>
+    </div>
+    <?=$this->paginationControl($this->paginator,'Sliding','frontpaginator.phtml')?>
+</div>

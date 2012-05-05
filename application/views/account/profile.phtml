@@ -1,0 +1,86 @@
+
+            <form method="post" name="reg_form" id="reg_form">
+                
+                
+            <fieldset class="row1">
+            <legend>Login Details
+            </legend>
+            <p >
+                    <label><?=$this->translate('E-Mail')?>:</label>
+                    <?=$this->form->Email;?>
+                    </p>
+                    <p>
+                    <label><?=$this->translate('Passwort')?>:</label>
+                    <?=$this->form->Password;?>
+                    <? if(isset($loginerror->invalidCredentials)&& $loginerror->invalidCredentials!=''){ echo '<div class= "errors"><ul><li>'.$loginerror->invalidCredentials.'</li></ul></div>';}?>
+                    </p>
+                   
+            </fieldset>
+             <fieldset class="row2">
+                <legend>Personal Details
+                </legend>
+                <p>
+                     <label><?=$this->translate('First Name')?> <span>*</span></label>
+                        <?=$this->form->FirstName?>
+                </p>
+                <p>
+                    <label><?=$this->translate('Last Name')?>*</label>
+                     <?=$this->form->LastName?>
+                </p>
+                <p>
+                    <label><?=$this->translate('Business Name')?>*</label>
+                    <?=$this->form->BusinessName?>
+                </p>
+                <p>
+                    <label><?=$this->translate('Address1')?></label>
+                       <?=$this->form->Address1?>
+                </p>
+                <p>
+                    <label><?=$this->translate('Address2')?></label>
+                       <?=$this->form->Address2?>
+                </p>
+                
+            </fieldset>
+
+               <fieldset class="row3">
+                <legend>Further Information
+                </legend>
+               
+                <p>            <label><?=$this->translate('City')?></label>
+                          <?=$this->form->City?>
+    
+                    </p>
+                    <p> <label><?=$this->translate('State')?></label>
+                        <?=$this->form->State?>
+                       
+                    </p>
+                    <p>
+                     <label><?=$this->translate('Postal Code')?></label>
+                    <?=$this->form->PostalCode?>
+                    </p>
+                    <p>
+                         <label><?=$this->translate('Country')?></label>
+                        <?=$this->form->Country?>
+                       
+                    </p>
+                    <p>
+                        <label><?=$this->translate('Phone Number')?></label>
+                        <?=$this->form->PhoneNo?>
+                        
+                    </p>
+                   <p>
+                    <label><?=$this->translate('Fax Number')?></label>
+                                <?=$this->form->FaxNo?>
+                   </p>
+                <div class="infobox"><h4>Helpful Information</h4>
+                    <p>Here comes some explaining text.</p>
+                </div>
+            </fieldset> 
+              <fieldset class="row4">
+                <p>
+                &nbsp;<button class="button">Save &raquo;</button>
+                </p>
+               </fieldset>
+
+            </form>
+    
