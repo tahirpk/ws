@@ -2,8 +2,8 @@ config/database.yml
 
 log/*.log
 
-public/*
-
+public/index.php
+public/frontend/*
 
 
 index/*
