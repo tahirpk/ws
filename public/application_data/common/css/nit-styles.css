@@ -19,6 +19,14 @@ body {
 	list-style:none;
 	color:#ff0000;
 }
+
+a.trlink 
+{
+	color: #656565;
+    text-decoration:none;
+}
+
+a.trlink:hover {color:#FFFFFF;}
 ul {
 	list-style:none;
 	color:#ff0000;

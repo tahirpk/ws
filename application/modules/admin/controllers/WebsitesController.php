@@ -275,11 +275,11 @@ class Admin_WebsitesController extends Zend_Controller_Action
 				{
 					$web_data = $form->getValues();
 					$data = array(
-                                            'businessId' => $web_data['business'],
+                                            'businessId' => $web_data['businessId'],
   					    'webTitle' => $web_data['webTitle'],
 					    'url' => $web_data['url'],
-                                            'status' => $web_data['status'],
-                                            'filePdf' => 'frontend/webpdf/'.$web_data['filePdf'],
+                                            'status' => $web_data['status']
+                                           
 					);
 					$webModel = new Application_Model_DbTable_Websites();
 					$webModel->save($data);
@@ -318,8 +318,7 @@ class Admin_WebsitesController extends Zend_Controller_Action
                                                 'businessId' => $result['businessId'],
                                                 'webTitle'=> stripslashes($result['webTitle']),
                                                 'url'=> stripslashes($result['url']),
-                                                'status' => $result['status'],
-                                                'filePdf' => $result['filePdf'],
+                                                'status' => $result['status']
                                             );
 								
 			//print_r($array2Populate);exit;
