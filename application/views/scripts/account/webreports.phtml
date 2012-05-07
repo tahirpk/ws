@@ -26,7 +26,7 @@
                     $webModel = new Application_Model_DbTable_Websites();
                     $webData=$webModel->findName($rst['webId']);
                     
-                    ?><?= $webData['webTitle']?>&nbsp;|<a href="<?= $webData['url']?>" class="link" target="_blank"><?= $webData['url']?></a>
+                    ?><?= $webData['webTitle']?>&nbsp;|<a href="<?= $webData['url']?>" class="trlink" target="_blank"><?= $webData['url']?></a>
                   </td>
                   <td >
                 

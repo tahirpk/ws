@@ -38,18 +38,17 @@
                   
                   </td> 
                             <td>
-                                  <a href="<?=$rst['url']?>" target="_blank" title="">                              
+                                  <a href="<?=$rst['url']?>" target="_blank" title="" class="trlink">                              
 									<?php print $rst['url']; ?>
                                   </a>
                                 
-                            	
-                            </td>
+                           </td>
 							
                             <td >  
                             <?  $objModel = new Application_Model_DbTable_Reports();
 									  
 			?>
-                            &nbsp; <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('controller' => 'account', 'action' => 'webreports','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
+                            &nbsp; <a href="javascript:void(0);" class="trlink"  onclick="window.location = '<?=$this -> url(array('controller' => 'account', 'action' => 'webreports','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
                            
 							
                             <?php //print date('d M Y', $rst['Created']); ?></td>
