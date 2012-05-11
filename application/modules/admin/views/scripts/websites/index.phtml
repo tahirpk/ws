@@ -115,6 +115,7 @@
                        
  
                     <th width=""><a href="#" class="link" onClick="sortColumn('url')"><?=$this->translate('Websites')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'url'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
+                     <th>Pages </th>
                     <th>Reports </th>
                         
                         <th><a href="#" class="link" onClick="sortColumn('status')"><?=$this->translate('Status')?></a> <? if(isset($this->sort_col)){ if($this->sort_col == 'status'){?><img src="<?=$this->baseUrl()?>/application_data/common/images/<?=$this->order_by?>.gif" alt="sort" /><? }}?> </th>
@@ -150,11 +151,35 @@
                                 
                             	
                             </td>
-							
+				  <td>
+                                    <?  $objModel = new Application_Model_DbTable_Pages();
+                                        $greenRed= $objModel->getCount($where="webId=".$rst['id']);
+                                       
+                                       if($greenRed==0)
+                                       {
+                                    ?>
+                                      
+                                  <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
+                                      <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                                  </a>
+                                     <?
+                                       }
+                                       else
+                                       {
+                                     ?>
+                                        <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
+                                        <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                                        </a>
+                                      <?
+                                       }
+                                       ?>
+                                
+                            	
+                            </td>			
                             <td >  
                             <?  $objModel = new Application_Model_DbTable_Reports();
 									  
-							?>
+                            ?>
                             <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'add','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Add report')?></a>
                             &nbsp;|&nbsp; <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'reports', 'action' => 'index','id' => $rst['id'], 'page' => $this -> page))?>';" ><?  echo ' (Reports '.$objModel->getCount($where="webId=".$rst['id']).')'?></a>
                            
