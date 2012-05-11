@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 03, 2012 at 02:07 AM
+-- Generation Time: May 11, 2012 at 09:58 PM
 -- Server version: 5.1.61
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -24,6 +24,8 @@ SET time_zone = "+00:00";
 
 --
 -- Table structure for table `bl_countries_states`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `bl_countries_states`;
@@ -524,6 +526,9 @@ INSERT INTO `bl_countries_states` (`country_sate_id`, `state_name`, `state_count
 --
 -- Table structure for table `business`
 --
+-- Creation: Apr 27, 2012 at 12:35 PM
+-- Last update: Apr 27, 2012 at 05:50 PM
+--
 
 DROP TABLE IF EXISTS `business`;
 CREATE TABLE IF NOT EXISTS `business` (
@@ -548,6 +553,8 @@ INSERT INTO `business` (`id`, `businessName`, `createdAt`, `status`) VALUES
 
 --
 -- Table structure for table `country`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `country`;
@@ -810,6 +817,10 @@ INSERT INTO `country` (`iso`, `name`, `printable_name`, `iso3`, `numcode`) VALUE
 --
 -- Table structure for table `customers`
 --
+-- Creation: Apr 27, 2012 at 11:24 AM
+-- Last update: May 07, 2012 at 02:45 PM
+-- Last check: May 08, 2012 at 12:10 PM
+--
 
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -835,21 +846,25 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `DateCreated` datetime DEFAULT NULL,
   `LastUpdated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
 
 --
 -- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `FirstName`, `LastName`, `Email`, `Password`, `Password_org`, `salt_key`, `BusinessName`, `Website`, `PhoneNo`, `FaxNo`, `Address1`, `Address2`, `PostalCode`, `Country`, `State`, `City`, `CustomerFile`, `Status`, `DateCreated`, `LastUpdated`) VALUES
-(52, 'tahir', 'khan', 'tahirpk@gmail.com', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '', '675adff7a09691a5dcb4bab8342ccae166a2160e', '3', NULL, 0, 0, '', '', 0, 'BA', '', '', 0, '1', NULL, '2012-05-02 18:06:48'),
-(53, 'tahir', 'khan', 'tahirpk@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '123456', '7b03c550de856bce0003536874702e8b350e4ae3', '4', NULL, 0, 0, '', '', 0, '0', '', '', 0, '1', NULL, '2012-05-02 18:07:23'),
-(54, 'tahir', 'khan', 'tahir@hot.com', 'f04ed47a31d6174df8d71a05a9969092da295751698371b7eae6d697ce043bcf', 'idl2n8', '1e904b7b45599fbc78f77a6563805bd10bef9951', '3', NULL, 0, 0, '', '', 0, 'AD', '', '', 0, '1', NULL, '2012-05-02 17:16:56');
+(53, 'tahir', 'khan', 'tahirpk@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '123456', '7b03c550de856bce0003536874702e8b350e4ae3', '4', NULL, 0, 0, 'lahore', 'multan', 0, 'PK', '', '', 0, '1', NULL, '2012-05-07 14:45:10'),
+(54, 'tahir', 'khan', 'tahir@hot.com', 'f04ed47a31d6174df8d71a05a9969092da295751698371b7eae6d697ce043bcf', 'idl2n8', '1e904b7b45599fbc78f77a6563805bd10bef9951', '3', NULL, 0, 0, '', '', 0, 'AD', '', '', 0, '1', NULL, '2012-05-02 17:16:56'),
+(57, 'tahir', 'khan', 'tahirpak@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '12345', '9752e986d0be5cd1a81fd81901c21ed680a93a57', '4', NULL, 0, 0, '', '', 0, 'AD', '', '', 0, NULL, NULL, '2012-05-05 17:18:21');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `customer_websites`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
+-- Last update: May 07, 2012 at 02:45 PM
+-- Last check: May 08, 2012 at 12:10 PM
 --
 
 DROP TABLE IF EXISTS `customer_websites`;
@@ -858,7 +873,7 @@ CREATE TABLE IF NOT EXISTS `customer_websites` (
   `customerFid` int(11) NOT NULL,
   `webId` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=102 ;
 
 --
 -- Dumping data for table `customer_websites`
@@ -866,18 +881,23 @@ CREATE TABLE IF NOT EXISTS `customer_websites` (
 
 INSERT INTO `customer_websites` (`id`, `customerFid`, `webId`) VALUES
 (91, 54, 19),
+(97, 55, 21),
 (90, 54, 22),
 (93, 52, 20),
+(98, 55, 22),
 (92, 52, 19),
-(95, 53, 19),
-(94, 53, 22),
+(101, 53, 20),
+(100, 53, 19),
 (89, 54, 21),
-(96, 53, 20);
+(99, 53, 22);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `iso_countries`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
+-- Last update: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `iso_countries`;
@@ -1187,6 +1207,8 @@ INSERT INTO `iso_countries` (`rowId`, `countryId`, `locale`, `countryCode`, `cou
 --
 -- Table structure for table `menu`
 --
+-- Creation: Apr 25, 2012 at 11:36 PM
+--
 
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
@@ -1220,6 +1242,9 @@ INSERT INTO `menu` (`id`, `menu_name`, `menu_status`, `event_id`, `p_id`, `menu_
 
 --
 -- Table structure for table `modules`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
+-- Last update: Apr 27, 2012 at 05:28 PM
 --
 
 DROP TABLE IF EXISTS `modules`;
@@ -1256,7 +1281,43 @@ INSERT INTO `modules` (`modules_id`, `parent_id`, `modules_name`, `modules_statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pages`
+--
+-- Creation: May 10, 2012 at 12:09 PM
+-- Last update: May 11, 2012 at 03:18 PM
+--
+
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `webId` int(11) NOT NULL,
+  `pageCaption` varchar(200) NOT NULL,
+  `pageTitle` varchar(200) NOT NULL,
+  `pageKeywords` varchar(200) NOT NULL,
+  `pageMetatags` varchar(200) NOT NULL,
+  `pageUrl` varchar(200) NOT NULL,
+  `pageContent` longtext NOT NULL,
+  `pageCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('1','0') NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `webId`, `pageCaption`, `pageTitle`, `pageKeywords`, `pageMetatags`, `pageUrl`, `pageContent`, `pageCreated`, `status`) VALUES
+(2, 19, 'you', 'your page title', 'you', 'test', 'http://www.ausus.com/page', 'testing change', '2012-05-08 19:00:00', '1'),
+(3, 19, 'test', 'test', 'terst', 'test', 'http://www.ausus.com/page2', 'testing ', '2012-05-08 19:00:00', '1'),
+(4, 20, '', 'your page title', 'title page', '', 'http://www.phiplanet.com/page', 'check check check check ', '2012-05-10 17:12:58', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reports`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
+-- Last update: May 03, 2012 at 05:14 AM
 --
 
 DROP TABLE IF EXISTS `reports`;
@@ -1276,13 +1337,15 @@ CREATE TABLE IF NOT EXISTS `reports` (
 --
 
 INSERT INTO `reports` (`id`, `webId`, `dateTime`, `filePdf`, `createdAt`, `status`) VALUES
-(19, 19, '2012-04-18 00:00:00', '1335431425_BugMashManual.pdf', '2012-04-26 15:34:31', '1'),
+(19, 19, '2012-04-18 00:00:00', '1336022056_BugMashManual.pdf', '2012-05-03 05:14:16', '1'),
 (21, 19, '2012-04-27 00:00:00', '1335435130_Amit - Automation using Selenium.pdf', '2012-04-26 10:12:10', '1');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
+--
+-- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -1316,6 +1379,10 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `user_initial`, `phone`, `mobile`, 
 --
 -- Table structure for table `websites`
 --
+-- Creation: Apr 27, 2012 at 05:53 PM
+-- Last update: May 08, 2012 at 06:09 PM
+-- Last check: May 10, 2012 at 08:56 AM
+--
 
 DROP TABLE IF EXISTS `websites`;
 CREATE TABLE IF NOT EXISTS `websites` (
@@ -1328,7 +1395,7 @@ CREATE TABLE IF NOT EXISTS `websites` (
   `status` enum('1','0') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`createdAt`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `websites`
@@ -1336,10 +1403,11 @@ CREATE TABLE IF NOT EXISTS `websites` (
 
 INSERT INTO `websites` (`id`, `businessId`, `webTitle`, `url`, `filePdf`, `createdAt`, `status`) VALUES
 (20, 0, 'web test', 'http://www.phiplanet.com/', 'frontend/webpdf/', '2012-04-26 07:57:42', '1'),
-(12, 0, 'web4', 'http://www.google.com.pk/10', '', '2012-04-10 18:46:24', '1'),
-(19, 4, 'testi', 'http://www.ausfluegebuchen.de', 'frontend/webpdf/', '2012-05-02 18:06:08', '1'),
-(21, 3, 'spider', 'http://www.spiderz.com', 'frontend/webpdf/', '2012-05-02 18:18:13', '1'),
-(22, 6, 'spider', 'http://www.spiderzz.com', 'frontend/webpdf/', '2012-05-02 16:05:57', '1');
+(12, 3, 'web4', 'http://www.google.com.pk/', '', '2012-05-08 18:08:09', '1'),
+(19, 4, 'testi', 'http://www.ausus.com', 'frontend/webpdf/', '2012-05-08 18:09:46', '1'),
+(21, 3, 'spider', 'http://www.spiders.com', 'frontend/webpdf/', '2012-05-08 17:51:47', '1'),
+(22, 6, 'spider', 'http://www.yahoo.com', 'frontend/webpdf/', '2012-05-08 18:08:09', '1'),
+(23, 4, 'web test', 'http://www.hotmail.com', '', '2012-05-08 18:08:09', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
