@@ -26,7 +26,7 @@ class Admin_Form_AddPage extends Zend_Form
                         ->addErrorMessage('Page URL is required')
                         -> setSeparator("")
                         -> setDecorators(array('Errors' => 'ViewHelper'));
-		$webId -> addMultiOption('','-- urls --');
+		$webId -> addMultiOption('','-- Site URL --');
 		foreach($table -> fetchAll() as $b){
 		  $webId -> addMultiOption($b -> id, $b -> url);
 		}
@@ -36,7 +36,7 @@ class Admin_Form_AddPage extends Zend_Form
                 $pageTitle->addFilter('StripTags')
                                             ->addErrorMessage($this->getView()->translate('Valid Page Title is required'))
                                             ->addFilter('StringTrim')
-                                            ->setRequired(true)
+                                            ->setRequired(false)
                                             ->setDecorators(array('Errors','ViewHelper'));
 			
                 $pageCaption = new Zend_Form_Element_Text('pageCaption');

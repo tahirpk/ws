@@ -46,7 +46,8 @@
                             <p>Current</p>
                         </td>
                         <td><?=$this->result['pageTitle']?></td>
-                        <td><? if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                        <td> <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
                     </tr>
                      <tr>
                         
@@ -55,7 +56,8 @@
                             <hr>
                             <p>Current</p></td>
                         <td><?=$this->result['pageKeywords']?></td>
-                        <td><? if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                        <td> <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
                     </tr>
                      <tr>
                         
@@ -64,12 +66,18 @@
                             <hr>
                             <p>Current</p></td>
                         <td><?=$this->result['pageContent']?></td>
-                        <td><? if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                        <td>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
                     </tr>
                     <?
                          }
                        // }
                     ?>
+                    <tr>
+                        <td colspan="2"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a></td>
+                        <td colspan="2"> <a href="javascript:void(0);">Check Now</a></td>
+                    </tr>
                </table>
                     
             </div>

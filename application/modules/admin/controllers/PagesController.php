@@ -39,13 +39,21 @@ public function indexAction()
 		$searchform = new Admin_Form_SearchPageForm();
 			
                 $pageModel = new Application_Model_DbTable_Pages();
-                $result = $pageModel->getPageWebsites($where);
+                
+                $selectObj = $pageModel -> select();
+                 	 	 	 	 	 	
+		
+		$selectObj -> from(array('pg' => 'pages'),array('pg.pageTitle','pg.id','pg.pageCaption','pg.pageKeywords','pg.pageMetatags','pg.pageUrl','pg.pageContent','pg.pageCreated','pg.status'))
+		 		   -> order('id desc')
+                                   ->where($where);
+				   
+               // $result = $pageModel->getPageWebsites($where);
+                $recCount= $pageModel->getCount($where);
               //  print_r($result); die();
-                $this->view->result = $result;
-                $paginator = Zend_Paginator::factory($result);
-                $paginator->setPageRange(1); 
-                $paginator->setCurrentPageNumber($this->_getParam('page'));
-                $this->view->paginator = $paginator;
+                $perPage = 10; // set values per page
+                $paginator = $adminPaginator->_getPaginatorData($this -> _getParam('page'), $perPage, $selectObj, $recCount);
+		$this->view->paginator = $paginator;
+                $this->view->result = $paginator;
                 
 	}
 	
