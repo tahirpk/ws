@@ -279,7 +279,7 @@ class Admin_WebsitesController extends Zend_Controller_Action
   					    'webTitle' => $web_data['webTitle'],
 					    'url' => $web_data['url'],
                                             'status' => $web_data['status']
-                                           
+                                            
 					);
 					$webModel = new Application_Model_DbTable_Websites();
 					$webModel->save($data);
@@ -319,6 +319,7 @@ class Admin_WebsitesController extends Zend_Controller_Action
                                                 'webTitle'=> stripslashes($result['webTitle']),
                                                 'url'=> stripslashes($result['url']),
                                                 'status' => $result['status']
+                                                
                                             );
 								
 			//print_r($array2Populate);exit;
@@ -489,11 +490,11 @@ class Admin_WebsitesController extends Zend_Controller_Action
 		else
 		$status=1;
 		$data = array(
-					    'id' => $id,
-						'status'=> $status,
-						
-					);
-					$obj->save($data);
+                            'id' => $id,
+                                'status'=> $status,
+
+                        );
+                        $obj->save($data);
 	   $this -> _redirect('/admin/websites');
 	}
 }

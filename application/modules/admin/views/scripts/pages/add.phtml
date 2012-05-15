@@ -13,7 +13,21 @@
 	{
 		window.location = '<?=$this->baseUrl()?>/admin/pages/index/';
 	}
-	
+	function getUrl(webid)
+        {
+
+           
+           
+            url = "<?=$this->baseUrl()?>/admin/pages/geturl/id/"+webid;
+            $.ajax({
+            url: url,
+            success: function(response){
+            $('#pageUrl').val(response);
+            }
+            });
+        }
+        
+      
 </script>
 <link rel="stylesheet" href="<?=$this->baseUrl()?>/application_data/common/css/CalendarControl.css" />
 <span id="temp_span" style="display:none" ></span>
@@ -55,7 +69,7 @@
                     <div class="clr"></div>
                    
                     <?=$this->form->pageTitle?>
-                    <label><?=$this->translate('Title')?>*</label>
+                    <label><?=$this->translate('Title')?></label>
                     <div class="clr"></div>
                     
                     <?=$this->form->pageKeywords?>

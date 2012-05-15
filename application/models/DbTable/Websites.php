@@ -17,12 +17,7 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 	* This function is used in admin side to return total record
 	*****************/
 	public function getCountCustomerWeb($customerId){
-	  // $select = $this -> select();
-	  // $select -> from ($this -> _name, 'COUNT(*) as num')->where($where);
-	  // $select = $this->_db->select()-> from(array('w' => 'websites'), 'COUNT(customerFid)')
-		//		->join(array('cw' => 'customer_websites'),'w.id=cw.webId and cw.customerFid='.$customerId)
-			//	-> where('status = 1');
-				$select='SELECT COUNT(customerFid) as num FROM `websites` AS `w` INNER JOIN `customer_websites` AS `cw` ON w.id=cw.webId and status=1 and cw.customerFid='.$customerId;
+	  $select='SELECT COUNT(customerFid) as num FROM `websites` AS `w` INNER JOIN `customer_websites` AS `cw` ON w.id=cw.webId and status=1 and cw.customerFid='.$customerId;
 	//  echo $select;die;
 	  return $this -> fetchRow($select) -> num;
 	}
@@ -119,6 +114,18 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 		}
 		return 0;
 	}
+        
+        public function getUrlById($id) {
+		$select = $this -> select();
+	   	$select -> from ($this -> _name, array('WebTitle','url'))
+	   		   -> where("status=1 and id='$id'");
+        	$stmt = $select->query();
+		$result = $stmt->fetchAll();
+		if(count($result)) {
+			return $result;
+		}
+		return 0;
+	}
 	
 	public function getLinks($where=null,$orderby = '',$customerId=null)
 		{
@@ -147,10 +154,9 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 			}
 			else
 			{
-				$select->order('webTitle ASC');
+				$select->order('id ASC');
 			}
-			$result = $this->_db->fetchAll($select);
-			
+                        $result = $this->_db->fetchAll($select);
 			return $result;
 			
 		}
@@ -175,7 +181,10 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 				return $result;
 		}
 
-	
+	public function getAllWebUrl(){
+		return $this->select()->from($this -> _name, array('url'))->where('status = 1')
+		-> order('id desc')->query()->fetchAll();
+	}
 	
 }
 

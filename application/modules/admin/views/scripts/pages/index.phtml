@@ -56,8 +56,28 @@
                 </div>
                 </td> 
                 <td>
-                    
-                     <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                    <?  $objModel = new Application_Model_DbTable_Pages();
+                    $greenRed= $objModel->getCount($where="reportStatus >2 and status=1 and id=".$rst['id']);
+
+                    if($greenRed==0)
+                    {
+                    ?>
+
+                   
+                    <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                   
+                    <?
+                    }
+                    else
+                    {
+                    ?>
+                   
+                    <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                   
+                    <?
+                    }
+                    ?>
+                     
                 </td>
                             <td width="18%" id="activeDactive<?=$rst['id']?>">
                             <?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>

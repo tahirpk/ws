@@ -110,20 +110,30 @@ public function indexAction()
 				if($form->isValid($_POST))
 				{
 					$web_data = $form->getValues();
-					$data = array(
+                                        if(!empty($web_data['pageTitle']))
+                                            $report =1;
+                                         if(!empty($web_data['pageTitle']) && !empty($web_data['pageKeywords']))
+                                            $report =2;
+                                         if(!empty($web_data['pageTitle']) && !empty($web_data['pageKeywords']) && !empty($web_data['pageContent']))    
+                                            $report =3;
+                                        else {
+                                            $report =0;
+                                        }
+                                            
+                                            $data = array(
                                             'webId' => $web_data['webId'],
-                                            'pageUrl'=> $result['pageUrl'],
+                                            'pageUrl'=> $web_data['pageUrl'],
   					    'pageTitle' => $web_data['pageTitle'],
 					    'pageKeywords' => $web_data['pageKeywords'],
-                                            'pageContent' => $web_data['pageContent']
-                                            
+                                            'pageContent' => $web_data['pageContent'],
+                                            'reportStatus' => $report
 					);
 					$pgModel = new Application_Model_DbTable_Pages();
 					$pgModel->save($data);
 					$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 					$this->flashMessenger->addMessage('success');	
 					$this->flashMessenger->addMessage($this->translate->_("page Added"));	
-					$this->_redirect("admin/pages");
+					$this->_redirect("admin/pages/index/webid/".$web_data['webId']);
 				}
 			}
 			
@@ -133,8 +143,9 @@ public function indexAction()
 	  
             $id = $this -> _request -> getParam('id');
             $obj = new Application_Model_DbTable_Pages();
-            $pageData=$obj->getById($id); 
-            if(!empty($pageData) && $pageData==1)
+            $pageData =$obj->getById($id); 
+           
+            if(!empty($pageData[0][status]) && $pageData[0][status]==1)
             $status=0;
             else
             $status=1;
@@ -144,9 +155,29 @@ public function indexAction()
 
             );
             $obj->save($data);
-            $this -> _redirect('/admin/pages');
+           
+            $this->_redirect("admin/pages/index/webid/".$pageData[0][webId]);
 	}
-	
+	public function reportstatusAction()
+        {
+            $id = $this -> _request -> getParam('id'); 
+            $obj = new Application_Model_DbTable_Pages();
+            $pageData =$obj->getById($id); 
+          
+            if(!empty($pageData[0][reportCheckStatus]) && $pageData[0][reportCheckStatus]==0 || $pageData[0][reportCheckStatus]=='')
+            {
+             $status=1;
+            }
+            $data = array(
+            'id' => $id,
+            'reportCheckStatus'=> $status,
+
+            );
+            
+            $obj->save($data);
+           
+            $this->_redirect("admin/pages/detail/webid/".$pageData[0][webId]."/id/".$id);
+        }
 	public function editAction()
 	{
 			
@@ -159,7 +190,7 @@ public function indexAction()
 			$breadCrumb = '<a href='.$this->view->baseUrl().'/admin/pages/>'.$this->translate->_('Business Management').'</a> &raquo; '.$this->translate->_('Edit');
 			
 			$this->view->placeholder('breadCrumb')->set($breadCrumb);
-			
+                        $this->view->webid= $this -> _request -> getParam('webid');
 			$form = new Admin_Form_AddPage(array('id' => $id));
 			$this->view->form = $form;
 			$pgModel = new Application_Model_DbTable_Pages();
@@ -189,7 +220,15 @@ public function indexAction()
 				if($form->isValid($_POST))
 				{
 					$pg_data = $form->getValues();	
-                                        
+                                         if(!empty($pg_data['pageTitle']))
+                                            $report =1;
+                                         if(!empty($pg_data['pageTitle']) && !empty($pg_data['pageKeywords']))
+                                            $report =2;
+                                         if(!empty($pg_data['pageTitle']) && !empty($pg_data['pageKeywords']) && !empty($pg_data['pageContent']))    
+                                            $report =3;
+                                          else {
+                                            $report =0;
+                                        }
 					$data = array(
 					    'id' => $id,
                                                 'webId'=> $pg_data['webId'],
@@ -198,6 +237,7 @@ public function indexAction()
                                                 'pageKeywords'=> $pg_data['pageKeywords'],
                                                 'pageContent'=> $pg_data['pageContent'],
 						'status' => $pg_data['status'],
+                                                 'reportStatus' => $report
 					);
                                      		
 					$pgModel->save($data);
@@ -205,7 +245,7 @@ public function indexAction()
                                         $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 					$this->flashMessenger->addMessage('success');	
 					$this->flashMessenger->addMessage($this->translate->_("page updated"));	
-					$this->_redirect("admin/pages");
+					$this->_redirect("admin/pages/index/webid/".$pg_data['webId']);
 					
 					
 				}
@@ -217,127 +257,24 @@ public function indexAction()
 	
 	}
 	
-	 /*****************************
-	 *
-	 *  business Sorting
-	 *
-	 *****************************/	
 	
-	private function _performSort($sort_col,$order_by,$perPage)
-			{
-			$session = new Zend_Session_Namespace('Page_Search');
-			$pgModel = new Application_Model_DbTable_Pages();
-			$result = $pgModel->getLinks(null,null);
-			$totalRecords = count($result);
-			$order = $sort_col.' '.$order_by;
-			if (isset($session->filter) && isset($session->filterText ))
-			{
-				$filterText = $session->filterText;
-				$filter = $session->filter;
-				$where = "$filter LIKE '%$filterText%'";
-				$result = $pgModel->getLinks($where,$order);
-			}
-			else
-			{
-				$result = $pgModel->getLinks(null,$order);
-			}	
-			$paginator = Zend_Paginator::factory($result);
-			$paginator->setPageRange(5); 
-			$paginator->setCurrentPageNumber($this->_getParam('page'));
-			if($perPage == 'All')
-			{	
-				$paginator->setItemCountPerPage($totalRecords);	
-			}
-			elseif($perPage != '')
-			{
-				$paginator->setItemCountPerPage($perPage);
-			}	
-			elseif($session->perPage!='')
-			{
-				$paginator->setItemCountPerPage($session->perPage);
-				
-			}
-			else
-			{	
-				$paginator->setItemCountPerPage(50);
-				
-			}		
-			return $paginator;
+	public function geturlAction()
+	{
 			
-		}
-	private function _performSearch($filter,$filterText,$perPage)
-			{
-			$filterText =  trim($filterText);
-			$filter =  trim($filter);
-			$session = new Zend_Session_Namespace('Page_Search');
-			$bsModel = new Application_Model_DbTable_Pages();
-            $where ="$filter LIKE '%$filterText%'";
-			$result = $bsModel->getLinks($where,null);
-			$totalRecords = count($result);
-			
-			$result = $bsModel->getLinks($where,null);
-			$paginator = Zend_Paginator::factory($result);
-			$paginator->setPageRange(5); 
-			$paginator->setCurrentPageNumber($this->_getParam('page'));
-			if($perPage == 'All')
-			{	
-				$paginator->setItemCountPerPage($totalRecords);	
-			}	
-			elseif($perPage != '')
-			{
-				$paginator->setItemCountPerPage($perPage);
-			}
-			elseif($session->perPage!='')
-			{
-				$paginator->setItemCountPerPage($session->perPage);
-				
-			}
-			else
-			{	
-				$paginator->setItemCountPerPage(50);
-				
-			}		
-			return $paginator;
-			
-		}
-		
-		
-	private function _index($perPage)
-		{
-			$session = new Zend_Session_Namespace('Page_Search');
-			$bsModel = new Application_Model_DbTable_Pages();
-                        $where ="";
-			$result = $bsModel->getLinks($where,null);
-			$totalRecords = count($result);
-			$this->view->result = $result;
-			
-			$paginator = Zend_Paginator::factory($result);
-			$paginator->setPageRange(5); 
-			$paginator->setCurrentPageNumber($this->_getParam('page'));
-			if($perPage == 'All')
-			{	
-				$paginator->setItemCountPerPage($totalRecords);	
-			}
-			elseif($perPage != '')
-			{
-				$paginator->setItemCountPerPage($perPage);
-			}			
-			elseif($session->perPage!='')
-			{
-				$paginator->setItemCountPerPage($session->perPage);
-			
-			}
-			else
-			{	
-				$paginator->setItemCountPerPage(50);
-			
-			}		
-			return $paginator;
-			
-		}
-		
-		// end for the sorting searching
-		
+	
+            $id = $this -> _request -> getParam('id');
+            $obj = new Application_Model_DbTable_Websites();
+            $pageData =$obj->getUrlById($id); 
+           
+             if(!empty($pageData[0]['url']))
+            {
+                 
+                 echo $pageData[0]['url'];die();
+            
+            }
+            else 
+                die('url');
+        }
 	
 }
 

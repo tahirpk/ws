@@ -41,13 +41,13 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 
 	public function getById($id) {
 		$select = $this -> select();
-	   	$select -> from ($this -> _name, 'status')
+	   	$select -> from ($this -> _name, array('status','webId','reportCheckStatus'))
 	   		   -> where("id='$id'");
 		
 		$stmt = $select->query();
 		$result = $stmt->fetchAll();
 		if(count($result)) {
-			return $result[0]['status'];
+			return $result;
 		}
 		return 0;
 	}

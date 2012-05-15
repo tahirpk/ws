@@ -2,10 +2,24 @@
 
 	
 	
-	function back_to_listing()
+	function back_to_listing(id)
 	{
-		window.location = '<?=$this->baseUrl()?>/admin/pages';
+		window.location = '<?=$this->baseUrl()?>/admin/pages/index/webid/'+id ;
 	}
+        
+        function getUrl(webid)
+        {
+
+           
+           
+            url = "<?=$this->baseUrl()?>/admin/pages/geturl/id/"+webid;
+            $.ajax({
+            url: url,
+            success: function(response){
+            $('#pageUrl').val(response);
+            }
+            });
+        }
 	
 </script>
 
@@ -65,7 +79,7 @@
                    
                     <div class="btns">
                         <input name="" type="submit" value="<?=$this->placeholder('buttonCaption')?>" />
-                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing();" />
+                        <input name="" type="button" value="<?=$this->translate('Back to Listing')?>" onclick="back_to_listing(<?=$this->webid?>);" />
                     </div>
                 </form>
                 </div>

@@ -45,9 +45,21 @@
                             <hr>
                             <p>Current</p>
                         </td>
-                        <td><?=$this->result['pageTitle']?></td>
-                        <td> <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
-                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                        <td> <p><?=$this->result['pageTitle']?>
+                            </p>
+                            
+                            <p> <? if($this->result['reportCheckStatus']!='')?>
+                                <?=$this->result['pageTitle']?>
+                            </p>
+                        </td>
+                        <td> 
+                            <? if(!empty($this->result['pageTitle'])) {?>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                            <? } else {?>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                            <? } ?>
+                            
+                        </td>
                     </tr>
                      <tr>
                         
@@ -55,9 +67,19 @@
                         <td><p>Expected</p>
                             <hr>
                             <p>Current</p></td>
-                        <td><?=$this->result['pageKeywords']?></td>
-                        <td> <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
-                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                        <td><?=$this->result['pageKeywords']?>
+                                <p> <? if($this->result['reportCheckStatus']!='')?>
+                                <?=$this->result['pageKeywords']?>
+                            </p>
+                        </td>
+                        <td>
+                            
+                             <? if(!empty($this->result['pageKeywords'])) {?>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                            <? } else {?>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                            <? } ?>
+                        </td>
                     </tr>
                      <tr>
                         
@@ -65,18 +87,26 @@
                         <td><p>Expected</p>
                             <hr>
                             <p>Current</p></td>
-                        <td><?=$this->result['pageContent']?></td>
+                        <td><?=$this->result['pageContent']?>
+                            <p> <? if($this->result['reportCheckStatus']!='')?>
+                                <?=$this->result['pageContent']?>
+                            </p>
+                        </td>
                         <td>
+                             <? if(!empty($this->result['pageContent'])) {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
-                            <? //if($this->result['status']==1) echo 'Active'; else echo 'Inactive';?></td>
+                            <? } else {?>
+                            <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                            <? } ?>
+                        </td>
                     </tr>
                     <?
                          }
                        // }
                     ?>
                     <tr>
-                        <td colspan="2"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'edit','id' => $rst['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a></td>
-                        <td colspan="2"> <a href="javascript:void(0);">Check Now</a></td>
+                        <td colspan="2"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'edit','id' => $this->result['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a></td>
+                        <td colspan="2">  <a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'reportstatus','id' => $this->result['id'], 'page' => $this -> page))?>';" >Check Now</a></td>
                     </tr>
                </table>
                     

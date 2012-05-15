@@ -30,7 +30,7 @@ class Admin_Form_AddPage extends Zend_Form
 		foreach($table -> fetchAll() as $b){
 		  $webId -> addMultiOption($b -> id, $b -> url);
 		}
-                
+                $webId->setAttrib('onchange','getUrl(this.value)');
                
 		$pageTitle = new Zend_Form_Element_Text('pageTitle');
                 $pageTitle->addFilter('StripTags')
