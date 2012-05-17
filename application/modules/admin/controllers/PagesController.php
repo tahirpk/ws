@@ -74,14 +74,15 @@ public function indexAction()
 	 * Pages Details
 	 *
 	 *****************************/
-	public function detailAction(){
+	public function detailAction()
+        {
             $this->view->placeholder('heading')->set($this->translate->_('Page Detail'));
             $this->view->placeholder('buttonCaption')->set($this->translate->_('Page Detail'));
             $this->view->headTitle("{$this->translate->_('Page Detail')} > {$this->translate->_('Page Managment')} > {$this->translate->_('Page Detail')}");
             $this->view->placeholder('breadCrumb') -> set("{$this->translate->_('Pages')} > {$this->translate->_(' Page Detail')} ");
             $id = $this->_request->getParam('id');
-            $catModel = new Application_Model_DbTable_Pages();
-            $this->view->result = $catModel->fetchRow("id = ".$id);
+            $pgModel = new Application_Model_DbTable_Pages();
+            $this->view->result = $pgModel->fetchRow("id = ".$id);
 	}
 	
 	 /*****************************
@@ -111,13 +112,23 @@ public function indexAction()
 				{
 					$web_data = $form->getValues();
                                         if(!empty($web_data['pageTitle']))
-                                            $report =1;
+                                          {
+                                             $report =1;
+                                             $reportChkStatus =0;
+                                         }
                                          if(!empty($web_data['pageTitle']) && !empty($web_data['pageKeywords']))
-                                            $report =2;
+                                            {
+                                             $report =2;
+                                             $reportChkStatus =0;
+                                         }
                                          if(!empty($web_data['pageTitle']) && !empty($web_data['pageKeywords']) && !empty($web_data['pageContent']))    
-                                            $report =3;
+                                             {
+                                             $report =3;
+                                             $reportChkStatus =1;
+                                         }
                                         else {
                                             $report =0;
+                                             $reportChkStatus =0;
                                         }
                                             
                                             $data = array(
@@ -126,7 +137,8 @@ public function indexAction()
   					    'pageTitle' => $web_data['pageTitle'],
 					    'pageKeywords' => $web_data['pageKeywords'],
                                             'pageContent' => $web_data['pageContent'],
-                                            'reportStatus' => $report
+                                            'reportStatus' => $report,
+                                             'reportCheckStatus' => $reportChkStatus
 					);
 					$pgModel = new Application_Model_DbTable_Pages();
 					$pgModel->save($data);
@@ -221,13 +233,23 @@ public function indexAction()
 				{
 					$pg_data = $form->getValues();	
                                          if(!empty($pg_data['pageTitle']))
-                                            $report =1;
+                                         {
+                                             $report =1;
+                                             $reportChkStatus =0;
+                                         }
                                          if(!empty($pg_data['pageTitle']) && !empty($pg_data['pageKeywords']))
-                                            $report =2;
+                                         {
+                                             $report =2;
+                                              $reportChkStatus =0;
+                                         }
                                          if(!empty($pg_data['pageTitle']) && !empty($pg_data['pageKeywords']) && !empty($pg_data['pageContent']))    
-                                            $report =3;
+                                         {
+                                             $report =3;
+                                              $reportChkStatus =1;
+                                         }
                                           else {
                                             $report =0;
+                                             $reportChkStatus =0;
                                         }
 					$data = array(
 					    'id' => $id,
@@ -237,7 +259,8 @@ public function indexAction()
                                                 'pageKeywords'=> $pg_data['pageKeywords'],
                                                 'pageContent'=> $pg_data['pageContent'],
 						'status' => $pg_data['status'],
-                                                 'reportStatus' => $report
+                                                 'reportStatus' => $report ,
+                                                 'reportCheckStatus' => $reportChkStatus
 					);
                                      		
 					$pgModel->save($data);
