@@ -1,10 +1,9 @@
 
         <?php
-        
         $server="localhost";
         $database="ws_portal";
         $user="root";
-        $password="123";
+        $password="wspiderroot";
 
         $conn=mysql_connect($server,$user,$password);
         $db_select=mysql_select_db($database,$conn);
@@ -27,6 +26,10 @@
 		background-color:#83AE63;
 		color: #FFFFFF;
 		}
+                .top25
+                {
+                    padding-top: 25px;
+                }
                 .tr_sbhead {
 		
 		background-color:#B7C86B;
@@ -62,11 +65,11 @@
         $sqlurl='select id,url from websites';
         $sqlurl=mysql_query($sqlurl) or die(mysql_error());
         $num_rows = mysql_num_rows($sqlurl);
-        $table=$htmlStyle.'<table class="brd" width="100%" border="0" cellspacing="0" cellpadding="0">';
+        $table=$htmlStyle.'<table class="brd" width="100%" border="0" cellspacing="0" cellpadding="0"><tr class="tr_head bottom15"><td class="top25" colspan="6" align="center">Websites Urls Reports To Admin:</td></tr>';
         while ($row = mysql_fetch_array($sqlurl)) {
            $sqlweb='select webId,pg.pageUrl,pageTitle,pageKeywords,pageContent,reportCheckStatus,reportStatus 
            from pages as pg where webId='.$row['id'];
-        $table.='<tr class="tr_head "><td>Main Url:</td><td colspan="4">'. $row["url"].'</td></tr>';
+        $table.='<tr class="tr_head "><td class="top25">Main Url:</td><td colspan="4" class="top25">'. $row["url"].'</td></tr>';
         $table.='<tr class="tr_sbhead "><td>Page Url</td><td>Page Title</td><td>Keywords</td><td>Descriptions</td><td>Status</td></tr>';            
            $sqlweb= mysql_query($sqlweb);
            $num_prows = mysql_num_rows($sqlweb);
@@ -101,7 +104,7 @@
         }
        $table.='</table>';
        
-      // echo $table;
+       //echo $table;
        
         $to		  = 'tahirpk@gmail.com,chris.adler@gmail.com';
         $from         = 'tahirpk@gmail.com';
