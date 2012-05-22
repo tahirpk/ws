@@ -61,9 +61,9 @@
                     $filename = $rst['pageUrl'];
                     $file_headers = @get_headers($filename);
                     
-                   echo $file_headers[0];die($file_headers[0]);
+                 //  echo $file_headers[0];
                     if($file_headers[0] == 'HTTP/1.0 404 Not Found') {
-                    $live_title ='NA'; 
+                    $live_title ='NA'; die($file_headers[0]);
                     }
                     else 
                     {
