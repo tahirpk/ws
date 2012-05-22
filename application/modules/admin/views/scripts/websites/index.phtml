@@ -153,24 +153,29 @@
                             </td>
 				  <td>
                                     <?  $objModel = new Application_Model_DbTable_Pages();
-                                        $greenRed= $objModel->getCount($where="reportStatus >2 and status=1 and webId=".$rst['id']);
-                                       
-                                       if($greenRed==0)
+                                        $forGreenRed= $objModel->getCount($where="status = 1 and reportCheckStatus=1 and webId=".$rst['id']);
+                                        $pagesfind= $objModel->getCount($where="status = 1 and webId=".$rst['id']);
+                                       if($forGreenRed==$pagesfind and  $pagesfind!=0)
                                        {
+                                          
                                     ?>
-                                      
-                                  <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
-                                      <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
-                                  </a>
-                                     <?
+                                             <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
+                                                <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                                            </a>
+                                        <?
+                                         
+                                        
+                               
                                        }
                                        else
                                        {
-                                     ?>
-                                        <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
-                                        <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
-                                        </a>
-                                      <?
+                                           
+                                       ?>
+                                                <a href="<?=$this->baseUrl()?>/admin/pages/index/webid/<?=$rst['id']?>" target="_self" title="">                              
+                                                <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                                                </a>
+                                       <?
+                                          
                                        }
                                        ?>
                                 

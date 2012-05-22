@@ -56,26 +56,55 @@
                 </div>
                 </td> 
                 <td>
-                    <?  $objModel = new Application_Model_DbTable_Pages();
+                    <? 
+                    
+                    $filename = $rst['pageUrl'];
+
+                   // tags
+                    $start = '<title>';
+                    $end = '<\/title>';
+
+                    // open the file
+                    $fp = fopen( $filename, 'r' );
+
+                    $cont = "";
+
+                    // read the contents
+                    while( !feof( $fp ) ) {
+                    $buf = trim( fgets( $fp, 4096 ) );
+                    $cont .= $buf;
+                    }
+
+                    // get tag contents
+                    preg_match( "/$start(.*)$end/s", $cont, $match );
+
+                    // tag contents
+                   $live_title = @$match[ 1 ]; 
+                   $mtags=  @get_meta_tags($filename);
+                  
+                if(count($mtags)>0)  
+                {   
+                    $objModel = new Application_Model_DbTable_Pages();
                     $greenRed= $objModel->getCount($where="reportStatus >2 and status=1 and id=".$rst['id']);
 
-                    if($greenRed==0)
+                    if(strcmp($live_title, $rst['pageTitle'])==0 and strcmp($mtags['keywords'], $rst['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $rst['pageContent'],50)) == 0))
                     {
                     ?>
 
-                   
-                    <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                    <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
+                    
                    
                     <?
                     }
                     else
                     {
                     ?>
+                   <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
                    
-                    <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                    
                     <?
                     }
+                }
                     ?>
                      
                 </td>

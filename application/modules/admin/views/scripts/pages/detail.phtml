@@ -32,10 +32,37 @@
                      <th>Status</th>
                     </tr>
                     <?
+                    
+
+      
 			if(count($this->result)>0){ 
-                            
-                          //  print_r($this->result);
+                         //  print_r($this->result);
                          //foreach($this->result as $rst){
+ 
+                    $page =$this->result['pageUrl'];
+
+                    // tags
+                    $start = '<title>';
+                    $end = '<\/title>';
+
+                    // open the file
+                    $fp = fopen( $page, 'r' );
+
+                    $cont = "";
+
+                    // read the contents
+                    while( !feof( $fp ) ) {
+                    $buf = trim( fgets( $fp, 4096 ) );
+                    $cont .= $buf;
+                    }
+
+                    // get tag contents
+                    preg_match( "/$start(.*)$end/s", $cont, $match );
+
+                    // tag contents
+                    $live_title = $match[ 1 ];         
+                            
+                   $mtags=  @get_meta_tags($page);
 		  	?>
                     <tr>
                         
@@ -47,13 +74,14 @@
                         </td>
                         <td> <p><?=$this->result['pageTitle']?>
                             </p>
-                            
-                            <p> <? if($this->result['reportCheckStatus']!='')?>
-                                <?=$this->result['pageTitle']?>
+                            <hr>
+                            <p> 
+                                <?=$live_title?>
                             </p>
                         </td>
                         <td> 
-                            <? if(!empty($this->result['pageTitle'])) {?>
+                            <? if(strcmp($live_title, $this->result['pageTitle'])==0) {?>
+                            
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
@@ -68,13 +96,13 @@
                             <hr>
                             <p>Current</p></td>
                         <td><?=$this->result['pageKeywords']?>
-                                <p> <? if($this->result['reportCheckStatus']!='')?>
-                                <?=$this->result['pageKeywords']?>
+                          <hr>     <p> <? //if($this->result['reportCheckStatus']!='')?>
+                                <?=$mtags['keywords']?>
                             </p>
                         </td>
                         <td>
                             
-                             <? if(!empty($this->result['pageKeywords'])) {?>
+                             <? if(strcmp($mtags['keywords'], $this->result['pageKeywords'])==0) {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
@@ -88,12 +116,13 @@
                             <hr>
                             <p>Current</p></td>
                         <td><?=$this->result['pageContent']?>
-                            <p> <? if($this->result['reportCheckStatus']!='')?>
-                                <?=$this->result['pageContent']?>
-                            </p>
+                          <hr>  <p><?=$mtags['description']?>
+                         </p>
                         </td>
                         <td>
-                             <? if(!empty($this->result['pageContent'])) {?>
+                            <? 
+                            if((strncasecmp($mtags['description'], $this->result['pageContent'],50)) == 0) {?>
+                            
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />

@@ -12,7 +12,7 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 	   $select -> from ($this -> _name, 'COUNT(*) as num')->where($where);
            else
            $select -> from ($this -> _name, 'COUNT(*) as num');
-	   return $this -> fetchRow($select) -> num;
+       	   return $this -> fetchRow($select) -> num;
 	}
 	
 	
@@ -28,7 +28,42 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 	}
 	
 	
-	  
+	 
+        public function getPageIds($webid){
+		//$pageIds = $this->select()->from($this -> _name, array('id'))
+               //         ->where('status = 1 and webId='.$webid)->query()->fetchAll();
+                $select = $this -> select();
+                $tpWhere='status = 1  and webId='.$webid;
+                $select -> from ($this -> _name, 'COUNT(*) as num')->where($tpWhere);
+                $totalPages= $this -> fetchRow($select) -> num;
+                $greenRedWhere='status = 1 and reportCheckStatus=1 and webId='.$webid;
+                $greenRedPages= $select -> from ($this -> _name, 'COUNT(*) as num')->where($greenRedWhere);
+                $greenRedPages= $this -> fetchRow($select) -> num;
+                if($greenRedPages==$totalPages) {
+			
+                        return '1'.$greenRedPages; 
+		}else
+                {
+                   
+                    return '0';
+                }
+		
+	}
+        
+        function     _pageStatusGreenRed($pids){
+         print_r($pids); //die($pids[0]['id']);
+            $select = $this -> select();
+            $k=count($pids);
+           $where="status=1 and  reportStatus >0 and reportCheckStatus=1 and id in ('".$pids[0]['id']."')";
+         echo   $grc= $select -> from ($this -> _name, 'COUNT(*) as num')->where($where);
+           $i=0;
+            foreach($pids as $key => $val){
+                
+              echo  $where="status=1 and  reportStatus >0 and reportCheckStatus=1 and id in ('".$key."')";
+             $i++; 
+            }  die();
+             return $gr;
+        }
 	/*****************
 	*
 	* This function is used for pages lists
@@ -48,7 +83,7 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 		$result = $stmt->fetchAll();
 		if(count($result)) {
 			return $result;
-		}
+		}else
 		return 0;
 	}
 	
