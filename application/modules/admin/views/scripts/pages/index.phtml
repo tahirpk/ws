@@ -60,8 +60,7 @@
                    
                     $filename = $rst['pageUrl'];
                     $file_headers = @get_headers($filename);
-                    print_r($file_headers);
-                 //  echo $file_headers[0];
+                  
                     if((strncasecmp($file_headers[0], 'HTTP/1.1 404 Not Found',50)) == 0)
                             echo $file_headers[0];
                     if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
