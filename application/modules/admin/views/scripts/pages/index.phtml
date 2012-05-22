@@ -62,9 +62,8 @@
                     $file_headers = @get_headers($filename);
                   
                     if((strncasecmp($file_headers[0], 'HTTP/1.1 404 Not Found',50)) == 0)
-                            echo $file_headers[0];
-                    if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                    $live_title ='NA'; die($file_headers[0]);
+                    {
+                         $live_title ='NA';// die($file_headers[0]);
                     }
                     else 
                     { die($file_headers[0]);
