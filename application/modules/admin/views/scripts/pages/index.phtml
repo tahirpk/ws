@@ -59,27 +59,43 @@
                     <? 
                     
                     $filename = $rst['pageUrl'];
+                    
+                    $file_headers = @get_headers($filename);
+                   
+                    if($file_headers[0] == 'HTTP/1.0 404 Not Found') {
+                    $live_title ='NA'; //die($file_headers[0]);
+                    }
+                    else 
+                    {
+                    
 
-                   // tags
-                    $start = '<title>';
-                    $end = '<\/title>';
+                        // tags
+                        $start = '<title>';
+                        $end = '<\/title>';
 
-                    // open the file
-                    $fp = fopen( $filename, 'r' );
+                        // open the file
+                        $fp = fopen( $filename, 'r' );
 
-                    $cont = "";
+                        $cont = "";
 
-                    // read the contents
-                    while( !feof( $fp ) ) {
-                    $buf = trim( fgets( $fp, 4096 ) );
-                    $cont .= $buf;
+                        // read the contents
+                        while( !feof( $fp ) ) {
+                        $buf = trim( fgets( $fp, 4096 ) );
+                        $cont .= $buf;
+                        }
+
+                        // get tag contents
+                        preg_match( "/$start(.*)$end/s", $cont, $match );
+
+                        // tag contents
+
+                        $live_title = @$match[ 1 ]; 
+                   
+                        
                     }
 
-                    // get tag contents
-                    preg_match( "/$start(.*)$end/s", $cont, $match );
 
-                    // tag contents
-                   $live_title = @$match[ 1 ]; 
+                   
                    $mtags=  @get_meta_tags($filename);
                   
                 if(count($mtags)>0)  
@@ -104,9 +120,16 @@
                    
                     <?
                     }
-                }
+                }else
+                    {
                     ?>
-                     
+                      
+                   <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                   
+                   
+                    <?
+                    }
+                    ?>
                 </td>
                             <td width="18%" id="activeDactive<?=$rst['id']?>">
                             <?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
