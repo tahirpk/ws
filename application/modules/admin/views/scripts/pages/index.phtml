@@ -68,7 +68,7 @@
                     else 
                     {
                     
-                       die($file_headers[0]);
+                      
 
                         // tags
                         $start = '<title>'; 
@@ -103,7 +103,8 @@
                   $mtags =  @get_meta_tags($filename); 
                  
                 if(count($mtags)>0) 
-                {   
+                {    
+                    die($file_headers[0]);
                     $objModel = new Application_Model_DbTable_Pages();
                     $greenRed= $objModel->getCount($where="status=1 and id=".$rst['id']);
  
