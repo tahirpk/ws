@@ -179,17 +179,17 @@ public function indexAction()
             $obj = new Application_Model_DbTable_Pages();
             $pageData =$obj->getById($id); 
           
-            if(!empty($pageData[0][reportCheckStatus]) && $pageData[0][reportCheckStatus]==0 || $pageData[0][reportCheckStatus]=='')
-            {
-             $status=1;
-            }
-            $data = array(
-            'id' => $id,
-            'reportCheckStatus'=> $status,
+          //  if(!empty($pageData[0][reportCheckStatus]) && $pageData[0][reportCheckStatus]==0 || $pageData[0][reportCheckStatus]=='')
+         //   {
+           //  $status=1;
+          //  }
+          //  $data = array(
+          //  'id' => $id,
+         //   'reportCheckStatus'=> $status,
 
-            );
+         //   );
             
-            $obj->save($data);
+         //   $obj->save($data);
            
             $this->_redirect("admin/pages/detail/webid/".$pageData[0][webId]."/id/".$id);
         }
