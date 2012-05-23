@@ -68,14 +68,12 @@
                     else 
                     {
                     
-                      
-
                         // tags
                         $start = '<title>'; 
                         $end = '<\/title>';
 
                         // open the file
-                        $fp = fopen( $filename, 'r' );
+                        $fp = @fopen( $filename, 'r' );
 
                         $cont = "";
 
@@ -104,9 +102,8 @@
                  
                 if(count($mtags)>0) 
                 {    
-                    die($file_headers[0]);
-                    $objModel = new Application_Model_DbTable_Pages();
-                    $greenRed= $objModel->getCount($where="status=1 and id=".$rst['id']);
+                   // die($file_headers[0]);
+                   
  
                     if(strcmp($live_title, $rst['pageTitle'])==0 and isset($mtags['keywords']) and isset($mtags['description']) and strcmp($mtags['keywords'], $rst['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $rst['pageContent'],50)) == 0))
                     {
