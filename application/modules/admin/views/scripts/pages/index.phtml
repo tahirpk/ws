@@ -68,29 +68,7 @@
                     else 
                     {
                     
-                        // tags
-                        $start = '<title>'; 
-                        $end = '<\/title>';
-
-                        // open the file
-                        $fp = @fopen( $filename, 'r' );
-
-                        $cont = "";
-
-                        // read the contents
-                        while( !feof( $fp ) ) {
-                        $buf = trim( fgets( $fp, 4096 ) );
-                        $cont .= $buf;
-                        }
-
-                        // get tag contents
-                        preg_match( "/$start(.*)$end/s", $cont, $match );
-
                      
-                         // tag contents
-                        if(isset($match[ 1 ]) and !empty($match[ 1 ]))
-                        $live_title = $match[ 1 ]; 
-                        else
                         $live_title ='NA';
                    
                         
