@@ -59,13 +59,16 @@ public function indexAction()
 	
 	// delete action
 	public function deleteAction(){
-	   $id = $this -> _request -> getParam('id');
-	   $obj= new Application_Model_DbTable_Pages();
+            $id = $this -> _request -> getParam('id');
+            $webid = $this -> _request -> getParam('webid');
+            $obj= new Application_Model_DbTable_Pages(); 
+            $resul= $obj -> getById($id);
+            $webid =$resul[0]['webId']; 
             $obj -> deletePages($id);
             $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
             $this->flashMessenger->addMessage('success');	
             $this->flashMessenger->addMessage($this->translate->_("Page Deleted"));	
-	   $this -> _redirect('/admin/pages');
+            $this -> _redirect('/admin/pages/index/webid/'.$webid);
 	}
 	
 	

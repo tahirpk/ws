@@ -60,17 +60,17 @@
                    
                     $filename = $rst['pageUrl'];
                     $file_headers = @get_headers($filename);
-                  
-                    if((strncasecmp($file_headers[0], 'HTTP/1.1 404 Not Found',50)) == 0)
-                    {
-                         $live_title ='NA';// die($file_headers[0]);
+                    
+                   
+                    if($file_headers[0] == 'HTTP/1.0 404 Not Found') {
+                    $live_title ='NA'; //die($file_headers[0]);
                     }
                     else 
-                    { 
+                    {
                     
 
                         // tags
-                        $start = '<title>';
+                        $start = '<title>'; 
                         $end = '<\/title>';
 
                         // open the file
@@ -87,47 +87,53 @@
                         // get tag contents
                         preg_match( "/$start(.*)$end/s", $cont, $match );
 
-                        // tag contents
-
-                        $live_title = @$match[ 1 ]; 
+                     
+                         // tag contents
+                        if(isset($match[ 1 ]) and !empty($match[ 1 ]))
+                        $live_title = $match[ 1 ]; 
+                        else
+                        $live_title ='NA';
                    
                         
                     }
 
 
                    
-                   $mtags=  @get_meta_tags($filename);
-                  
-                if(count($mtags)>0)  
+                  $mtags =  @get_meta_tags($filename); 
+                 
+                if(count($mtags)>0) 
                 {   
                     $objModel = new Application_Model_DbTable_Pages();
-                    $greenRed= $objModel->getCount($where="reportStatus >2 and status=1 and id=".$rst['id']);
-
-                    if(strcmp($live_title, $rst['pageTitle'])==0 and strcmp($mtags['keywords'], $rst['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $rst['pageContent'],50)) == 0))
+                    $greenRed= $objModel->getCount($where="status=1 and id=".$rst['id']);
+ 
+                    if(strcmp($live_title, $rst['pageTitle'])==0 and isset($mtags['keywords']) and isset($mtags['description']) and strcmp($mtags['keywords'], $rst['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $rst['pageContent'],50)) == 0))
                     {
+                        
+                        $data_pg = array(      'id' => $rst['id'],
+                                            'reportCheckStatus' => '1'
+				     );
+					
                     ?>
-
                     <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
-                    
-                   
                     <?
                     }
                     else
                     {
+                        $data_pg = array(      'id' => $rst['id'],
+                                            'reportCheckStatus' => '0'
+				     );
                     ?>
-                   <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
-                   
-                   
-                    <?
+                    <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                   <?
                     }
                 }else
-                    {
+                    { 
+                         $data_pg = array(      'id' => $rst['id'],
+                                            'reportCheckStatus' => '0'
+				     );
                     ?>
-                      
-                   <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
-                   
-                   
-                    <?
+                     <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
+                   <?
                     }
                     ?>
                 </td>
@@ -141,7 +147,11 @@
                          
                       </tr>
 
-                     <? } 
+                     <? 
+                     
+                        $pgModel = new Application_Model_DbTable_Pages();
+			$pgModel->save($data_pg);
+                     } 
                        } else {?>
                         <tr>
                         	<td align="center" colspan="6"><?=$this->translate('No record added yet');?></td>

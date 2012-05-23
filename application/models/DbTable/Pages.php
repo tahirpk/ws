@@ -78,7 +78,6 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 		$select = $this -> select();
 	   	$select -> from ($this -> _name, array('status','webId','reportCheckStatus'))
 	   		   -> where("id='$id'");
-		
 		$stmt = $select->query();
 		$result = $stmt->fetchAll();
 		if(count($result)) {
@@ -91,6 +90,13 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 	    
 	  // DELETE Page
 	   $this -> delete('id='.$id);
+	   
+	}
+        
+        public function deleteByWebidPages($where){
+	    
+	  // DELETE Pages by webid
+	   $this -> delete($where);
 	   
 	}
 	public function getLinks($where=null,$orderby = '')

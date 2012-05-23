@@ -40,6 +40,14 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 
 	   $this -> deletefile($id);	
 	   $this -> delete('id='.$id);
+           
+           // delete by webid by pages
+           
+           $pgModel = new Application_Model_DbTable_Pages();
+		$wherePg = "webId = '".$id."'";
+		$resultPg = $pgModel->deleteByWebidPages($wherePg);
+           
+           
 	    
 	}
 	

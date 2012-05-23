@@ -39,9 +39,17 @@
                          //  print_r($this->result);
                          //foreach($this->result as $rst){
  
-                    $page =$this->result['pageUrl'];
-
-                    // tags
+                  $page =$this->result['pageUrl'];
+                  $file_headers = @get_headers($page);
+                    
+                    if($file_headers[0] == 'HTTP/1.0 404 Not Found') 
+                    {
+                         $live_title ='NA'; //die($file_headers[0]);
+                    }
+                    else
+                    {
+                       
+                          // tags
                     $start = '<title>';
                     $end = '<\/title>';
 
@@ -60,7 +68,12 @@
                     preg_match( "/$start(.*)$end/s", $cont, $match );
 
                     // tag contents
-                    $live_title = $match[ 1 ];         
+                    if(isset($match[ 1 ]) and !empty($match[ 1 ]))
+                    $live_title = $match[ 1 ]; 
+                    else
+                         $live_title ='NA';
+                    }
+                          
                             
                    $mtags=  @get_meta_tags($page);
 		  	?>
@@ -97,12 +110,12 @@
                             <p>Current</p></td>
                         <td><?=$this->result['pageKeywords']?>
                           <hr>     <p> <? //if($this->result['reportCheckStatus']!='')?>
-                                <?=$mtags['keywords']?>
+                                <? if(isset($mtags['keywords'])) echo $mtags['keywords'];?>
                             </p>
                         </td>
                         <td>
                             
-                             <? if(strcmp($mtags['keywords'], $this->result['pageKeywords'])==0) {?>
+                             <? if( isset($mtags['keywords']) and strcmp($mtags['keywords'], $this->result['pageKeywords'])==0  ) {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/red10.gif" alt="sort" />
@@ -116,12 +129,14 @@
                             <hr>
                             <p>Current</p></td>
                         <td><?=$this->result['pageContent']?>
-                          <hr>  <p><?=$mtags['description']?>
+                          <hr>  <p>
+                              <? if(isset($mtags['description'])) echo $mtags['description'];?>
+                                    
                          </p>
                         </td>
                         <td>
                             <? 
-                            if((strncasecmp($mtags['description'], $this->result['pageContent'],50)) == 0) {?>
+                            if( isset($mtags['description']) and (strncasecmp($mtags['description'], $this->result['pageContent'],50)) == 0 ) {?>
                             
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
