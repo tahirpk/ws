@@ -93,7 +93,10 @@
                             </p>
                         </td>
                         <td> 
-                            <? if(strcmp($live_title, $this->result['pageTitle'])==0) {?>
+                            <? if(strcmp($live_title, $this->result['pageTitle'])==0) {
+                             
+                                
+                             ?>
                             
                             <img src="<?=$this->baseUrl()?>/application_data/common/images/green10.jpeg" alt="sort" />
                             <? } else {?>
@@ -147,6 +150,23 @@
                     <?
                          }
                        // }
+                         
+                         
+                    if(strcmp($live_title, $this->result['pageTitle'])==0 and isset($mtags['keywords']) and isset($mtags['description']) and strcmp($mtags['keywords'], $this->result['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $this->result['pageContent'],50)) == 0))
+                    {
+
+                        $data_pg = array(      'id' => $rst['id'],
+                        'reportCheckStatus' => '1'
+                        );
+                    }  else {
+                        
+                        $data_pg = array(      'id' => $rst['id'],
+                        'reportCheckStatus' => '0');
+                        
+                    }
+                    
+                    $pgModel = new Application_Model_DbTable_Pages();
+                    $pgModel->save($data_pg);
                     ?>
                     <tr>
                         <td colspan="2"><a href="javascript:void(0);" onclick="window.location = '<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'edit','id' => $this->result['id'], 'page' => $this -> page))?>';" ><?=$this->translate('Edit')?></a></td>
