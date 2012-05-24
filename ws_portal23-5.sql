@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 11, 2012 at 09:58 PM
+-- Generation Time: May 24, 2012 at 04:10 PM
 -- Server version: 5.1.61
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -24,8 +24,6 @@ SET time_zone = "+00:00";
 
 --
 -- Table structure for table `bl_countries_states`
---
--- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `bl_countries_states`;
@@ -526,9 +524,6 @@ INSERT INTO `bl_countries_states` (`country_sate_id`, `state_name`, `state_count
 --
 -- Table structure for table `business`
 --
--- Creation: Apr 27, 2012 at 12:35 PM
--- Last update: Apr 27, 2012 at 05:50 PM
---
 
 DROP TABLE IF EXISTS `business`;
 CREATE TABLE IF NOT EXISTS `business` (
@@ -553,8 +548,6 @@ INSERT INTO `business` (`id`, `businessName`, `createdAt`, `status`) VALUES
 
 --
 -- Table structure for table `country`
---
--- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `country`;
@@ -817,10 +810,6 @@ INSERT INTO `country` (`iso`, `name`, `printable_name`, `iso3`, `numcode`) VALUE
 --
 -- Table structure for table `customers`
 --
--- Creation: Apr 27, 2012 at 11:24 AM
--- Last update: May 07, 2012 at 02:45 PM
--- Last check: May 08, 2012 at 12:10 PM
---
 
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -862,10 +851,6 @@ INSERT INTO `customers` (`id`, `FirstName`, `LastName`, `Email`, `Password`, `Pa
 --
 -- Table structure for table `customer_websites`
 --
--- Creation: Apr 25, 2012 at 11:36 PM
--- Last update: May 07, 2012 at 02:45 PM
--- Last check: May 08, 2012 at 12:10 PM
---
 
 DROP TABLE IF EXISTS `customer_websites`;
 CREATE TABLE IF NOT EXISTS `customer_websites` (
@@ -882,22 +867,16 @@ CREATE TABLE IF NOT EXISTS `customer_websites` (
 INSERT INTO `customer_websites` (`id`, `customerFid`, `webId`) VALUES
 (91, 54, 19),
 (97, 55, 21),
-(90, 54, 22),
 (93, 52, 20),
-(98, 55, 22),
 (92, 52, 19),
 (101, 53, 20),
 (100, 53, 19),
-(89, 54, 21),
-(99, 53, 22);
+(89, 54, 21);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `iso_countries`
---
--- Creation: Apr 25, 2012 at 11:36 PM
--- Last update: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `iso_countries`;
@@ -1207,8 +1186,6 @@ INSERT INTO `iso_countries` (`rowId`, `countryId`, `locale`, `countryCode`, `cou
 --
 -- Table structure for table `menu`
 --
--- Creation: Apr 25, 2012 at 11:36 PM
---
 
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
@@ -1243,9 +1220,6 @@ INSERT INTO `menu` (`id`, `menu_name`, `menu_status`, `event_id`, `p_id`, `menu_
 --
 -- Table structure for table `modules`
 --
--- Creation: Apr 25, 2012 at 11:36 PM
--- Last update: Apr 27, 2012 at 05:28 PM
---
 
 DROP TABLE IF EXISTS `modules`;
 CREATE TABLE IF NOT EXISTS `modules` (
@@ -1257,7 +1231,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `module_actual_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `action` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'index',
   PRIMARY KEY (`modules_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `modules`
@@ -1276,15 +1250,14 @@ INSERT INTO `modules` (`modules_id`, `parent_id`, `modules_name`, `modules_statu
 (25, 0, 'business', 1, 2, 'Business', 'index'),
 (26, 25, 'business', 1, 1, ' Businesses', 'index'),
 (27, 25, 'business', 1, 2, 'Add New Business', 'add'),
-(28, 22, 'reports', 1, 2, 'Add New Report', 'add');
+(28, 22, 'reports', 1, 2, 'Add New Report', 'add'),
+(29, 0, 'pages', 1, 1, 'Control Panel', 'cronjobpages'),
+(30, 29, 'pages', 1, 2, 'Control Panel', 'cronjobpages');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `pages`
---
--- Creation: May 10, 2012 at 12:09 PM
--- Last update: May 11, 2012 at 03:18 PM
 --
 
 DROP TABLE IF EXISTS `pages`;
@@ -1299,25 +1272,28 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `pageContent` longtext NOT NULL,
   `pageCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('1','0') NOT NULL DEFAULT '1',
+  `reportStatus` tinyint(5) NOT NULL DEFAULT '0',
+  `reportCheckStatus` enum('0','1') NOT NULL DEFAULT '0',
+  `cronJobStatus` enum('1','0') NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `pages`
 --
 
-INSERT INTO `pages` (`id`, `webId`, `pageCaption`, `pageTitle`, `pageKeywords`, `pageMetatags`, `pageUrl`, `pageContent`, `pageCreated`, `status`) VALUES
-(2, 19, 'you', 'your page title', 'you', 'test', 'http://www.ausus.com/page', 'testing change', '2012-05-08 19:00:00', '1'),
-(3, 19, 'test', 'test', 'terst', 'test', 'http://www.ausus.com/page2', 'testing ', '2012-05-08 19:00:00', '1'),
-(4, 20, '', 'your page title', 'title page', '', 'http://www.phiplanet.com/page', 'check check check check ', '2012-05-10 17:12:58', '1');
+INSERT INTO `pages` (`id`, `webId`, `pageCaption`, `pageTitle`, `pageKeywords`, `pageMetatags`, `pageUrl`, `pageContent`, `pageCreated`, `status`, `reportStatus`, `reportCheckStatus`, `cronJobStatus`) VALUES
+(14, 20, '', 'your page title', 'Meta Keywords', '', 'http://www.phiplanet.com/our-mission/consumers', 'Meta Description', '2012-05-23 12:28:09', '1', 3, '0', '1'),
+(15, 20, '', 'Our Mission - Businesses - PHI PLANET', '', '', 'http://www.phiplanet.com/our-mission/businesses', '', '2012-05-23 13:11:48', '1', 0, '0', '1'),
+(10, 19, '', 'Sign In', '', '', 'http://www.hotmail.com', 'Powerful free e-mail with security from Microsoft - Windows Live Hotmail is a best in class e-mail service that helps you organize and manage all your online stuff in one place', '2012-05-15 04:12:51', '0', 0, '0', '0'),
+(11, 21, '', 'Objective Consulting, Inc. - Services', 'Services', '', 'http://www.spiders.com/content/services.html', 'Objective Consulting, Inc. is a full-service technology strategy and development firm.  We have a strong focus on automation, efficiency, security and building community.  We create tools to let you get your job done quickly, efficiently and easily.\r\n<br/>\r\n<br/>We work with you to build trust, and then we extend that relationship to your customers through the implementation of efficient technology services.', '2012-05-21 18:12:07', '1', 3, '1', '1'),
+(12, 21, '', 'Objective Consulting, Inc. - Custom Software Development', 'Custom Software Development', '', 'http://www.spiders.com/content/services/custom-software.html', 'Have an innovative idea?  Is there no off the shelf or open source software that can meet your needs?  While we focus on adapting existing services and packages to complete your project in the most cost effective manner possible, sometimes custom code development is necessary.', '2012-05-21 19:36:08', '1', 3, '1', '1'),
+(13, 21, '', 'Objective Consulting, Inc. - Technology Strategy', 'Technology Strategy', '', 'http://www.spiders.com/content/services/technology-strategy.html', 'OCI can help you develop the technology strategy that is appropriate for your organization.  We''ll work with you to identify your vision and goals, take a baseline assessment of where you are now, and help you identify the best tools and practices to reach and exceed your goals. ', '2012-05-21 21:38:31', '1', 3, '1', '1');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `reports`
---
--- Creation: Apr 25, 2012 at 11:36 PM
--- Last update: May 03, 2012 at 05:14 AM
 --
 
 DROP TABLE IF EXISTS `reports`;
@@ -1344,8 +1320,6 @@ INSERT INTO `reports` (`id`, `webId`, `dateTime`, `filePdf`, `createdAt`, `statu
 
 --
 -- Table structure for table `users`
---
--- Creation: Apr 25, 2012 at 11:36 PM
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -1379,10 +1353,6 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `user_initial`, `phone`, `mobile`, 
 --
 -- Table structure for table `websites`
 --
--- Creation: Apr 27, 2012 at 05:53 PM
--- Last update: May 08, 2012 at 06:09 PM
--- Last check: May 10, 2012 at 08:56 AM
---
 
 DROP TABLE IF EXISTS `websites`;
 CREATE TABLE IF NOT EXISTS `websites` (
@@ -1404,10 +1374,8 @@ CREATE TABLE IF NOT EXISTS `websites` (
 INSERT INTO `websites` (`id`, `businessId`, `webTitle`, `url`, `filePdf`, `createdAt`, `status`) VALUES
 (20, 0, 'web test', 'http://www.phiplanet.com/', 'frontend/webpdf/', '2012-04-26 07:57:42', '1'),
 (12, 3, 'web4', 'http://www.google.com.pk/', '', '2012-05-08 18:08:09', '1'),
-(19, 4, 'testi', 'http://www.ausus.com', 'frontend/webpdf/', '2012-05-08 18:09:46', '1'),
-(21, 3, 'spider', 'http://www.spiders.com', 'frontend/webpdf/', '2012-05-08 17:51:47', '1'),
-(22, 6, 'spider', 'http://www.yahoo.com', 'frontend/webpdf/', '2012-05-08 18:08:09', '1'),
-(23, 4, 'web test', 'http://www.hotmail.com', '', '2012-05-08 18:08:09', '1');
+(19, 4, 'testi', 'http://www.hotmail.com', 'frontend/webpdf/', '2012-05-23 20:12:22', '1'),
+(21, 3, 'spider', 'http://www.spiders.com', 'frontend/webpdf/', '2012-05-08 17:51:47', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
