@@ -153,8 +153,8 @@
                             </td>
 				  <td>
                                     <?  $objModel = new Application_Model_DbTable_Pages();
-                                        $forGreenRed= $objModel->getCount($where="status = 1 and reportCheckStatus=1 and webId=".$rst['id']);
-                                        $pagesfind= $objModel->getCount($where="status = 1 and webId=".$rst['id']);
+                                        $forGreenRed= $objModel->getCount($where="reportCheckStatus=1 and webId=".$rst['id']);
+                                        $pagesfind= $objModel->getCount($where="webId=".$rst['id']);
                                        if($forGreenRed==$pagesfind and  $pagesfind!=0)
                                        {
                                           
