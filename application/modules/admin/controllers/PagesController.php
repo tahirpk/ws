@@ -56,7 +56,35 @@ public function indexAction()
                 $this->view->result = $paginator;
                 
 	}
+	//for the cronjob listing page
+        
+        public function cronjobpagesAction()
+    {
+    
+    
+		$breadCrumb =$this->translate->_('Pages Management');
 	
+		$this->view->placeholder('breadCrumb')->set($breadCrumb);
+		$adminPaginator = $this -> _helper -> getHelper('AdminPaginator');
+		$this -> view -> headTitle($this -> translate -> _('Pages Management'));
+	        $pageModel = new Application_Model_DbTable_Pages();
+                
+                $selectObj = $pageModel -> select();
+                 	 	 	 	 	 	
+		
+		$selectObj -> from(array('pg' => 'pages'),array('pg.pageTitle','pg.id','pg.pageUrl','pg.cronJobStatus','pg.pageCreated','pg.status'))
+		 		   -> order('id desc');
+				   
+              
+                $recCount= $pageModel->getCount();
+              //  print_r($result); die();
+                $perPage = 10; // set values per page
+                $paginator = $adminPaginator->_getPaginatorData($this -> _getParam('page'), $perPage, $selectObj, $recCount);
+		$this->view->paginator = $paginator;
+                $this->view->result = $paginator;
+                
+	}
+        //end of the cronjob listing page
 	// delete action
 	public function deleteAction(){
             $id = $this -> _request -> getParam('id');
@@ -173,6 +201,27 @@ public function indexAction()
            
             $this->_redirect("admin/pages/index/webid/".$pageData[0][webId]);
 	}
+        
+        public function cronjobstatusAction(){
+	  
+            $id = $this -> _request -> getParam('id');
+            $obj = new Application_Model_DbTable_Pages();
+            $pageData =$obj->getById($id); 
+           
+            if(!empty($pageData[0][cronJobStatus]) && $pageData[0][cronJobStatus]==1)
+            $status=0;
+            else
+            $status=1;
+            $data = array(
+            'id' => $id,
+            'cronJobStatus'=> $status,
+
+            );
+            $obj->save($data);
+           
+            $this->_redirect("admin/pages/cronjobpages");
+	}
+        
 	public function reportstatusAction()
         {
             $id = $this -> _request -> getParam('id'); 

@@ -61,21 +61,21 @@
                     $filename = $rst['pageUrl'];
                     $file_headers = @get_headers($filename);
                     
-              
+                   
                     if($file_headers[0] == 'HTTP/1.0 404 Not Found') {
                     $live_title ='NA'; //die($file_headers[0]);
                     }
                     else 
                     {
                     
+
                         // tags
                         $start = '<title>'; 
                         $end = '<\/title>';
 
                         // open the file
-                        $fp = @fopen( $filename, 'r' );
+                        $fp = fopen( $filename, 'r' );
 
-                       
                         $cont = "";
 
                         // read the contents
@@ -102,9 +102,9 @@
                   $mtags =  @get_meta_tags($filename); 
                  
                 if(count($mtags)>0) 
-                {    
-                   // die($file_headers[0]);
-                   
+                {   
+                    $objModel = new Application_Model_DbTable_Pages();
+                    $greenRed= $objModel->getCount($where="status=1 and id=".$rst['id']);
  
                     if(strcmp($live_title, $rst['pageTitle'])==0 and isset($mtags['keywords']) and isset($mtags['description']) and strcmp($mtags['keywords'], $rst['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $rst['pageContent'],50)) == 0))
                     {

@@ -155,12 +155,12 @@
                     if(strcmp($live_title, $this->result['pageTitle'])==0 and isset($mtags['keywords']) and isset($mtags['description']) and strcmp($mtags['keywords'], $this->result['pageKeywords'])==0 and ( (strncasecmp($mtags['description'], $this->result['pageContent'],50)) == 0))
                     {
 
-                        $data_pg = array(      'id' => $this->result['id'],
+                        $data_pg = array(      'id' => $rst['id'],
                         'reportCheckStatus' => '1'
                         );
                     }  else {
                         
-                        $data_pg = array(      'id' => $this->result['id'],
+                        $data_pg = array(      'id' => $rst['id'],
                         'reportCheckStatus' => '0');
                         
                     }

@@ -92,8 +92,24 @@
 		foreach($menuDetail as $row)
 		{
 		  ?>
-    		 <li class="subMenu <? if(isset($sessionNamespace->keyValue)){ if($sessionNamespace->keyValue == $row['modules_name']){?>active<? }}?>">
-             <a href="<?php echo $this->url(array('module' => 'admin', 'controller'=>'headmenu','action'=>'menu','mainmenu' => $row['modules_name'], 'submenu' => $row['modules_id']));?>"><?=$this->translate($row['module_actual_name'])?></a>
+    		 <li class="subMenu <? if(isset($sessionNamespace->keyValue)){
+                     if($sessionNamespace->keyValue == $row['modules_name']){?>active<? }}?>">
+                     <? //=$row['modules_name'].$row['action']
+                       if($row['action']!='index')
+                       {
+                     ?>
+                        <a href="<?php echo $this->url(array('module' => 'admin', 'controller'=>'headmenu','action'=>'menu','mainmenu' => $row['modules_name'], 'submenu' => $row['modules_id'], 'target' => $row['action']));?>"><?=$this->translate($row['module_actual_name'])?>
+                        </a>
+                     <?
+                       }else
+                       {
+                      ?>
+                        <a href="<?php echo $this->url(array('module' => 'admin', 'controller'=>'headmenu','action'=>'menu','mainmenu' => $row['modules_name'], 'submenu' => $row['modules_id']));?>"><?=$this->translate($row['module_actual_name'])?>
+                        </a>
+                     <?
+                       }
+                     ?>
+            
              
             <? $subMenuDetails = $this->getSubMenu($row['modules_id']);
 				

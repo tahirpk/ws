@@ -33,10 +33,10 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 		//$pageIds = $this->select()->from($this -> _name, array('id'))
                //         ->where('status = 1 and webId='.$webid)->query()->fetchAll();
                 $select = $this -> select();
-                $tpWhere='status = 1  and webId='.$webid;
+                $tpWhere='webId='.$webid;
                 $select -> from ($this -> _name, 'COUNT(*) as num')->where($tpWhere);
                 $totalPages= $this -> fetchRow($select) -> num;
-                $greenRedWhere='status = 1 and reportCheckStatus=1 and webId='.$webid;
+                $greenRedWhere='reportCheckStatus=1 and webId='.$webid;
                 $greenRedPages= $select -> from ($this -> _name, 'COUNT(*) as num')->where($greenRedWhere);
                 $greenRedPages= $this -> fetchRow($select) -> num;
                 if($greenRedPages==$totalPages) {
@@ -76,7 +76,7 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 
 	public function getById($id) {
 		$select = $this -> select();
-	   	$select -> from ($this -> _name, array('status','webId','reportCheckStatus'))
+	   	$select -> from ($this -> _name, array('status','webId','reportCheckStatus','cronJobStatus'))
 	   		   -> where("id='$id'");
 		$stmt = $select->query();
 		$result = $stmt->fetchAll();
