@@ -123,6 +123,18 @@ class Application_Model_DbTable_Websites extends Zend_Db_Table_Abstract
 		return 0;
 	}
         
+        public function getById($id) {
+		$select = $this -> select();
+	   	$select -> from ($this -> _name, array('status','cronJobStatus'))
+	   		   -> where("id='$id'");
+		$stmt = $select->query();
+		$result = $stmt->fetchAll();
+		if(count($result)) {
+			return $result;
+		}else
+		return 0;
+	}
+        
         public function getUrlById($id) {
 		$select = $this -> select();
 	   	$select -> from ($this -> _name, array('WebTitle','url'))

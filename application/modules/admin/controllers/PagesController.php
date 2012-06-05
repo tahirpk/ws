@@ -67,17 +67,19 @@ public function indexAction()
 		$this->view->placeholder('breadCrumb')->set($breadCrumb);
 		$adminPaginator = $this -> _helper -> getHelper('AdminPaginator');
 		$this -> view -> headTitle($this -> translate -> _('Pages Management'));
-	        $pageModel = new Application_Model_DbTable_Pages();
+	      //  $pageModel = new Application_Model_DbTable_Pages();
+                $wbModel = new Application_Model_DbTable_Websites();
                 
-                $selectObj = $pageModel -> select();
+                
+                $selectObj = $wbModel -> select();
                  	 	 	 	 	 	
 		
-		$selectObj -> from(array('pg' => 'pages'),array('pg.pageTitle','pg.id','pg.pageUrl','pg.cronJobStatus','pg.pageCreated','pg.status'))
-		 		   -> order('id desc');
+		 $selectObj -> from(array('wb' => 'websites'),array('webTitle','wb.id','url','wb.cronJobStatus'))
+		 	   -> order('id desc');
 				   
               
-                $recCount= $pageModel->getCount();
-              //  print_r($result); die();
+                $recCount= $wbModel->getCount();
+                //print_r($selectObj); die();
                 $perPage = 10; // set values per page
                 $paginator = $adminPaginator->_getPaginatorData($this -> _getParam('page'), $perPage, $selectObj, $recCount);
 		$this->view->paginator = $paginator;
@@ -205,8 +207,10 @@ public function indexAction()
         public function cronjobstatusAction(){
 	  
             $id = $this -> _request -> getParam('id');
-            $obj = new Application_Model_DbTable_Pages();
+            $obj = new Application_Model_DbTable_Websites();
             $pageData =$obj->getById($id); 
+           
+            $pgObj = new Application_Model_DbTable_Pages();
            
             if(!empty($pageData[0][cronJobStatus]) && $pageData[0][cronJobStatus]==1)
             $status=0;
@@ -215,10 +219,17 @@ public function indexAction()
             $data = array(
             'id' => $id,
             'cronJobStatus'=> $status,
-
             );
             $obj->save($data);
-           
+            
+             $data_pg = array(
+            'webId' => $id,
+            'cronJobStatus'=> $status,
+
+            ); 
+             
+            $pgObj->edit($data_pg);
+            
             $this->_redirect("admin/pages/cronjobpages");
 	}
         

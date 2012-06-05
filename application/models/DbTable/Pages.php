@@ -27,6 +27,12 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
 		return $this->insert($data);
 	}
 	
+	public function edit($data){
+		
+                 
+		return	 $this->update($data,"webId = $data[webId]");
+                
+	}
 	
 	 
         public function getPageIds($webid){
@@ -49,22 +55,7 @@ class Application_Model_DbTable_Pages extends Zend_Db_Table_Abstract
                 }
 		
 	}
-        
-        function     _pageStatusGreenRed($pids){
-         print_r($pids); //die($pids[0]['id']);
-            $select = $this -> select();
-            $k=count($pids);
-           $where="status=1 and  reportStatus >0 and reportCheckStatus=1 and id in ('".$pids[0]['id']."')";
-         echo   $grc= $select -> from ($this -> _name, 'COUNT(*) as num')->where($where);
-           $i=0;
-            foreach($pids as $key => $val){
-                
-              echo  $where="status=1 and  reportStatus >0 and reportCheckStatus=1 and id in ('".$key."')";
-             $i++; 
-            }  die();
-             return $gr;
-        }
-	/*****************
+        /*****************
 	*
 	* This function is used for pages lists
 	*****************/

@@ -497,5 +497,34 @@ class Admin_WebsitesController extends Zend_Controller_Action
                         $obj->save($data);
 	   $this -> _redirect('/admin/websites');
 	}
+        
+        public function cronjobpagesAction()
+       {
+    
+    
+		$breadCrumb =$this->translate->_('Pages Management');
+	
+		$this->view->placeholder('breadCrumb')->set($breadCrumb);
+		$adminPaginator = $this -> _helper -> getHelper('AdminPaginator');
+		$this -> view -> headTitle($this -> translate -> _('Pages Management'));
+	        $pageModel = new Application_Model_DbTable_Pages();
+                $wbModel = new Application_Model_DbTable_Websites();
+                
+                
+                $selectObj = $wbModel -> select();
+                 	 	 	 	 	 	
+		
+		 $selectObj -> from(array('wb' => 'websites'),array('webTitle','wb.id','url','wb.cronJobStatus','pg.pageCreated','pg.status'))
+		 	   -> order('id desc');
+				   
+              
+                $recCount= $pageModel->getCount();
+                //print_r($selectObj); die();
+                $perPage = 10; // set values per page
+                $paginator = $adminPaginator->_getPaginatorData($this -> _getParam('page'), $perPage, $selectObj, $recCount);
+		$this->view->paginator = $paginator;
+                $this->view->result = $paginator;
+                
+            }
 }
 

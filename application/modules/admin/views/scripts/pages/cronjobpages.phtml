@@ -8,7 +8,7 @@
         <td class="greenBg">
             <table width="100%">
                 <tr>
-                    <td><h2><?=$this->translate('Website Pages')?></h2></td>
+                    <td><h2><?=$this->translate('Website')?></h2></td>
                  
                 </tr>
             </table>
@@ -30,30 +30,32 @@
                 <table class="listing">
                     <tr class="headings">
                                                           
-                     <th width=""><?=$this->translate(' Website Pages')?></th>
+                     <th width=""><?=$this->translate(' Website')?></th>
                      
                      <th>Daily website check</th>
                      
                     </tr>
                     <?
-			if(count($this->result)>0){
-                         foreach($this->result as $rst){
-		  	?>
+                   //print_r($this->result); die;
+                    if(count($this->result)>0){ 
+                    foreach($this->result as $rst){
+                    ?>
                   <tr class="autoWidth">
                  
                   <td >
-                <a href="<?=$rst['pageUrl']?>" target="_blank" class="link"><?=$rst['pageUrl']?></a>
+                <a href="<?=$rst['url']?>" target="_blank" class="link"><?=$rst['url']?></a>
                   <?php //print $rst['pageTitle']; ?>
                  
                   </td> 
                
                 
                             <td width="18%" id="activeDactive<?=$rst['id']?>">
-                            <?php //print ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
+                            <?php //print $rst['id']; ($rst['status']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
                            
                             <a href="javascript:void(0);" onclick="return deleteRow('<?=$this -> url(array('module' => 'admin', 'controller' => 'pages', 'action' => 'cronjobstatus','id' => $rst['id'], 'page' => $this -> page))?>','<?php echo ('Are you sure to change status?')?>')" >
                             <?php print ($rst['cronJobStatus']?$this -> translate('Active'):$this -> translate('Inactive')); ?>
                             </a>
+                           
                             </td> 					
                          
                       </tr>
