@@ -62,7 +62,7 @@
         
         //cronJobStatus=1 for the 24:00 
       
-        $sqlurl='select id,url from websites where status=1';
+        $sqlurl='select id,url from websites where status=1 and cronJobStatus=1';
         $sqlurl=mysql_query($sqlurl) or die(mysql_error());
         $num_rows = mysql_num_rows($sqlurl);
         $table=$htmlStyle.'<table class="brd" width="100%" border="0" cellspacing="0" cellpadding="0"><tr class="tr_head bottom15"><td class="top25" colspan="6" align="center">Websites Urls Reports To Admin:</td></tr>';
@@ -106,7 +106,7 @@
        
     //   echo $table;
        
-        $to             = 'tahirpk@gmail.com,chris.adler@gmail.com';
+        $to             = 'tahirpk@gmail.com';
         $from         = 'tahirkhan3311@yahoo.com';
         $subject      = 'Valid URLS Metatags.';
         //$Mail_header  = "Content-type: text/html\n";
