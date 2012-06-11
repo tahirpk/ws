@@ -75,7 +75,7 @@ public function indexAction()
                  	 	 	 	 	 	
 		
 		 $selectObj -> from(array('wb' => 'websites'),array('webTitle','wb.id','url','wb.cronJobStatus'))
-		 	   -> order('id desc');
+		 	 -> where('status=1') -> order('id desc');
 				   
               
                 $recCount= $wbModel->getCount();
