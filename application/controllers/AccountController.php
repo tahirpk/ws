@@ -299,6 +299,7 @@ class AccountController extends Zend_Controller_Action
                         $customerModel = new Application_Model_DbTable_Customer();
 			$form= new Application_Form_RegForm();
 			$this->view->form = $form;
+                     
 			if($this->_request->isPost())
 			{
 				if($form->isValid($_POST))
@@ -377,6 +378,85 @@ class AccountController extends Zend_Controller_Action
 								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 								$this->flashMessenger->addMessage('success');	
 								$this->flashMessenger->addMessage($this->translate->_("Customer successfully inserted"));	
+
+							}
+							else
+							{
+                                                            $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+                                                            $this->flashMessenger->addMessage('success');	
+                                                            $this->flashMessenger->addMessage($this->translate->_("Email is not sent to the customer or some thing is wrong"));	
+							
+							
+							}
+							
+							$this->_redirect("account/login");
+					
+					 
+				}
+			}
+	}
+        
+        public function customerAction(){
+                        
+                        $customerModel = new Application_Model_DbTable_NCustomer();
+			$form= new Application_Form_CustomerForm();
+			$this->view->form = $form;
+                       
+			if($this->_request->isPost())
+			{
+				if($form->isValid($_POST))
+				{ 
+                                   // print_r($form->getValues()); die('test');
+                                     
+					$customer_data = $form->getValues();
+                                        
+                                        $dated=date('Y-m-d h:m:s');
+                                       
+					  $data = array(
+					        
+						'customerName' => $customer_data['customerName'],
+						'email' => $customer_data['email'],
+						'phoneNo' => $customer_data['phoneNo'],
+						'website' => $customer_data['website'],
+                                                'dateCreated'=>$dated,
+						'status' => $customer_data['status']
+                                                );
+					            
+				 			
+							$customerModel->save($data);
+							$customer_insert_id= $customerModel->getAdapter()->lastInsertId();
+							if(!empty($customer_insert_id))
+							{
+							
+							
+								$customer_subject ='Submit the url';
+								$customer_body = 'You are succfully submitted your information.<br>
+								Kind Regards,<br> Wspider team.';
+								$config_mail = array(
+								'port' => 587,
+								'auth' => 'login',
+								'username' => 'tahirpk@gmail.com',
+								'password' => ''
+								);
+
+                                                             $data= array('id' => $customer_insert_id,
+												'status' =>1);
+												
+											
+								$customerModel->save($data);
+								$mail = new Zend_Mail('utf-8');
+								$tr = new Zend_Mail_Transport_Smtp('localhost');
+								Zend_Mail::setDefaultTransport($tr);
+								$subject = $customer_subject;
+								$bodyText = $customer_body;
+								$mail->setFrom('tahir.pk@gmail.com','Tahir Khan');
+								$mail->addTo($customer_data['Email']);
+								$mail->setSubject($subject,'UTF-8',Zend_Mime::ENCODING_8BIT);
+								$mail->setBodyHtml($bodyText,'UTF-8',Zend_Mime::ENCODING_8BIT);
+								$mail->send($tr);
+								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+								$this->flashMessenger->addMessage('success');	
+								$this->flashMessenger->addMessage($this->translate->_("Customer successfully submited the url"));	
 
 							}
 							else
