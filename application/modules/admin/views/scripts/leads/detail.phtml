@@ -1,0 +1,79 @@
+
+<table id="twoCols">
+	<tr>
+    	<td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+       	<td bgcolor="#eae2c9" width="200" height="50">&nbsp;</td>
+        <td bgcolor="#eae2c9">
+           	<table width="100%">
+               	<tr>
+                   	<td><h2><?=$this->placeholder('heading')?></h2></td>
+                    <td align="right"><a href="#" class="whiteLink"><strong></strong></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+      	<td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr>
+    	<?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+           	<div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            <div id="eventListing">
+            
+               <table class="listing">
+                    
+                    <?
+                    
+
+      
+			if(count($this->result)>0){ 
+                         
+                         ?>
+                   <tr>
+                       <td>Date</td>
+                       <td><?
+                       $changDate=explode(' ',$this->result['dateCreated']);
+
+                    //echo $changDate[0];
+                    
+                    
+                    echo str_replace("-"," / ",$changDate[0]);
+                  
+                       ?></td>
+                       
+                   </tr>
+                   <tr>
+                       <td>Customer Name</td>
+                       <td><?=$this->result['customerName']?></td>
+                       
+                   </tr>
+                   <tr>
+                       <td>Website Url</td>
+                       <td><?=$this->result['website']?></td>
+                       
+                   </tr>
+                   <tr>
+                       <td>Email</td>
+                       <td><?=$this->result['email']?></td>
+                       
+                   </tr>
+                   <tr>
+                       <td>Phone</td>
+                       <td><?=$this->result['phoneNo']?></td>
+                       
+                   </tr>
+                   <?
+                 
+                         }
+                     
+                    ?>
+                   
+               </table>
+                    
+            </div>
+		</td>
+	</tr>
+</table>

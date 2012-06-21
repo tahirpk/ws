@@ -1,0 +1,48 @@
+<div id="leftCol">
+<div class="welcomeBox bg-forgotPass">
+    <h2><?=$this->translate('Free site review.')?></h2>
+    <div class="bg-grey">
+        <div class="bg-grey2">
+        <div class="fields">
+        
+            <form method="post" name="customer_form" id="customer_form">
+                 <div class="heading"> <span>* <?=$this->translate('All fields are required')?></span></div>
+                
+                <fieldset class="row1">
+                <legend>Free Site Review
+                </legend>
+                <p >
+                <label><?=$this->translate('Name')?> <span>*</span></label>
+                        <?=$this->form->customerName?>
+                </p>
+                <p>
+                        <label><?=$this->translate('Phone Number')?></label>
+                        <?=$this->form->phoneNo?>
+                        
+                    </p>
+                  <p >
+                    <label><?=$this->translate('E-Mail')?>:</label>
+                    <?=$this->form->email;?>
+                    </p> 
+                    <p >
+                    <label><?=$this->translate('Website Url')?>:</label>
+                    <?=$this->form->website;?>
+                    </p>
+                    <p>
+                        <?= $this->form->captcha ?>
+
+                    </p>
+                </fieldset>
+                
+                <p>
+                &nbsp;<button class="button">Save &raquo;</button>
+                </p>
+           
+            </form>
+         </div>
+        </div>
+    </div>
+</div>
+
+</div>
+

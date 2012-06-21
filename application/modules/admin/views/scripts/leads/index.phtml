@@ -1,0 +1,114 @@
+
+<table id="twoCols">
+    <tr>
+        <td colspan="2" class="padding0" height="1"></td>
+    </tr>
+    <tr>
+        <td class="blueBg"  width="200" height="50">&nbsp;</td>
+        <td class="greenBg">
+            <table width="100%">
+                <tr>
+                    <td><h2><?=$this->translate('Free  sites reviews')?></h2></td>
+                 
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="padding0" height="10"></td>
+    </tr>
+    <tr style="background:#fff;">
+        <?=$this->render('common/left-col.phtml',true)?>
+        <td valign="top">
+            <div id="breadCrumb"><?=$this->placeholder('breadCrumb')?></div>
+            
+            <div id="eventListing">
+           
+          
+        
+                
+                <table class="listing">
+                    <tr class="headings">
+                                                          
+                     <th width=""><?=$this->translate(' Date')?></th>
+                     <th>Name</th>
+                     <th>Web site Url</th>
+                     <th>Contacted</th>
+                     
+                    </tr>
+                    <?
+                   //print_r($this->result); die;
+                    if(count($this->result)>0){ 
+                    foreach($this->result as $rst){
+                    ?>
+                  <tr class="autoWidth">
+                 
+                  <td >
+               
+                  <?php 
+                  
+                  
+                    $changDate=explode(' ',$rst['dateCreated']);
+
+                    //echo $changDate[0];
+                    
+                    
+                    echo str_replace("-"," / ",$changDate[0]);
+                  
+                  ?>
+                 
+                  </td> 
+               
+                
+                            <td width="18%" id="activeDactive<?=$rst['id']?>">
+                            <?php print $rst['customerName'].'  ( '; ?>
+                           <a href="detail/id/<?=$rst['id']?>" target="_blank" class="link">View</a>
+                           )
+                          
+                           
+                            </td> 					
+                             <td width="22%" id="activeDactive<?=$rst['id']?>">
+                          
+                           <a href="<?=$rst['website']?>" target="_blank" class="link"><?=$rst['website']?></a>
+                           
+                           
+                            </td> 
+                              <td width="18%" id="activeDactive<?=$rst['id']?>">
+                                  <select name="choice">
+                                      <option  value="1" <?php if($rst['status']==1 ) echo 'selected=selected';   ?>>Yes</option>
+                                  <option value="0" <?php if($rst['status']==0 ) echo 'selected=selected';  ?>>No</option>
+                                  </select>
+                            
+                           
+                          
+                           
+                            </td> 	
+                      </tr>
+
+                     <? 
+                     
+                       
+                     } 
+                       } else {?>
+                        <tr>
+                        	<td align="center" colspan="6"><?=$this->translate('No record added yet');?></td>
+                        </tr>
+                   <? }?>
+                </table>
+                
+                <table class="pagination">
+                    <tr>
+                    	<td width="10%"><?=$this->translate('Results per page')?>:</td>
+                        <td><? //=$this->searchform->perPage?></td>
+                        <td align="right">
+                        	<?//=$this->paginationControl($this->result,'Sliding','editpaginator.phtml')?>
+                            <?=$this->paginationControl($this->paginator,'Sliding','paginator.phtml')?>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
