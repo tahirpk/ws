@@ -449,7 +449,7 @@ class AccountController extends Zend_Controller_Action
 								Zend_Mail::setDefaultTransport($tr);
 								$subject = $customer_subject;
 								$bodyText = $customer_body;
-								$mail->setFrom('tahir.pk@gmail.com','Tahir Khan');
+								$mail->setFrom('tahir.pk@gmail.com');
 								$mail->addTo($customer_data['Email']);
 								$mail->setSubject($subject,'UTF-8',Zend_Mime::ENCODING_8BIT);
 								$mail->setBodyHtml($bodyText,'UTF-8',Zend_Mime::ENCODING_8BIT);
