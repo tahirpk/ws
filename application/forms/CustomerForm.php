@@ -10,12 +10,21 @@ class Application_Form_CustomerForm extends Zend_Form
         $captcha = new Zend_Form_Element_Captcha('captcha', array(
     		'label' => "Please verify you're a human",
     		'captcha' => array(
-        	'captcha' => 'Figlet',
+        	'captcha' => 'reCaptcha',
+                'pubkey' => '6LfXMtMSAAAAAERj-E8AmP-ZkzJpaJddcBmJ91uq',
+                'privkey' => '6LfXMtMSAAAAANf_1wh9sCeeRf5GgKQtOFJdxG09',
+                 'theme' => 'clean',
         	'wordLen' => 4,
         	'timeout' => 300,
 		),));
 		$submit = new Zend_Form_Element_Submit('submit');
 		$this->addElements(array($captcha, $submit));
+                
+              
+       
+                
+               
+
     }
 	 
 	public function __construct($options = array()){
@@ -49,7 +58,7 @@ class Application_Form_CustomerForm extends Zend_Form
 		->setDecorators(array('ViewHelper', 'Errors'));
 			  
 		$customerName = new Zend_Form_Element_Text('customerName');
-		$customerName -> setRequired(true);
+		$customerName -> setRequired(false);
 		$customerName ->setDecorators(array('Errors','ViewHelper'));
 		
                 $validatorUrl_taken = new Zend_Validate_Db_NoRecordExists(array('table' => 'ncustomers', 'field' => 'website', 'exclude' => $exclude));
@@ -71,7 +80,7 @@ class Application_Form_CustomerForm extends Zend_Form
                 $PhoneNo->addFilter('StripTags')
                         ->addFilter('StringTrim')
                         ->addValidator($validator_digit, true)
-                        -> setRequired(true)
+                        -> setRequired(false)
                         ->setDecorators(array('Errors','ViewHelper'));
 			  
 		//status
