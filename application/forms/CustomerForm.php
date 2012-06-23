@@ -11,8 +11,8 @@ class Application_Form_CustomerForm extends Zend_Form
     		'label' => "Please verify you're a human",
     		'captcha' => array(
         	'captcha' => 'reCaptcha',
-                'pubkey' => '6LfXMtMSAAAAAERj-E8AmP-ZkzJpaJddcBmJ91uq',
-                'privkey' => '6LfXMtMSAAAAANf_1wh9sCeeRf5GgKQtOFJdxG09',
+                'pubkey' => '6LfiMtMSAAAAANKXebgR6tSXgBxpo2YqXgwOvKFl',
+                'privkey' => '6LfiMtMSAAAAAOPPB6VQt0Ug1ZVstnHoHLRMLe40',
                  'theme' => 'clean',
         	'wordLen' => 4,
         	'timeout' => 300,
@@ -21,8 +21,7 @@ class Application_Form_CustomerForm extends Zend_Form
 		$this->addElements(array($captcha, $submit));
                 
               
-       
-                
+      
                
 
     }
