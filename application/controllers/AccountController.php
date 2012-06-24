@@ -457,7 +457,8 @@ class AccountController extends Zend_Controller_Action
 								$this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
 								$this->flashMessenger->addMessage('success');	
 								$this->flashMessenger->addMessage($this->translate->_("Customer successfully submited the url"));	
-
+                                                                
+                                                                $this->_redirect("account/thanks");
 							}
 							else
 							{
@@ -465,10 +466,10 @@ class AccountController extends Zend_Controller_Action
                                                             $this->flashMessenger->addMessage('success');	
                                                             $this->flashMessenger->addMessage($this->translate->_("Email is not sent to the customer or some thing is wrong"));	
 							
-							
+                                                            $this->_redirect("account/wrong");
 							}
 							
-							$this->_redirect("account/login");
+							
 					
 					 
 				}
@@ -586,4 +587,15 @@ class AccountController extends Zend_Controller_Action
 			
 			
 	}
+        
+         public function thanksAction()
+	{
+            echo 'Thanks <BR> To choose our site.';
+         }
+         
+        public function wrongAction()
+        {
+            echo 'something is wrong with your data.<br> kindely once again see it.';
+        }
 }
+ 
