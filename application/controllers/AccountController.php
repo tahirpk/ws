@@ -45,14 +45,14 @@ class AccountController extends Zend_Controller_Action
 					$result = $auth->authenticate($authAdapter);
 					if($result->isValid())
 					{						
-						$storage = new Zend_Auth_Storage_Session();
+						$storage_front = new Zend_Auth_Storage_Session();
 						$userObj = $authAdapter->getResultRowObject();
 						
 						$userModel = new Application_Model_DbTable_Customer();
 						
 						$userRS = $userModel->fetchRow('id = "'.$userObj->id.'"');
-						$storage->write($userObj);
-						$data = $storage->read();
+						$storage_front->write($userObj);
+						$data = $storage_front->read();
 
 						if($data->Status != '1')
 						{
@@ -86,8 +86,8 @@ class AccountController extends Zend_Controller_Action
 			//$this->view->placeholder('heading')->set($this->translate->_('Customer'));
 			//$this->view->headTitle("Customer Logout");
         		//print_r($_SESSION);
-                        if(isset($_SESSION['Zend_Auth']['storage']->id) && !empty($_SESSION['Zend_Auth']['storage']->id) ){
-                            $cusId=$_SESSION['Zend_Auth']['storage']->id;
+                        if(isset($_SESSION['Zend_Auth']['storage_front']->id) && !empty($_SESSION['Zend_Auth']['storage_front']->id) ){
+                         echo   $cusId=$_SESSION['Zend_Auth']['storage_front']->id;
                             $webModel = new Application_Model_DbTable_Websites();
                             $myWebResult = $webModel->getMyWebsites($cusId);
                             $this->view->result = $myWebResult;
@@ -105,7 +105,7 @@ class AccountController extends Zend_Controller_Action
         	public function webreportsAction(){
 	
 			 $webid = $this->_request->getParam('id'); //die();
-                        if(isset($_SESSION['Zend_Auth']['storage']->id) && !empty($_SESSION['Zend_Auth']['storage']->id) ){
+                        if(isset($_SESSION['Zend_Auth']['storage_front']->id) && !empty($_SESSION['Zend_Auth']['storage_front']->id) ){
                                 $reportModel = new Application_Model_DbTable_Reports();
 				$result = $reportModel->getLinks(null,null,$webid);
 				$totalRecords = count($result);
@@ -127,12 +127,12 @@ class AccountController extends Zend_Controller_Action
 		{
 			
 			$this->_helper->layout->disableLayout();
-			$storage = new Zend_Session_Namespace('allcustomer_session');	
+			$storage_front = new Zend_Session_Namespace('allcustomer_session');	
 			$sessionNamespace = new Zend_Session_Namespace('logout_session'); // for displaying logout banner on welcome text area
 			$sessionNamespace->logoutFlag = 1;
-			if(isset($storage->customer_id)){ 
+			if(isset($storage_front->customer_id)){ 
 				
-				$sessionNamespace->email = ($storage->customer_email_address); //email
+				$sessionNamespace->email = ($storage_front->customer_email_address); //email
 				$width = 380;
 		   } 
 			
@@ -480,8 +480,8 @@ class AccountController extends Zend_Controller_Action
 	{
 	  
 	   
-             if(isset($_SESSION['Zend_Auth']['storage']->id) && !empty($_SESSION['Zend_Auth']['storage']->id) ){
-                                $id = $_SESSION['Zend_Auth']['storage']->id;
+             if(isset($_SESSION['Zend_Auth']['storage_front']->id) && !empty($_SESSION['Zend_Auth']['storage_front']->id) ){
+                                $id = $_SESSION['Zend_Auth']['storage_front']->id;
                         }else
                          $this->_redirect('/account/login');   
 			// for the websites assing to the customer

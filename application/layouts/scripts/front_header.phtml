@@ -76,9 +76,9 @@ function makePopup (id)
     <div class="hdr-links">
         <?
            // print_r($_SESSION['Zend_Auth']);
-           // echo $_SESSION['Zend_Auth']['storage']->id;
+           // echo $_SESSION['Zend_Auth']['storage_front']->id;
             
-            if(isset($_SESSION['Zend_Auth']['storage']->id) && !empty($_SESSION['Zend_Auth']['storage']->id) ){
+            if(isset($_SESSION['Zend_Auth']['storage_front']->id) && !empty($_SESSION['Zend_Auth']['storage_front']->id) ){
         ?>
         <a href="<?=$this->baseUrl()?>/account/logout"><?=$this->translate('Logout')?></a>
         |
@@ -88,7 +88,8 @@ function makePopup (id)
         ?> <a href="<?=$this->baseUrl()?>/account/login"><?=$this->translate('Login')?></a>
         |
                <a href="<?=$this->baseUrl()?>/account/reg">Free Registration</a> 
-    <? }?>
+    <? }?> |
+               <a href="<?=$this->baseUrl()?>/webcontents/">Web sites meta tags</a> 
     </div>
 </div>
 
